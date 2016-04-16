@@ -1,0 +1,58 @@
+﻿@model IEnumerable<eWarsztaty.Web.Models.ViewModels.WarsztatyListView>
+@using eWarsztaty.Web.Models
+@using GridMvc.Html
+@using eWarsztaty.Web.Infrastructure
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Zarządzanie warsztatami</h2>
+
+<div style="align-content:center; margin-top: 30px">
+
+    @helper CustomRenderingOfColumnStatus(eWarsztaty.Web.Models.ViewModels.WarsztatyListView warsztat)
+    {
+        if (warsztat.StatusWarsztatu == (int)eWarsztaty.Web.Helpers.eWarsztatyEnums.StatusWarsztatu.WTrakcie)
+        {
+            <p>Warsztat właśnie się odbywa</p>
+        }
+        else if(warsztat.StatusWarsztatu == (int)eWarsztaty.Web.Helpers.eWarsztatyEnums.StatusWarsztatu.Zakonczony)
+        {
+            
+            <p>Warsztat zakończony</p>
+        }
+        else if(warsztat.StatusWarsztatu == (int)eWarsztaty.Web.Helpers.eWarsztatyEnums.StatusWarsztatu.Zamkniety)
+        {
+            
+            <p>Warsztat jeszcze się nie odbył</p>
+        }
+        
+    }
+    @(Html.Grid(Model).Named("gridWarsztaty").Columns(columns =>
+                    {
+                        columns.Add(c => c.WarsztatId, true);
+                        columns.Add(c => c.Nazwa).Titled("Nazwa warsztatu");
+                        columns.Add(c => c.Temat).Titled("Temat");
+                        columns.Add(c => c.DataRozpoczecia).Titled("Data rozpoczęcia");
+                        columns.Add(c => c.CzasTrwania).Titled("Czas trwania");
+                        columns.Add(c => c.StatusWarsztatu).Titled("Status").Sanitized(false).Encoded(false).RenderValueAs(o => CustomRenderingOfColumnStatus(o));
+                        //if (ViewContext.Controller.HasPermission("Role-Index"))
+                            //columns.Add().Titled("Rola").Sanitized(false).Encoded(false).RenderValueAs(o => CustomRenderingOfColumn(o));
+                        if (ViewContext.Controller.HasPermission("Warsztaty-Detail"))
+                            columns.Add().Titled("Edytuj").Sanitized(false).Encoded(false).RenderValueAs(o => Html.ActionLink("Edytuj", "Detail", "Warsztaty", new { warsztatId = o.WarsztatId }, null).ToHtmlString());
+                        if (ViewContext.Controller.HasPermission("Warsztaty-Delete"))
+                            columns.Add().Titled("Usun").Sanitized(false).Encoded(false).RenderValueAs(o => Html.ActionLink("Usun", "Delete", "Warsztaty", new { warsztatId = o.WarsztatId, Url = "Index" }, null).ToHtmlString()).Css("a:link {  color: #FF0000;}");
+                    }).WithPaging(5)
+                    .Sortable(true)
+                    .Filterable(true))
+</div>
+<br/>
+@if (ViewContext.Controller.HasPermission("Warsztaty-Save"))
+{
+    <div style="text-align: center;">
+        @using (Html.BeginForm("Detail", "Warsztaty"))
+        {
+            <input type="submit" value="Dodaj warsztat" />
+        }
+    </div>
+}

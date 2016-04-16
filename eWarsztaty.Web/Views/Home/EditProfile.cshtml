@@ -1,0 +1,98 @@
+﻿@model eWarsztaty.Web.Models.ViewModels.UzytkownikView
+@using eWarsztaty.Web.Infrastructure
+@{
+    ViewBag.Title = "Detail";
+    bool enable = true;
+}
+
+<h2>Edycja profilu</h2>
+
+
+@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "result" }))
+{
+    @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+    <fieldset>
+        <legend>Uzytkownik</legend>
+        @Html.HiddenFor(model => model.UzytkownikId)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Login)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Login, (enable) ? new { @readonly = "readonly" } : null)
+            @Html.ValidationMessageFor(model => model.Login) 
+        </div>
+        <br />
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Haslo)
+            @if (!ViewBag.Nowy)
+            {
+                <text>*pozostaw puste, jeżeli nie chcesz zmienić </text>
+            }
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(model => model.Haslo)
+            @*Html.ValidationMessageFor(model => model.Imie) *@
+        </div>
+        <br />
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AdresEmail)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.AdresEmail)
+            @Html.ValidationMessageFor(model => model.AdresEmail)
+        </div>
+        <br />
+        @*<br />
+        @if (ViewContext.Controller.HasPermission("Uzytkownicy-PrzypiszRole"))
+        {
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Role)
+            </div>
+            <ul>
+                @for (int i = 0; i < Model.Role.Count; i++)
+                {
+                    <li>
+                        <input type="checkbox"
+                               name="SelectedRole" value="@Model.Role[i].RolaId" id="@Model.Role[i].RolaId"
+                               @{if (Model.SelectedRole.Contains(Model.Role[i].RolaId)) { <text> checked='checked' </text>      } } />
+
+                        <label for="@Model.Role[i].RolaId">@Model.Role[i].Nazwa</label>
+                    </li>
+                }
+            </ul>
+        }*@
+        <p>
+            <input type="submit" value="Zapisz" />
+        </p>
+    </fieldset>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+
+    $(function () {
+        $('form').submit(function () {
+            if ($(this).valid()) {
+                $.ajax({
+                    url: '@Url.Action("SaveProfile","Home")',
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        if (result.ok) {
+                            alert(result.Info);
+                        }
+                        else {
+                            ErrorAlert();
+                            alert(result.Info);
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+</script>
+}

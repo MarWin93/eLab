@@ -1,0 +1,79 @@
+﻿@model eWarsztaty.Web.Models.ViewModels.RoleView
+@{
+    ViewBag.Title = "Detail";
+    bool enable = !ViewBag.Enable;
+}
+
+<h2>@ViewBag.NowaRola</h2>
+
+
+@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "result" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+
+    <fieldset>
+        <legend>Rola</legend>
+        @Html.HiddenFor(model => model.RolaId)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Nazwa)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Nazwa, (enable)? new {@readonly = "readonly"} : null)
+            @Html.ValidationMessageFor(model => model.Nazwa)
+        </div>
+        <br />
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Opis)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Opis)
+            @Html.ValidationMessageFor(model => model.Opis)
+        </div>
+        <br />
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Uprawnienia)
+        </div>
+        <ul>
+            @foreach (var g in Model.Uprawnienia)
+            {
+                <li>
+                    <input type="checkbox"
+                           name="SelectedUprawnienia" value="@g.UprawnienieId" id="@g.UprawnienieId"
+                           @{if (Model.SelectedUprawnienia.Contains(g.UprawnienieId)) { <text> checked='checked' </text>   } } />
+                    <label for="@g.UprawnienieId">@g.Opis</label>
+                </li>
+            }
+        </ul>
+        <p>
+            <input type="submit" value="Save"   />
+        </p>
+    </fieldset>
+    
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+
+    $(function () {
+        $('form').submit(function () {
+            if ($(this).valid()) {
+                $.ajax({
+                    url: '@Url.Action("Save", "Role")',
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        if (result.ok) {
+                            alert(result.Info);
+                        }
+                        else {
+                            ErrorAlert();
+                            alert(result.Info);
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+</script>
+}

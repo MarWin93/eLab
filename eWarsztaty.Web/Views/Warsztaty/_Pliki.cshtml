@@ -1,0 +1,26 @@
+﻿@model List<PlikiListView>
+@using eWarsztaty.Web.Models.ViewModels
+@using eWarsztaty.Web.Helpers
+@using GridMvc.Html
+@using eWarsztaty.Web.Infrastructure
+@{
+
+}
+@helper CustomRenderingOfColumnPodglad(PlikiListView plik)
+{
+    @Html.ActionLink("Pobierz", "SaveFile", "Warsztaty", new { plikId = plik.PlikId }, null)
+    
+    if (plik.Rozszerzenie == ".pdf" && ViewContext.Controller.CurrentUserId() == plik.ProwadzacyId)
+    {
+        //@Html.ActionLink("Załaduj prezentację", "Prezentacja", "Warsztaty", new { plikId = plik.PlikId }, new { @class = "loadPresentationLink" })
+        <a href"" style="color: #333; cursor: pointer; " onclick="LoadPresentation('@plik.PlikId')">Załaduj prezentację </a>
+    }
+}
+
+@(Html.Grid(Model).Named("gridPliki").Columns(columns =>
+    {
+        columns.Add(c => c.Nazwa).Titled("Nazwa dokumentu");
+        columns.Add(c => c.PlikId).Css("").Titled("Operacja").Sanitized(false).Encoded(false).RenderValueAs(o => CustomRenderingOfColumnPodglad(o));
+    }).WithPaging(10)
+    .Sortable(true)
+    .Selectable(true)) 

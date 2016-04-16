@@ -1,0 +1,65 @@
+﻿@model eWarsztaty.Web.Models.ViewModels.ZapisanieView
+@using eWarsztaty.Web.Infrastructure
+@{
+    ViewBag.Title = "Zapisz się na warsztat";
+}
+
+<h2>Zapisz się na warsztat</h2>
+@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "result" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>Zapis</legend>
+        <div class="editor-label">
+            @Html.Label("Wybierz warsztat")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(m => m.SelectedWarsztatId, Model.WszystkieWarsztaty)
+        </div>
+        <br />
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HasloDostepu)
+        </div>
+        <div class="editor-field">
+                @Html.PasswordFor(model => model.HasloDostepu)
+                @Html.ValidationMessageFor(model => model.HasloDostepu)
+        </div>
+        <br />
+        <p>
+            <input type="submit" value="Zapisz" />
+        </p>
+    </fieldset>
+    
+
+    
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+    $(function () {
+        $('form').submit(function () {
+            if ($(this).valid()) {
+                $.ajax({
+                    url: '@Url.Action("Zapis","Warsztaty")',
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        if (result.ok) {
+                            alert(result.Info);
+                        }
+                        else {
+                            ErrorAlert();
+                            alert(result.Info);
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+
+</script>
+}

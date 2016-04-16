@@ -1,0 +1,35 @@
+﻿@model List<UczestnicyListView>
+@using eWarsztaty.Web.Models.ViewModels
+@using GridMvc.Html;
+@{
+
+}
+@helper CustomRenderingOfColumnPodglad(UczestnicyListView uczestnik)
+    {
+    if (uczestnik.AgentAktywny)
+    {
+        <a href"" style="color: #333; cursor: pointer; " onclick="TakeUserScreenShot('@uczestnik.Login')">Zobacz </a>
+    }
+}
+@helper CustomRenderingOfColumnAgent(UczestnicyListView uczestnik)
+{
+    if (uczestnik.AgentAktywny)
+    {
+        <label><span style="color: green; text-align: center">Online</span></label>     
+    }
+    else
+    {
+        <label><span style="color: red; text-align: center">Offline</span></label>       
+    }
+   
+}
+<label>Uczestnicy (Online: <span style="color: red;">@Model.Count</span>)</label>
+
+@(Html.Grid(Model).Named("gridWarsztaty").Columns(columns =>
+    {
+    columns.Add(c => c.Login).Titled("Login uczestnika");
+    columns.Add(c => c.AgentAktywny).Titled("Status Agenta").Sanitized(false).Encoded(false).RenderValueAs(o => CustomRenderingOfColumnAgent(o));
+    columns.Add(c => c.UczestnikId).Titled("Podgląd").Sanitized(false).Encoded(false).RenderValueAs(o => CustomRenderingOfColumnPodglad(o));
+    }).WithPaging(10)
+    .Sortable(true)
+    .Selectable(true)) 

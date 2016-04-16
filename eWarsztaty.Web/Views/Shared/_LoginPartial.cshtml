@@ -1,0 +1,14 @@
+﻿@if (Request.IsAuthenticated) {
+    <text>
+        Witaj, @Html.ActionLink(User.Identity.Name, "EditProfile", "Home", new { userName = User.Identity.Name }, htmlAttributes: new { @class = "username", title = "Manage" })   !      
+        @{Html.RenderAction("CurrentRole", "Home");}
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+            @Html.AntiForgeryToken()
+            <a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a>
+        }
+    </text>
+} else {
+    <ul>
+        <li>@Html.ActionLink("Zaloguj", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

@@ -1,0 +1,21 @@
+﻿@model eWarsztaty.Web.Models.ViewModels.CurrentRoleView
+@{
+
+    ViewBag.Title = "_RolePartial";
+}
+Rola: @Html.DropDownListFor(m => m.SelectedUserRoleId, Model.UserRoles)
+
+<script>
+    $("#SelectedUserRoleId").change(function () {
+        var val = $(this).val();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SaveCurrentRole","Home")',
+            data: { roleId: val },
+            success: function (data) {
+                if (data.isRedirect)
+                    window.location.href = data.redirectUrl;
+            }
+        });
+    })
+</script>
