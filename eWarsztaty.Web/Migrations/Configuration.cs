@@ -1,4 +1,4 @@
-namespace eWarsztaty.Web.Infrastructure
+ï»¿namespace eWarsztaty.Web.Infrastructure
 {
     using eWarsztaty.Domain;
     using eWarsztaty.Web.Helpers;
@@ -9,13 +9,13 @@ namespace eWarsztaty.Web.Infrastructure
     using System.Linq;
     using System.Web.Security;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<eWarsztaty.Web.Infrastructure.eWarsztatyContext>
+    internal sealed class Configuration : DropCreateDatabaseIfModelChanges<eWarsztaty.Web.Infrastructure.eWarsztatyContext>
     {
-        public Configuration()
-        {
-            AutomaticMigrationsEnabled = true;
+        //public Configuration()
+        //{
+        //    AutomaticMigrationsEnabled = true;
 
-        }
+        //}
 
         protected override void Seed(eWarsztaty.Web.Infrastructure.eWarsztatyContext context)
         {
@@ -72,23 +72,23 @@ namespace eWarsztaty.Web.Infrastructure
 
             ////Uprawnienia do widokow
             context.Uprawnienia.AddOrUpdate(d => d.UprawnienieId,
-                new Uprawnienie() { Nazwa = "Home-EditProfile", Opis = "edytuj swój profil" },
-                new Uprawnienie() {Nazwa = "Role-Index", Opis = "poka¿ widok z rolami" },
-                new Uprawnienie() { Nazwa = "Role-Save", Opis = "dodaj now¹ rolê" },
-                new Uprawnienie() { Nazwa = "Role-Detail", Opis = "edytuj istniej¹c¹ rolê" },
-                new Uprawnienie() { Nazwa = "Role-Delete", Opis = "usuñ istniej¹c¹ rolê" },
-                new Uprawnienie() { Nazwa = "Uzytkownicy-PrzypiszRole", Opis = "przypisz rolê u¿ytkownikom" },
-                new Uprawnienie() { Nazwa = "Uzytkownicy-Index", Opis = "poka¿ widok z u¿ytkownikami" },
-                new Uprawnienie() { Nazwa = "Uzytkownicy-Save", Opis = "dodaj nowego u¿ytkownika" },
-                new Uprawnienie() { Nazwa = "Uzytkownicy-Detail", Opis = "edytuj istniej¹cego u¿ytkownika" },
-                new Uprawnienie() { Nazwa = "Uzytkownicy-Delete", Opis = "usuñ istniej¹cego u¿ytkownika" },
-                new Uprawnienie() { Nazwa = "Warsztaty-MojeWarsztaty", Opis = "poka¿ widok moich warsztatów" },
-                new Uprawnienie() { Nazwa = "Warsztaty-Zapis", Opis = "zapisz siê na warsztat" },
-                new Uprawnienie() { Nazwa = "Warsztaty-Wypisanie", Opis = "wypisz siê z warsztatu" },
-                new Uprawnienie() { Nazwa = "Warsztaty-Index", Opis = "poka¿ widok z wszystkimi warsztatami" },
+                new Uprawnienie() { Nazwa = "Home-EditProfile", Opis = "edytuj swÃ³j profil" },
+                new Uprawnienie() {Nazwa = "Role-Index", Opis = "pokaÂ¿ widok z rolami" },
+                new Uprawnienie() { Nazwa = "Role-Save", Opis = "dodaj nowÂ¹ rolÃª" },
+                new Uprawnienie() { Nazwa = "Role-Detail", Opis = "edytuj istniejÂ¹cÂ¹ rolÃª" },
+                new Uprawnienie() { Nazwa = "Role-Delete", Opis = "usuÃ± istniejÂ¹cÂ¹ rolÃª" },
+                new Uprawnienie() { Nazwa = "Uzytkownicy-PrzypiszRole", Opis = "przypisz rolÃª uÂ¿ytkownikom" },
+                new Uprawnienie() { Nazwa = "Uzytkownicy-Index", Opis = "pokaÂ¿ widok z uÂ¿ytkownikami" },
+                new Uprawnienie() { Nazwa = "Uzytkownicy-Save", Opis = "dodaj nowego uÂ¿ytkownika" },
+                new Uprawnienie() { Nazwa = "Uzytkownicy-Detail", Opis = "edytuj istniejÂ¹cego uÂ¿ytkownika" },
+                new Uprawnienie() { Nazwa = "Uzytkownicy-Delete", Opis = "usuÃ± istniejÂ¹cego uÂ¿ytkownika" },
+                new Uprawnienie() { Nazwa = "Warsztaty-MojeWarsztaty", Opis = "pokaÂ¿ widok moich warsztatÃ³w" },
+                new Uprawnienie() { Nazwa = "Warsztaty-Zapis", Opis = "zapisz siÃª na warsztat" },
+                new Uprawnienie() { Nazwa = "Warsztaty-Wypisanie", Opis = "wypisz siÃª z warsztatu" },
+                new Uprawnienie() { Nazwa = "Warsztaty-Index", Opis = "pokaÂ¿ widok z wszystkimi warsztatami" },
                 new Uprawnienie() { Nazwa = "Warsztaty-Save", Opis = "dodaj nowy warsztat" },
-                new Uprawnienie() { Nazwa = "Warsztaty-Detail", Opis = "edytuj istniej¹cy warsztat" },
-                new Uprawnienie() { Nazwa = "Warsztaty-Delete", Opis = "usuñ istniej¹cy warsztat" }
+                new Uprawnienie() { Nazwa = "Warsztaty-Detail", Opis = "edytuj istniejÂ¹cy warsztat" },
+                new Uprawnienie() { Nazwa = "Warsztaty-Delete", Opis = "usuÃ± istniejÂ¹cy warsztat" }
                 );
             context.SaveChanges();
 
@@ -131,8 +131,8 @@ namespace eWarsztaty.Web.Infrastructure
 
             context.SaveChanges();
 
-            context.Warsztaty.AddOrUpdate(d => d.Temat, new Warsztat() { Nazwa = "BSK", CzasTrwania = "2h", DataRozpoczecia = new DateTime(2015, 1, 10), Temat = "Kontrola dostêpu", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6",  StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
-            new Warsztat() { Nazwa = "BSK", CzasTrwania = "2h", DataRozpoczecia = new DateTime(2015, 2, 10), Temat = "Polityka Prywatnoœci", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6", StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
+            context.Warsztaty.AddOrUpdate(d => d.Temat, new Warsztat() { Nazwa = "BSK", CzasTrwania = "2h", DataRozpoczecia = new DateTime(2015, 1, 10), Temat = "Kontrola dostÃªpu", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6",  StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
+            new Warsztat() { Nazwa = "BSK", CzasTrwania = "2h", DataRozpoczecia = new DateTime(2015, 2, 10), Temat = "Polityka PrywatnoÅ“ci", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6", StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
             new Warsztat() { Nazwa = "BSK", CzasTrwania = "3h", DataRozpoczecia = new DateTime(2015, 3, 10), Temat = "Zapory Ogniowe", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6", StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
             new Warsztat() { Nazwa = "KSR", CzasTrwania = "1h", DataRozpoczecia = new DateTime(2015, 1, 15), Temat = "WCF", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6", StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
             new Warsztat() { Nazwa = "KSR", CzasTrwania = "2h", DataRozpoczecia = new DateTime(2015, 2, 15), Temat = "MSMQ", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6", StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
@@ -157,6 +157,10 @@ namespace eWarsztaty.Web.Infrastructure
             new UdzialWWarsztacie() { UzytkownikId = 3, WarsztatId = 7, KomentarzProwadzacego = "", Ocena = "5.5" },
             new UdzialWWarsztacie() { UzytkownikId = 3, WarsztatId = 8, KomentarzProwadzacego = "", Ocena = "3.0" }
             );
+
+            //elab seed objects
+            context.Courses.AddOrUpdate(d => d.Id, new Course() { Name = "Nierelacyjne bazy danych", Description = "WiÄ™cej informacji o NO-SQL.", Status = 0, ProwadzacyId = 1},
+                new Course() { Name = "Eksploracja danych", Description = "WiÄ™cej informacji o eksploracji danych.", Status = 0, ProwadzacyId = 1 });
 
             context.SaveChanges();
 

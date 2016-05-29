@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AutoMapper.Mappers;
+using eWarsztaty.Web.Models.JsonModels;
 using eWarsztaty.Web.Models.ViewModels;
 
 namespace eWarsztaty.Web.App_Start
@@ -74,6 +75,9 @@ namespace eWarsztaty.Web.App_Start
                  .ForMember(x => x.File, opt => opt.Ignore())
                  .ForMember(x => x.Warsztat, opt => opt.Ignore())
                  .ForMember(x => x.WarsztatId, opt => opt.Ignore());
+
+            //elab maps
+            Mapper.CreateMap<Course, CoursesJson>();
 
             Mapper.AssertConfigurationIsValid();
         }

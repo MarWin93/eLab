@@ -46,10 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class.cs" />
+    <Compile Include="Course.cs" />
+    <Compile Include="Group.cs" />
     <Compile Include="IWarsztatyDataSource.cs" />
     <Compile Include="Plik.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rola.cs" />
+    <Compile Include="Topic.cs" />
     <Compile Include="UdzialWWarsztacie.cs" />
     <Compile Include="Uprawnienia.cs" />
     <Compile Include="UprawnienieRola.cs" />

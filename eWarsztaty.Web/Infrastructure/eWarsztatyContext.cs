@@ -19,6 +19,13 @@ namespace eWarsztaty.Web.Infrastructure
         public DbSet<UprawnienieRola> UprawnieniaRole { get; set; }
         public DbSet<Plik> Pliki { get; set; }
 
+        //eLab Entity classes
+        public DbSet<Class> Classes { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Topic> Topics { get; set; }
+ 
+
         public eWarsztatyContext():base("DefaultConnection")
         {
 
@@ -32,6 +39,12 @@ namespace eWarsztaty.Web.Infrastructure
             modelBuilder.Configurations.Add(new UprawnienieRola.Map());
             modelBuilder.Configurations.Add(new UzytkownikRola.Map());
             modelBuilder.Configurations.Add(new Plik.Map());
+
+            //elab maping methods added to context configuration
+            modelBuilder.Configurations.Add(new Class.Map());
+            modelBuilder.Configurations.Add(new Course.Map());
+            modelBuilder.Configurations.Add(new Group.Map());
+            modelBuilder.Configurations.Add(new Topic.Map());
         }
 
         //METODY NA BAZIE
@@ -238,6 +251,26 @@ namespace eWarsztaty.Web.Infrastructure
         IQueryable<UzytkownikRola> IWarsztatyDataSource.UzytkownicyRole
         {
             get { return UzytkownicyRole; }
+        }
+
+        IQueryable<Class> IWarsztatyDataSource.Classes
+        {
+            get { return Classes; }
+        }
+
+        IQueryable<Course> IWarsztatyDataSource.Courses
+        {
+            get { return Courses; }
+        }
+
+        IQueryable<Group> IWarsztatyDataSource.Groups
+        {
+            get { return Groups; }
+        }
+
+        IQueryable<Topic> IWarsztatyDataSource.Topics
+        {
+            get { return Topics; }
         }
     }
 }

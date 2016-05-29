@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace eWarsztaty.Web
 {
@@ -9,6 +10,11 @@ namespace eWarsztaty.Web
     {
         public static void Register(HttpConfiguration config)
         {
+            config.MapHttpAttributeRoutes();
+
+            var cors = new EnableCorsAttribute("http://localhost:55429", "*", "*");
+            config.EnableCors(cors);
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
