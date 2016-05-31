@@ -77,7 +77,22 @@ namespace eWarsztaty.Web.App_Start
                  .ForMember(x => x.WarsztatId, opt => opt.Ignore());
 
             //elab maps
-            Mapper.CreateMap<Course, CoursesJson>();
+            Mapper.CreateMap<Topic, TopicsJson>();
+
+            Mapper.CreateMap<TopicsJson, Topic>()
+                .ForMember(x => x.Course, opt => opt.Ignore())
+                .ForMember(x => x.CourseId, opt => opt.Ignore())
+                .ForMember(x => x.Classes, opt => opt.Ignore())
+                .ForMember(x => x.Status, opt => opt.Ignore());
+
+            Mapper.CreateMap<Course, CoursesJson>()
+                .ForMember(dest => dest.Topics, opt => opt.MapFrom(src => src.Topics));
+
+            Mapper.CreateMap<CoursesJson, Course>()
+                .ForMember(x => x.Topics, opt => opt.Ignore())
+                .ForMember(x => x.Prowadzacy, opt => opt.Ignore())
+                .ForMember(x => x.ProwadzacyId, opt => opt.Ignore())
+                .ForMember(x => x.Status, opt => opt.Ignore());
 
             Mapper.AssertConfigurationIsValid();
         }

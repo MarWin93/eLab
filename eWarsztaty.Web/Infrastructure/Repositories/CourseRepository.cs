@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.EnterpriseServices;
 using System.Linq;
 using System.Web;
 using AutoMapper;
@@ -18,6 +19,28 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
             var courses = _db.Courses.Include("Topics").Include("Prowadzacy").ToList();
             var coursesJson = Mapper.Map<IEnumerable<Course>, IEnumerable<CoursesJson>>(courses);
             return coursesJson;
+        }
+
+        public CoursesJson GetCourseById(int id)
+        {
+            var course = _db.Courses.Include("Topics").Include("Prowadzacy").FirstOrDefault(x=>x.Id == id);
+            var coursesJson = Mapper.Map<Course, CoursesJson>(course);
+            return coursesJson;
+        }
+
+        public void SaveCourse(CoursesJson course)
+        {
+            var courseDb = Mapper.Map<CoursesJson, Course>(course);
+            _db.Courses.Add(courseDb);
+            _db.SaveChanges();
+        }
+
+        public void SaveCourse(int courseId, CoursesJson course)
+        {
+            var courseDb = _db.Courses.FirstOrDefault(x => x.Id == courseId);
+            courseDb.Name = course.Name;
+            courseDb.Description = course.Description;
+            _db.SaveChanges();
         }
     }
 }

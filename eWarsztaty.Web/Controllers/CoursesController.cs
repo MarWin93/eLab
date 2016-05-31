@@ -16,14 +16,24 @@ namespace eWarsztaty.Web.Controllers
         }
 
         // GET api/courses/5
-        public string Get(int id)
+        public CoursesJson Get(int id)
         {
-            return "value";
+            if (id > 0)
+            {
+                var courseRepository = new CourseRepository();
+                return courseRepository.GetCourseById(id);
+            }
+            else
+            {
+                var newCourse = new CoursesJson();
+                return newCourse;
+            }
         }
 
         // POST api/courses
-        public void Post([FromBody]string value)
+        public void Post([FromBody]CoursesJson course)
         {
+
         }
 
         // PUT api/courses/5

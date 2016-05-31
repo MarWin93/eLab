@@ -9,13 +9,13 @@
     using System.Linq;
     using System.Web.Security;
 
-    internal sealed class Configuration : DropCreateDatabaseIfModelChanges<eWarsztaty.Web.Infrastructure.eWarsztatyContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<eWarsztaty.Web.Infrastructure.eWarsztatyContext>
     {
-        //public Configuration()
-        //{
-        //    AutomaticMigrationsEnabled = true;
+        public Configuration()
+        {
+            AutomaticMigrationsEnabled = true;
 
-        //}
+        }
 
         protected override void Seed(eWarsztaty.Web.Infrastructure.eWarsztatyContext context)
         {
@@ -160,7 +160,10 @@
 
             //elab seed objects
             context.Courses.AddOrUpdate(d => d.Id, new Course() { Name = "Nierelacyjne bazy danych", Description = "Więcej informacji o NO-SQL.", Status = 0, ProwadzacyId = 1},
-                new Course() { Name = "Eksploracja danych", Description = "Więcej informacji o eksploracji danych.", Status = 0, ProwadzacyId = 1 });
+                new Course() { Name = "Eksploracja danych", Description = "krótki opis danej lekcji", Status = 0, ProwadzacyId = 1 });
+
+            context.Topics.AddOrUpdate(d => d.Id, new Topic() { Name = "Wprowadzenie do nierelacyjnych baz danych", Description = "krótki opis danej lekcji", Status = 0, CourseId = 1 },
+                new Topic() { Name = "Zapoznanie z narzędziami oraz środowiskiem", Description = "krótki opis danej lekcji", Status = 0, CourseId = 1 });
 
             context.SaveChanges();
 

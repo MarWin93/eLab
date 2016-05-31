@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using eWarsztaty.Domain;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace eWarsztaty.Web.Models.JsonModels
 {
@@ -8,15 +7,15 @@ namespace eWarsztaty.Web.Models.JsonModels
     {
         public CoursesJson()
         {
-//          this.Topics = new List<Topic>();
+            this.Topics = new List<TopicsJson>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int Status { get; set; }
 
-//        public ICollection<Topic> Topics { get; set; }
+        public ICollection<TopicsJson> Topics { get; set; }
+        [JsonIgnore]
         public int ProwadzacyId { get; set; }
     }
 }
