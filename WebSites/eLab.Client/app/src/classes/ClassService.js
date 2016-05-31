@@ -8,11 +8,12 @@
         var classes = [
             {
                 id: 1,
-                'name': 'Nierelacyjne bazy danych',
-                "group_count": 2,
+                name: 'Nierelacyjne bazy danych',
+                group_count: 2,
                 selected: null,
                 lists: {
-                    'unassigned': [
+                    name: 'unassigned'
+                    students: [
                         'Maria Klima',
                         'Marcin Winkler',
                         'Bartosz Klukaczewski',

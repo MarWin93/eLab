@@ -94,6 +94,21 @@ namespace eWarsztaty.Web.App_Start
                 .ForMember(x => x.ProwadzacyId, opt => opt.Ignore())
                 .ForMember(x => x.Status, opt => opt.Ignore());
 
+            Mapper.CreateMap<Group, GroupsJson>();
+
+            Mapper.CreateMap<GroupsJson, Group>()
+                .ForMember(x => x.Class, opt => opt.Ignore())
+                .ForMember(x => x.ClassId, opt => opt.Ignore());
+
+            Mapper.CreateMap<Class, ClassJson>()
+            .ForMember(dest => dest.Groups, opt => opt.MapFrom(src => src.Groups))
+            .ForMember(x => x.Selected, opt => opt.Ignore());
+
+            Mapper.CreateMap<ClassJson, Class>()
+                .ForMember(x => x.Status, opt => opt.Ignore())
+                .ForMember(x => x.Topic, opt => opt.Ignore())
+                .ForMember(x => x.TopicId, opt => opt.Ignore());
+
             Mapper.AssertConfigurationIsValid();
         }
     }
