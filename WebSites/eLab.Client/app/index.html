@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <title>eLab</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="theme-color" content="#009688" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+    <link rel="stylesheet" href="../node_modules/angular-material/angular-material.css"/>
+    <link rel="stylesheet" href="assets/app.css"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png"/>
+
+    <style type="text/css">
+        /**
+         * Hide when Angular is not yet loaded and initialized
+         */
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+
+</head>
+
+<body ng-app="eLabApp" layout="column" ng-controller="ElabController as elab" ng-cloak>
+
+<md-toolbar layout="row">
+    <md-button class="menu" hide-gt-sm ng-click="elab.toggleSidenav()" aria-label="Show User List">
+        <md-icon class="material-icons">menu</md-icon>
+    </md-button>
+    <a href="#/"><h1>eLab</h1></a>
+    <md-icon ng-click="elab.toggleChatWindow()" role="button" class="material-icons menu-chat-icon">chat</md-icon>
+</md-toolbar>
+
+<div flex layout="row">
+
+    <md-sidenav ng-click="elab.toggleSidenav()" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2">
+        <a href="#/" class="heading-link">
+            <h1 class="sidenav-heading sidenav-heading-first">
+                <md-icon aria-label="Menu" class="material-icons">home</md-icon>
+                Home
+            </h1>
+        </a>
+        <a href="#/courses" class="heading-link">
+            <h1 class="sidenav-heading">
+                <md-icon aria-label="Menu" class="material-icons">bookmark</md-icon>
+                Twoje kursy
+            </h1>
+        </a>
+        <md-list class="sidebar-menu">
+            <md-list-item ng-repeat="course in elab.courses">
+                <a href="#/courses/{{course.id}}">
+                    <md-button ng-click="elab.selectCourse(course)" ng-class="{'selected' : course === elab.selected }">
+                        <md-icon id="icon-{{course.id}}"></md-icon>
+                        {{course.name}}
+                    </md-button>
+                </a>
+            </md-list-item>
+        </md-list>
+        <a href="#/settings" class="heading-link">
+            <h1 class="sidenav-heading">
+                <md-icon aria-label="Menu" class="material-icons">settings</md-icon>
+                Ustawienia
+            </h1>
+        </a>
+        <a href="#/help" class="heading-link">
+            <h1 class="sidenav-heading">
+                <md-icon aria-label="Menu" class="material-icons">help</md-icon>
+                Pomoc
+            </h1>
+        </a>
+    </md-sidenav>
+
+    <md-content flex id="content">
+        <div layout="row" layout-align="space-between start">
+            <div flex ng-view id="view" class="animated"></div>
+            <div ng-if="elab.chat" hide show-gt-sm class="right-sidenav">
+                <h1 class="sidenav-heading sidenav-heading-first">
+                    <md-icon aria-label="Menu" class="material-icons">chat</md-icon>
+                    Czat
+                </h1>
+            </div>
+        </div>
+    </md-content>
+
+
+
+</div>
+<script src="../node_modules/angular/angular.js"></script>
+<script src="../Scripts/angular-resource.js"></script>
+<script src="../node_modules/angular-animate/angular-animate.js"></script>
+<script src="../node_modules/angular-route/angular-route.js"></script>
+<script src="../node_modules/angular-aria/angular-aria.js"></script>
+<script src="../node_modules/angular-material/angular-material.js"></script>
+<script src="../node_modules/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js"></script>
+<script src="../node_modules/trianglify/dist/trianglify.min.js"></script>
+
+<script src="src/elab/Elab.js"></script>
+<script src="src/elab/ElabController.js"></script>
+<script src="src/elab/ElabService.js"></script>
+
+<script src="src/courses/Courses.js"></script>
+<script src="src/courses/CourseController.js"></script>
+<script src="src/courses/CourseService.js"></script>
+
+<script src="src/topics/Topics.js"></script>
+<script src="src/topics/TopicController.js"></script>
+<script src="src/topics/TopicService.js"></script>
+
+<script src="src/classes/Classes.js"></script>
+<script src="src/classes/ClassController.js"></script>
+<script src="src/classes/ClassService.js"></script>
+
+<script src="./src/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">Grupy dla kursu {{gc.selected.name}}</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <div layout="row">
+            <p>Liczba grup:</p>
+        </div>
+        <div layout="row">
+            <md-slider flex="70" min="2" max="4" ng-model="gc.group_count"
+                       aria-label="groups"
+                       id="groups-slider" class="md-primary">
+            </md-slider>
+            <div flex="10"></div>
+            <div flex="20" layout="" layout-align="center center">
+                <md-input-container class="no-margin full-width">
+                    <input class="" type="number" max="4" min="2" ng-model="gc.group_count"
+                           aria-label="groups" aria-controls="groups-slider">
+                </md-input-container>
+            </div>
+        </div>
+
+        <md-divider></md-divider>
+
+        <div class="simpleDemo">
+            <div ng-repeat="(listName, list) in gc.selected.lists">
+                <div ng-if="listName == 'unassigned'">
+                    <md-subheader class="panel-title">Nieprzypisani:</md-subheader>
+                    <ul dnd-list="list">
+                        <md-list-item ng-repeat="item in list"
+                                      dnd-draggable="item"
+                                      dnd-moved="list.splice($index, 1)"
+                                      dnd-effect-allowed="move"
+                                      dnd-selected="gc.selected.lists.selected = item"
+                                      ng-class="{'selected': gc.selected.lists.selected === item}">
+                            <img ng-src="assets/img/avatar-1.gif" class="md-avatar" alt="{{item}}">
+                            <div class="md-list-item-text">
+                                <h3>{{item}}</h3>
+                            </div>
+                        </md-list-item>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="simpleDemo">
+            <div ng-repeat="(listName, list) in gc.selected.lists">
+                <div ng-if="listName != 'unassigned'">
+                    <md-subheader class="panel-title">Grupa {{listName}}:</md-subheader>
+
+                    <ul dnd-list="list">
+
+                        <md-list-item ng-repeat="item in list"
+                                      dnd-draggable="item"
+                                      dnd-moved="list.splice($index, 1)"
+                                      dnd-effect-allowed="move"
+                                      dnd-selected="gc.selected.lists.selected = item"
+                                      ng-class="{'selected': gc.selected.lists.selected === item}">
+                            <img ng-src="assets/img/avatar-1.gif" class="md-avatar" alt="{{item}}">
+                            <div class="md-list-item-text">
+                                <h3>{{item}}</h3>
+                            </div>
+                        </md-list-item>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </md-card-content>
+
+</md-card>

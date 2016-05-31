@@ -1,0 +1,19 @@
+<md-list>
+    <md-list-item ng-repeat="course in cc.courses">
+        <md-card ng-click="cc.selectCourse(course); cc.goToCourse(course)" class="list-element">
+            <div class="card-cover" id="cover-{{course.id}}"></div>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{course.name}}</span>
+                </md-card-title-text>
+                <md-icon class="material-icons">delete</md-icon>
+                <a href="#/courses/{{course.id}}/edit">
+                    <md-icon class="material-icons">edit</md-icon>
+                </a>
+            </md-card-title>
+            <md-card-content>
+                <p>{{course.description}}</p>
+            </md-card-content>
+        </md-card>
+    </md-list-item>
+</md-list>

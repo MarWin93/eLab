@@ -1,0 +1,445 @@
+html, body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  height: 100%;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0; }
+
+a {
+  color: inherit;
+  text-decoration: none; }
+
+/* Toolbar area */
+.menu {
+  background-color: transparent;
+  border: none;
+  height: 38px;
+  margin: 10px;
+  width: 36px; }
+  @media only screen and (min-width: 600px) {
+    .menu {
+      margin: 16px; } }
+
+md-toolbar {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
+
+md-toolbar h3 {
+  margin: auto;
+  font-weight: 500; }
+
+.right-sidenav {
+  text-align: right;
+  width: 275px; }
+
+.right-sidenav .sidenav-heading {
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 8px 20px 8px 0;
+  display: inline-block; }
+
+.right-sidenav .sidenav-heading-first {
+  margin-top: 30px; }
+
+md-sidenav {
+  overflow: hidden;
+  width: 350px; }
+  @media only screen and (min-width: 960px) {
+    md-sidenav {
+      width: 275px;
+      background-color: inherit;
+      box-shadow: none !important; } }
+
+.sidebar-menu a {
+  width: 100%;
+  text-align: left !important; }
+
+.sidebar-menu button {
+  width: 100% !important;
+  text-align: left !important; }
+
+md-list .md-button.selected {
+  color: #009688; }
+
+md-sidenav a {
+  text-decoration: none;
+  color: inherit; }
+  md-sidenav a:active, md-sidenav a:hover, md-sidenav a:focus {
+    outline: 0; }
+
+md-sidenav .heading-link:hover {
+  color: #009688; }
+
+md-sidenav md-list {
+  padding: 0 0 8px 0;
+  margin-left: 20px; }
+
+md-sidenav .sidenav-heading {
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 8px 0 8px 20px;
+  width: 100%;
+  display: inline-block; }
+
+md-sidenav .sidenav-heading-first {
+  margin-top: 30px; }
+
+md-sidenav .material-icons {
+  margin: 0 4px 4px 0; }
+
+md-sidenav button .material-icons {
+  width: 30px;
+  height: 30px;
+  margin: 0 4px 2px 0; }
+
+/* Primary content area */
+#view {
+  max-width: 1340px; }
+  @media only screen and (min-width: 600px) {
+    #view {
+      padding-left: 20px;
+      padding-right: 20px; } }
+  @media only screen and (min-width: 960px) {
+    #view {
+      padding-left: 40px;
+      padding-right: 40px; } }
+  @media only screen and (min-width: 1280px) {
+    #view {
+      padding-left: 60px;
+      padding-right: 60px; } }
+  @media only screen and (min-width: 1920px) {
+    #view {
+      padding-left: 120px;
+      padding-right: 120px; } }
+
+#content {
+  background-color: inherit;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 5px; }
+
+#content .md-button.share {
+  background-color: transparent;
+  border: none;
+  width: 48px;
+  height: 48px;
+  margin: 8px auto 16px 0;
+  position: absolute;
+  top: 10px;
+  right: 25px; }
+
+#content md-icon.icon {
+  margin-top: 10px; }
+
+#content md-list-item {
+  padding: 0; }
+
+#content .md-button.share > md-icon {
+  fill: black;
+  width: 36px;
+  height: 36px; }
+
+md-button.menuBtn > md-icon {
+  fill: white;
+  width: 24px;
+  height: 24px; }
+
+#content .md-button.share:active > md-icon {
+  background-color: #dadada;
+  border-radius: 75%;
+  padding: 4px;
+  transition: all 100ms ease-out 30ms; }
+
+#content img {
+  display: block;
+  height: auto;
+  max-width: 500px; }
+
+/* Utils */
+.content-wrapper {
+  position: relative; }
+
+md-card {
+  width: 100%;
+  margin: 8px 0; }
+  md-card .card-cover {
+    width: 100%;
+    height: 120px;
+    display: block;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position-x: 50%;
+    background-position-y: 50%; }
+    @media only screen and (min-width: 960px) {
+      md-card .card-cover {
+        height: 180px; } }
+  md-card md-icon {
+    width: 24px; }
+    md-card md-icon:hover {
+      color: #F44336; }
+
+.list-element {
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease; }
+  .list-element:hover {
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
+
+/* Typography support coming in 0.8.0 */
+.md-subheadline {
+  font-size: 18px;
+  margin: 10px 0; }
+
+md-toolbar h1 {
+  font-size: 26px;
+  font-weight: 400; }
+  @media only screen and (max-width: 600px) {
+    md-toolbar h1 {
+      margin: 12px 0 12px -10px; } }
+  @media only screen and (min-width: 960px) {
+    md-toolbar h1 {
+      margin: 16px 0 12px 30px; } }
+
+.md-subheader-inner {
+  padding-bottom: 0 !important; }
+
+.divider-padded {
+  padding: 5px 0; }
+
+.download-size {
+  color: #009688;
+  margin-left: 10px; }
+
+.icon {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  margin-top: -2px;
+  border: 1px solid #ddd;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: middle;
+  zoom: 0.70;
+  transform: translateZ(0);
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7); }
+
+.list-header {
+  padding-bottom: 0; }
+
+.list-icon {
+  margin-top: 12px !important;
+  margin-right: 20px !important; }
+
+.list-icon-big {
+  font-size: 36px !important;
+  width: 36px;
+  height: 36px; }
+  .list-icon-big:focus {
+    outline: none; }
+
+.menu-chat-icon {
+  float: right;
+  margin-right: 24px; }
+
+form {
+  padding: 16px; }
+  form md-input-container {
+    width: 100%; }
+    form md-input-container .title {
+      font-size: 24px; }
+    form md-input-container textarea {
+      width: 100%; }
+
+table {
+  width: 100%;
+  border-spacing: 0;
+  margin: 10px 0; }
+  table td {
+    padding: 3px; }
+
+md-bottom-sheet md-icon {
+  margin-right: 20px; }
+
+.teal {
+  background-color: #009688; }
+
+.red {
+  background-color: #F44336; }
+
+.indigo {
+  background-color: #3F51B5; }
+
+.pink {
+  background-color: #E91E63; }
+
+/**
+ * For the correct positioning of the placeholder element, the dnd-list and
+ * it's children must have position: relative
+ */
+.simpleDemo ul[dnd-list],
+.simpleDemo ul[dnd-list] > li {
+  position: relative; }
+
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+.simpleDemo ul[dnd-list] {
+  min-height: 42px;
+  padding-left: 0px; }
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+.simpleDemo ul[dnd-list] .dndDraggingSource {
+  display: none; }
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+.simpleDemo ul[dnd-list] .dndPlaceholder {
+  display: block;
+  background-color: #ddd;
+  min-height: 42px; }
+
+/**
+ * The dnd-lists's child elements currently MUST have
+ * position: relative. Otherwise we can not determine
+ * whether the mouse pointer is in the upper or lower
+ * half of the element we are dragging over. In other
+ * browsers we can use event.offsetY for this.
+ */
+.simpleDemo ul[dnd-list] li {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: -1px; }
+
+/**
+ * Show selected elements in green
+ */
+.simpleDemo ul[dnd-list] li.selected {
+  background-color: #dff0d8;
+  color: #3c763d; }
+
+.full-width {
+  width: 100%; }
+
+.no-margin {
+  margin: 0; }
+
+.pull-right {
+  float: right;
+  display: block;
+  margin-right: 0; }
+
+.padded {
+  padding: 20px; }
+
+.student-group {
+  width: 45%;
+  margin: 2.5%;
+  text-align: center;
+  text-decoration: none;
+  color: inherit; }
+
+.student-group-heading {
+  font-weight: 500;
+  margin-bottom: 0;
+  text-transform: uppercase; }
+
+.student-group-subheading {
+  margin-top: -15px;
+  font-size: 12px; }
+
+.animated.ng-enter {
+  -webkit-transition: all 0.6s ease;
+  -moz-transition: all 0.6s ease;
+  -ms-transition: all 0.6s ease;
+  -o-transition: all 0.6s ease;
+  transition: all 0.6s ease;
+  opacity: 0; }
+
+.animated.ng-enter-active {
+  opacity: 1; }
+
+canvas {
+  width: 100%;
+  height: 100%; }
+
+/**
+ * For the correct positioning of the placeholder element, the dnd-list and
+ * it's children must have position: relative
+ */
+.simpleDemo ul[dnd-list],
+.simpleDemo ul[dnd-list] > li {
+  position: relative; }
+
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+.simpleDemo ul[dnd-list] {
+  min-height: 42px;
+  padding-left: 0px; }
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+.simpleDemo ul[dnd-list] .dndDraggingSource {
+  display: none; }
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+.simpleDemo ul[dnd-list] .dndPlaceholder {
+  display: block;
+  background-color: #ddd;
+  min-height: 42px; }
+
+/**
+ * The dnd-lists's child elements currently MUST have
+ * position: relative. Otherwise we can not determine
+ * whether the mouse pointer is in the upper or lower
+ * half of the element we are dragging over. In other
+ * browsers we can use event.offsetY for this.
+ */
+.simpleDemo ul[dnd-list] li {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: -1px; }
+
+/**
+ * Show selected elements in green
+ */
+.simpleDemo ul[dnd-list] li.selected {
+  background-color: #dff0d8;
+  color: #3c763d; }
+
+/*# sourceMappingURL=app.css.map */

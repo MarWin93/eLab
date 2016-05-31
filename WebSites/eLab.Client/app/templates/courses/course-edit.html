@@ -1,0 +1,46 @@
+<md-card>
+    <div class="card-cover" id="cover-{{cc.selected.id}}"></div>
+    <form>
+        <md-card-content id="popupContainer">
+            <div layout="row">
+                <md-input-container class="ng-pristine ng-valid md-input ng-touched" flex-gt-sm>
+                    <label>Nazwa kursu</label>
+                    <input ng-model="cc.selected.name" class="title"/>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container class="ng-pristine ng-valid md-input ng-touched" flex-gt-sm>
+                    <label>Podtytuł</label>
+                    <input ng-model="cc.selected.subtitle"/>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container class="md-block">
+                    <label>Opis</label>
+                    <textarea ng-model="user.description" rows="5" md-select-on-focus></textarea>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-card-title-text>
+                    <span class="md-headline">Dołączone pliki</span>
+                </md-card-title-text>
+            </div>
+            <div layout="row">
+                <table>
+                    <tr>
+                        <td>Nazwa pliku</td>
+                        <td>Rozmiar pliku</td>
+                        <td>Edycja</td>
+                    </tr>
+                    <tr ng-repeat="file in cc.selected.files">
+                        <td>{{file.name}}</td>
+                        <td>{{file.size}}</td>
+                        <td>
+                            <md-icon class="material-icons">delete</md-icon>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </md-card-content>
+    </form>
+</md-card>

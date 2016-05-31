@@ -1,0 +1,45 @@
+<md-card>
+    <div class="card-cover" id="cover-{{cc.selected.id}}"></div>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">{{cc.selected.name}}</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <md-subheader class="md-no-sticky">Warsztaty:</md-subheader>
+        <md-list>
+            <md-list-item
+                    class="md-2-line"
+                    ng-repeat="topic in cc.selected.topics"
+                    ng-click="cc.goToTopic(topic.id, $event)"
+            >
+                <img ng-src="assets/img/avatar-1.gif" class="md-avatar" alt="{{item}}">
+                <div class="md-list-item-text">
+                    <h3>{{topic.name}}</h3>
+                    <p>{{topic.description}}</p>
+                </div>
+                <md-icon
+                        class="material-icons list-icon-big"
+                        ng-click="cc.startClass(topic.id, $event)">
+                    <md-tooltip md-direction="top">Rozpocznij warsztat</md-tooltip>
+                    play_arrow </md-icon>
+            </md-list-item>
+        </md-list>
+        <md-divider class="divider-padded"></md-divider>
+        <md-subheader class="list-header">Do pobrania:</md-subheader>
+
+        <md-list>
+            <md-list-item
+                    ng-repeat="file in cc.selected.files"
+                    ng-click="cc.goToTopic(topic.id, $event)"
+            >
+                <md-icon class="material-icons list-icon"> description </md-icon>
+                <p>{{file.name}}<span class="download-size">({{file.size}} KB)</span></p>
+            </md-list-item>
+        </md-list>
+        <md-divider class="divider-padded"></md-divider>
+        <md-button>Dodaj nowy warsztat</md-button>
+        <md-button ng-click="cc.editCourse(cc.selected)">Edytuj kurs</md-button>
+    </md-card-content>
+
+</md-card>
