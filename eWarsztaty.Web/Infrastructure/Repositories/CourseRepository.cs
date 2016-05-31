@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.EnterpriseServices;
 using System.Linq;
-using System.Web;
 using AutoMapper;
 using eWarsztaty.Domain;
 using eWarsztaty.Web.Models.JsonModels;
-using eWarsztaty.Web.Models.ViewModels;
 
 namespace eWarsztaty.Web.Infrastructure.Repositories
 {
@@ -40,6 +37,13 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
             var courseDb = _db.Courses.FirstOrDefault(x => x.Id == courseId);
             courseDb.Name = course.Name;
             courseDb.Description = course.Description;
+            _db.SaveChanges();
+        }
+
+        public void DeleteCourse(int courseId)
+        {
+            var courseDb = _db.Courses.FirstOrDefault(x => x.Id == courseId);
+            _db.Courses.Remove(courseDb);
             _db.SaveChanges();
         }
     }
