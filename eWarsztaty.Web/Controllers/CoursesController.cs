@@ -3,6 +3,7 @@ using System.Web.Http;
 using eWarsztaty.Domain;
 using eWarsztaty.Web.Infrastructure.Repositories;
 using eWarsztaty.Web.Models.JsonModels;
+using Microsoft.Ajax.Utilities;
 
 namespace eWarsztaty.Web.Controllers
 {
@@ -20,6 +21,7 @@ namespace eWarsztaty.Web.Controllers
         {
             if (id > 0)
             {
+                
                 var courseRepository = new CourseRepository();
                 return courseRepository.GetCourseById(id);
             }
@@ -52,6 +54,15 @@ namespace eWarsztaty.Web.Controllers
         {
             var courseRepository = new CourseRepository();
             courseRepository.DeleteCourse(id);
+        }
+
+        [Route("api/courses/{id}/close")]
+        [HttpGet]
+        public IHttpActionResult CloseCourse(int id)
+        {
+            var courseRepository = new CourseRepository();
+            courseRepository.CloseCourse(id);
+            return Ok();
         }
     }
 }

@@ -39,5 +39,14 @@ namespace eWarsztaty.Web.Controllers
         public void Delete(int id)
         {
         }
+
+        [Route("api/classes/{id}/close")]
+        [HttpGet]
+        public IHttpActionResult CloseClass(int id)
+        {
+            var classRepository = new ClassRepository();
+            classRepository.CloseCourse(id);
+            return Ok();
+        }
     }
 }

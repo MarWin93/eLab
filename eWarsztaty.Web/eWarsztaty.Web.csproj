@@ -269,6 +269,7 @@
     <Compile Include="Models\JsonModels\ClassJson.cs" />
     <Compile Include="Models\JsonModels\CoursesJson.cs" />
     <Compile Include="Models\JsonModels\GroupsJson.cs" />
+    <Compile Include="Models\JsonModels\StudentJson.cs" />
     <Compile Include="Models\JsonModels\TopicsJson.cs" />
     <Compile Include="Models\ViewModels\AddRoleToUserView.cs" />
     <Compile Include="Models\ViewModels\CurrentRoleView.cs" />

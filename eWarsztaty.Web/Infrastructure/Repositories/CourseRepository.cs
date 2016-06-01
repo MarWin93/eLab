@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using eWarsztaty.Domain;
+using eWarsztaty.Web.Helpers;
 using eWarsztaty.Web.Models.JsonModels;
 
 namespace eWarsztaty.Web.Infrastructure.Repositories
@@ -44,6 +45,13 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
         {
             var courseDb = _db.Courses.FirstOrDefault(x => x.Id == courseId);
             _db.Courses.Remove(courseDb);
+            _db.SaveChanges();
+        }
+
+        public void CloseCourse(int courseId)
+        {
+            var courseDb = _db.Courses.FirstOrDefault(x => x.Id == courseId);
+            courseDb.Status = (int) eWarsztatyEnums.CourseStatus.Closed;
             _db.SaveChanges();
         }
     }
