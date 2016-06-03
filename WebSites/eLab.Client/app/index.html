@@ -49,14 +49,14 @@
         <a href="#/courses" class="heading-link">
             <h1 class="sidenav-heading">
                 <md-icon aria-label="Menu" class="material-icons">bookmark</md-icon>
-                Twoje kursy
+                Twoje tematyki
             </h1>
         </a>
         <md-list class="sidebar-menu">
             <md-list-item ng-repeat="course in elab.courses">
                 <a href="#/courses/{{course.id}}">
                     <md-button ng-click="elab.selectCourse(course)" ng-class="{'selected' : course === elab.selected }">
-                        <md-icon id="icon-{{course.id}}" ng-init="elab.reloadTrianglify(course.id)"></md-icon>
+                        <md-icon id="icon-{{course.id}}"></md-icon>
                         {{course.name}}
                     </md-button>
                 </a>
