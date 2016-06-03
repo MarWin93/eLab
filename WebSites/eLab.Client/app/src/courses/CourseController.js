@@ -3,11 +3,11 @@
     angular
         .module('courses')
         .controller('CourseController', [
-            '$scope', 'courseService', '$routeParams', '$filter',
+            '$scope', 'courseService', '$routeParams', '$filter', '$timeout',
             CourseController
         ]);
 
-    function CourseController($scope, courseService, $routeParams, $filter) {
+    function CourseController($scope, courseService, $routeParams, $filter, $timeout) {
         var self = this;
 
         self.selected = null;
@@ -22,7 +22,11 @@
             .then( function(courses) {
                 self.courses = [].concat(courses);
                 self.selected = $filter('filter')(self.courses, {id: $routeParams.courseId})[0];
-            });
+            }).then( function(){
+            $timeout(function () {
+                self.reloadTrianglify();
+            })
+        });
 
         function selectCourse(course){
             self.selected = course;
@@ -81,9 +85,6 @@
                 }
             }
         }
-        angular.element(document).ready(function(){
-            self.reloadTrianglify();
-        });
 
         $scope.$on('toggleChatWindow', function() {
             // TODO fix event sequence

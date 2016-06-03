@@ -3,11 +3,11 @@
     angular
         .module('elab')
         .controller('ElabController', [
-            '$scope', 'elabService', '$mdSidenav',
+            '$scope', 'elabService', '$mdSidenav', '$timeout',
             ElabController
         ]);
 
-    function ElabController($scope, elabService, $mdSidenav) {
+    function ElabController($scope, elabService, $mdSidenav, $timeout) {
         var self = this;
         self.chat = true;
         self.selected = null;
@@ -18,11 +18,16 @@
         self.goToCourse = goToCourse;
         self.toggleChatWindow = toggleChatWindow;
         self.reloadTrianglify = reloadTrianglify;
+    
         elabService.loadAllCourses()
             .then( function(courses) {
                 self.courses = [].concat(courses);
                 self.selected = courses[0];
-            });
+            }).then( function(){
+            $timeout(function () {
+                self.reloadTrianglify();
+            })
+        });
 
         function toggleSidenav() {
             $mdSidenav('left').toggle();
@@ -61,10 +66,6 @@
                     icon.appendChild(pattern.canvas());
                 }
             }
-
         }
-        angular.element(document).ready(function(){
-            self.reloadTrianglify()
-        });
     }
 })();

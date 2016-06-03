@@ -2,30 +2,24 @@
     'use strict';
 
     angular.module('elab')
-        .service('elabService', ['$q', ElabService]);
-    
-    function ElabService($q){
-        var courses = [
-            {
-                id: 3,
-                name: 'Nierelacyjne bazy danych'
-            },
-            {
-                id: 1,
-                name: 'Eksploracja danych'
-            },
-            {
-                id: 2,
-                name: 'Hurtownie danych'
-            }
+        .service('elabService', ['$q', '$http', 'API_PATH', ElabService]);
 
-        ];
-
-        // Promise-based API
+    function ElabService($q, $http, API_PATH){
+        var courses = [];
+        
         return {
             loadAllCourses : function() {
-                // Simulate async nature of real remote calls
-                return $q.when(courses);
+                var def = $q.defer();
+
+                $http.get(API_PATH + 'courses')
+                    .success(function(data) {
+                        courses = data;
+                        def.resolve(data);
+                    })
+                    .error(function() {
+                        def.reject("Failed to get courses");
+                    });
+                return def.promise;
             }
         };
     }

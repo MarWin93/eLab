@@ -12,7 +12,7 @@
                 group_count: 2,
                 selected: null,
                 lists: {
-                    name: 'unassigned'
+                    name: 'unassigned',
                     students: [
                         'Maria Klima',
                         'Marcin Winkler',

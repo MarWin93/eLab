@@ -14,6 +14,8 @@ var eLabApp = angular.module('eLabApp', [
             .accentPalette('red');
     });
 
+eLabApp.value('API_PATH', 'http://localhost:8089/api/');
+
 eLabApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.

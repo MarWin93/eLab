@@ -1,6 +1,6 @@
 (function(){
     'use strict';
 
-    angular.module('elab', [ 'ngMaterial' ]);
+    angular.module('elab', [ 'ngMaterial', 'ngResource' ]);
 
 })();

@@ -56,7 +56,7 @@
             <md-list-item ng-repeat="course in elab.courses">
                 <a href="#/courses/{{course.id}}">
                     <md-button ng-click="elab.selectCourse(course)" ng-class="{'selected' : course === elab.selected }">
-                        <md-icon id="icon-{{course.id}}"></md-icon>
+                        <md-icon id="icon-{{course.id}}" ng-init="elab.reloadTrianglify(course.id)"></md-icon>
                         {{course.name}}
                     </md-button>
                 </a>
