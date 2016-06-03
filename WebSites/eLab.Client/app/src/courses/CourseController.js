@@ -41,10 +41,12 @@
             self.selectCourse(course);
             window.location = "#/courses/"+self.selected.id+'/edit';
         }
+
         function startClass(topic_id, event){
             // TODO change hardcoded class ID
             window.location = "#/classes/1";
         }
+
         function reloadTrianglify(course){
             var pattern;
             var dimensions;

@@ -344,6 +344,23 @@ md-toolbar h1 {
     outline: none;
   }
 }
+.list-icon-medium{
+  margin-right: 10px;
+}
+
+.icon-pull-right{
+  margin: 0 18px 0 0;
+  height: 28px;
+  padding: 2px;
+  width: 28px;
+  font-size: 28px !important;
+  &:hover{
+    cursor: pointer;
+  }
+  &:focus{
+    outline: 0;
+  }
+}
 .menu-chat-icon{
   float: right;
   margin-right: 24px;
@@ -511,6 +528,20 @@ canvas{
   width: 100%;
   height: 100%;
 }
+.material-icons:focus{
+  outline: 0;
+}
+p.course-description{
+  font-size: 14px;
+  margin: 10px 0;
+  display: block;
+}
+p.no-files{
+  padding: 6px 16px 16px 16px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
 //
 /**
  * For the correct positioning of the placeholder element, the dnd-list and
