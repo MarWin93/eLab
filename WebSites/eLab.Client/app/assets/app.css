@@ -141,6 +141,9 @@ md-sidenav button .material-icons {
   width: 36px;
   height: 36px; }
 
+.md-button {
+  padding: 0 12px; }
+
 md-button.menuBtn > md-icon {
   fill: white;
   width: 24px;

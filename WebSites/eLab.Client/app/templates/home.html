@@ -8,9 +8,9 @@
         <p>lista ostatnio zapisanych kursów oraz zajęć (drafts and archives)</p>
         <md-subheader class="dashboard-list-header">Lista tematyk</md-subheader>
         <div class="horizontal-list" layout="row" layout-align="start stretch">
-            <md-button class="horizontal-list-item md-raised md-primary">
+            <a href="#/courses/add"><md-button class="horizontal-list-item md-raised md-primary">
                 <md-icon class="material-icons icon-button">add</md-icon>dodaj
-            </md-button>
+            </md-button></a>
             <md-button ng-click="elab.goToCourse(course)" class="horizontal-list-item md-raised"
                        ng-repeat="course in elab.courses">
                 {{course.name}}

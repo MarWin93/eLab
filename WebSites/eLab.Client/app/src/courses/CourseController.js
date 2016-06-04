@@ -3,18 +3,22 @@
     angular
         .module('courses')
         .controller('CourseController', [
-            '$scope', 'courseService', '$routeParams', '$filter', '$timeout',
+            '$scope', 'courseService', '$routeParams', '$filter', '$timeout', '$q', '$http', 'API_PATH',
             CourseController
         ]);
 
-    function CourseController($scope, courseService, $routeParams, $filter, $timeout) {
+    function CourseController($scope, courseService, $routeParams, $filter, $timeout, $q, $http, API_PATH) {
         var self = this;
 
+        self.new = {'name': '', 'description': '', 'closed' :false};
         self.selected = null;
         self.courses = [ ];
+
         self.selectCourse = selectCourse;
         self.goToCourse = goToCourse;
         self.editCourse = editCourse;
+        self.addCourse = addCourse;
+
         self.startClass = startClass;
         self.reloadTrianglify = reloadTrianglify;
 
@@ -42,6 +46,19 @@
             window.location = "#/courses/"+self.selected.id+'/edit';
         }
 
+        function addCourse(){
+            var def = $q.defer();
+
+            $http.post(API_PATH + 'courses', self.new)
+                .success(function(data) {
+                    window.location = "#/courses/";
+                })
+                .error(function() {
+                    def.reject("Failed to create course");
+                });
+            return def.promise;
+        }
+        
         function startClass(topic_id, event){
             // TODO change hardcoded class ID
             window.location = "#/classes/1";

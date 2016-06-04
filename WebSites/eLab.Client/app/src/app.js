@@ -33,15 +33,15 @@ eLabApp.config(['$routeProvider',
             controller: 'CourseController',
             controllerAs: 'cc'
         }).
-            // course view (topics list)
-        when('/courses/:courseId', {
-            templateUrl: 'templates/courses/course-detail.html',
+        // add new course
+        when('/courses/add', {
+            templateUrl: 'templates/courses/course-add.html',
             controller: 'CourseController',
             controllerAs: 'cc'
         }).
-            // add new course
-        when('/courses/add', {
-            templateUrl: 'templates/courses/course-edit.html',
+            // course view (topics list)
+        when('/courses/:courseId', {
+            templateUrl: 'templates/courses/course-detail.html',
             controller: 'CourseController',
             controllerAs: 'cc'
         }).
