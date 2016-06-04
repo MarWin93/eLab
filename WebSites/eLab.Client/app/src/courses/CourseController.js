@@ -19,7 +19,8 @@
         self.editCourse = editCourse;
         self.addCourse = addCourse;
         self.updateCourse = updateCourse;
-
+        self.deleteCourse = deleteCourse;
+        
         self.startClass = startClass;
         self.reloadTrianglify = reloadTrianglify;
 
@@ -49,13 +50,26 @@
 
         function updateCourse(){
             var def = $q.defer();
-            console.log('update');
+
             $http.put(API_PATH + 'courses/' + self.selected.id, self.selected)
                 .success(function(data) {
                     window.location = "#/courses/";
                 })
                 .error(function() {
                     def.reject("Failed to update course");
+                });
+            return def.promise;
+        }
+
+        function deleteCourse(course){
+            var def = $q.defer();
+
+            $http.delete(API_PATH + 'courses/' + course.id)
+                .success(function(data) {
+                    window.location = "#/courses/";
+                })
+                .error(function() {
+                    def.reject("Failed to delete course");
                 });
             return def.promise;
         }
