@@ -6,7 +6,17 @@
     </md-card-title>
     <md-card-content>
         <p>lista ostatnio zapisanych kursów oraz zajęć (drafts and archives)</p>
-        <p><a href="#/courses">lista tematyk</a></p>
+        <md-subheader class="dashboard-list-header">Lista tematyk</md-subheader>
+        <div class="horizontal-list" layout="row" layout-align="start stretch">
+            <md-button class="horizontal-list-item md-raised md-primary">
+                <md-icon class="material-icons icon-button">add</md-icon>dodaj
+            </md-button>
+            <md-button ng-click="elab.goToCourse(course)" class="horizontal-list-item md-raised"
+                       ng-repeat="course in elab.courses">
+                {{course.name}}
+            </md-button>
+        </div>
+
         <p><a href="#/classes">lista warsztatów</a></p>
         <p><a href="#/courses/add">Dodaj tematykę</a></p>
         <p><a href="#/classes/add">Dodaj warsztat</a></p>
