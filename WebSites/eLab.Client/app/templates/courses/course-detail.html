@@ -37,6 +37,7 @@
                 </md-icon>
             </md-list-item>
         </md-list>
+        <p class="empty-list" ng-if="cc.selected.topics.length == 0">brak warsztatów</p>
         <md-divider class="divider-padded"></md-divider>
         <md-subheader class="list-header">Do pobrania:</md-subheader>
 
@@ -49,8 +50,13 @@
                 <p>{{file.name}}<span class="download-size">({{file.size}} KB)</span></p>
             </md-list-item>
         </md-list>
-        <p class="no-files" ng-if="!cc.selected.files">brak plików</p>
+        <p class="empty-list" ng-if="!cc.selected.files.length">brak plików</p>
         <md-divider class="divider-padded"></md-divider>
+        <div layout="row" layout-align="end center">
+        <md-button ng-click="" class="md-primary md-raised">
+            <md-icon class="material-icons icon-button">add</md-icon>dodaj tematykę
+        </md-button>
+        </div>
     </md-card-content>
 
 </md-card>
