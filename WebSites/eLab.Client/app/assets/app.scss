@@ -227,6 +227,18 @@ md-sidenav button .material-icons{
 .md-button{
   padding: 0 12px;
 }
+.md-menu{
+  padding: 0;
+}
+md-menu-content{
+  padding: 0;
+}
+
+.to-right{
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
 md-button.menuBtn > md-icon {
   fill:white;
   width:24px;

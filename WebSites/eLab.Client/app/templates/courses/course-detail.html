@@ -3,11 +3,30 @@
     <md-card-title>
         <md-card-title-text layout="row"  layout-align="space-between center">
             <span class="md-headline">{{cc.selected.name}}</span>
-            <md-icon
-                    class="material-icons icon-pull-right"
-                    ng-click="cc.editCourse(cc.selected)">
-                <md-tooltip md-direction="top">Edytuj tematykę</md-tooltip>mode_edit
-            </md-icon>
+            <md-menu md-position-mode="target-right target">
+                <md-button class="md-icon-button to-right"
+                           ng-click="$mdOpenMenu($event)">
+                    <md-icon class="material-icons">more_horiz</md-icon>
+                </md-button>
+                <md-menu-content width="2">
+                    <md-menu-item>
+                        <md-button ng-click="cc.editCourse(cc.selected)">
+                            <div layout="row" flex="">
+                                <md-icon class="md-icom">edit_mode</md-icon>
+                                <p flex="">edytuj</p>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="cc.deleteCourse(cc.selected)">
+                            <div layout="row" flex="">
+                                <md-icon class="md-icom">delete</md-icon>
+                                <p flex="">usuń</p>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
         </md-card-title-text>
     </md-card-title>
     <md-card-content>
@@ -18,23 +37,22 @@
             <md-list-item
                     class="md-2-line"
                     ng-repeat="topic in cc.selected.topics"
-                    ng-click="cc.goToTopic(topic.id, $event)"
             >
                 <img ng-src="assets/img/avatar-1.gif" class="md-avatar" alt="{{item}}">
                 <div class="md-list-item-text">
                     <h3>{{topic.name}}</h3>
                     <p>{{topic.description}}</p>
                 </div>
-                <md-icon
-                        class="material-icons list-icon-medium"
-                        ng-click="">
-                    <md-tooltip md-direction="top">edytuj warsztat</md-tooltip>mode_edit
-                </md-icon>
-                <md-icon
-                        class="material-icons list-icon-big"
-                        ng-click="cc.startClass(topic.id, $event)">
+                <md-button class="md-icon-button to-right" ng-click="">
+                    <md-icon class="material-icons">
+                        <md-tooltip md-direction="top">edytuj warsztat</md-tooltip>mode_edit
+                    </md-icon>
+                </md-button>
+                <md-button class="md-icon-button to-right" ng-click="cc.startClass(topic.id, $event)">
+                <md-icon class="material-icons" style="font-size: 32px; margin-top: -5px">
                     <md-tooltip md-direction="top">Rozpocznij warsztat</md-tooltip>play_arrow
                 </md-icon>
+                    </md-button>
             </md-list-item>
         </md-list>
         <p class="empty-list" ng-if="cc.selected.topics.length == 0">brak warsztatów</p>

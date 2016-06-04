@@ -6,11 +6,30 @@
                 <md-card-title-text>
                     <span class="md-headline">{{course.name}}</span>
                 </md-card-title-text>
-                <md-icon ng-click="cc.deleteCourse(course);$event.stopPropagation()"
-                         class="material-icons">delete</md-icon>
-                <a href="#/courses/{{course.id}}/edit">
-                    <md-icon class="material-icons">edit</md-icon>
-                </a>
+                <md-menu md-position-mode="target-right target">
+                    <md-button class="md-icon-button to-right"
+                               ng-click="$mdOpenMenu($event)">
+                        <md-icon class="material-icons">more_horiz</md-icon>
+                    </md-button>
+                    <md-menu-content width="2">
+                        <md-menu-item>
+                            <md-button ng-click="cc.editCourse(course);$event.stopPropagation()">
+                                <div layout="row" flex="">
+                                    <md-icon class="md-icom">edit_mode</md-icon>
+                                    <p flex="">edytuj</p>
+                                </div>
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="cc.deleteCourse(course);$event.stopPropagation()">
+                                <div layout="row" flex="">
+                                    <md-icon class="md-icom">delete</md-icon>
+                                    <p flex="">usuń</p>
+                                </div>
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
             </md-card-title>
             <md-card-content>
                 <p>{{course.description}}</p>
