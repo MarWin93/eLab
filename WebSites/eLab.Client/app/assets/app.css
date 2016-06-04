@@ -275,14 +275,12 @@ md-toolbar h1 {
   float: right;
   margin-right: 24px; }
 
-form {
-  padding: 16px; }
-  form md-input-container {
+form md-input-container {
+  width: 100%; }
+  form md-input-container .title {
+    font-size: 24px; }
+  form md-input-container textarea {
     width: 100%; }
-    form md-input-container .title {
-      font-size: 24px; }
-    form md-input-container textarea {
-      width: 100%; }
 
 table {
   width: 100%;

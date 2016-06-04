@@ -18,6 +18,7 @@
         self.goToCourse = goToCourse;
         self.editCourse = editCourse;
         self.addCourse = addCourse;
+        self.updateCourse = updateCourse;
 
         self.startClass = startClass;
         self.reloadTrianglify = reloadTrianglify;
@@ -46,6 +47,19 @@
             window.location = "#/courses/"+self.selected.id+'/edit';
         }
 
+        function updateCourse(){
+            var def = $q.defer();
+            console.log('update');
+            $http.put(API_PATH + 'courses/' + self.selected.id, self.selected)
+                .success(function(data) {
+                    window.location = "#/courses/";
+                })
+                .error(function() {
+                    def.reject("Failed to update course");
+                });
+            return def.promise;
+        }
+
         function addCourse(){
             var def = $q.defer();
 
@@ -58,7 +72,7 @@
                 });
             return def.promise;
         }
-        
+
         function startClass(topic_id, event){
             // TODO change hardcoded class ID
             window.location = "#/classes/1";
