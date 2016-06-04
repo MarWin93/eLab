@@ -16,12 +16,17 @@
 
         self.selectCourse = selectCourse;
         self.goToCourse = goToCourse;
-        self.editCourse = editCourse;
-        self.addCourse = addCourse;
+        
+        self.goToUpdateCourse = goToUpdateCourse;
         self.updateCourse = updateCourse;
+
+        self.goToCreateCourse = goToCreateCourse;
+        self.createCourse = createCourse;
+        
         self.deleteCourse = deleteCourse;
         
         self.startClass = startClass;
+        self.createTopic = createTopic;
         self.reloadTrianglify = reloadTrianglify;
 
         courseService.loadAllCourses()
@@ -43,7 +48,7 @@
             window.location = "#/courses/"+self.selected.id;
         }
 
-        function editCourse(course){
+        function goToUpdateCourse(course){
             self.selectCourse(course);
             window.location = "#/courses/"+self.selected.id+'/edit';
         }
@@ -74,7 +79,11 @@
             return def.promise;
         }
 
-        function addCourse(){
+        function goToCreateCourse(){
+            window.location = "#/courses/add";
+        }
+        
+        function createCourse(){
             var def = $q.defer();
 
             $http.post(API_PATH + 'courses', self.new)
@@ -90,6 +99,10 @@
         function startClass(topic_id, event){
             // TODO change hardcoded class ID
             window.location = "#/classes/1";
+        }
+
+        function createTopic(course){
+            window.location = '#/topics/add';
         }
 
         function reloadTrianglify(course){

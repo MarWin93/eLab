@@ -111,7 +111,11 @@ eLabApp.config(['$routeProvider',
         //     controller: 'GroupController',
         //     controllerAs: 'gc'
         // }).
-        
+        when('/topics/add', {
+            templateUrl: 'templates/topics/topic-add.html',
+            controller: 'TopicController',
+            controllerAs: 'tc'
+        }).
         // other
             // settings
         when('/settings', {

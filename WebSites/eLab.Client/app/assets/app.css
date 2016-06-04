@@ -150,6 +150,10 @@ md-sidenav button .material-icons {
 md-menu-content {
   padding: 0; }
 
+.md-menu-header {
+  padding: 0 16px;
+  font-size: 15px; }
+
 .to-right {
   margin-right: 0 !important;
   margin-left: 0 !important; }
@@ -158,6 +162,13 @@ md-button.menuBtn > md-icon {
   fill: white;
   width: 24px;
   height: 24px; }
+
+.add-button {
+  width: 175px;
+  text-align: center; }
+  .add-button md-icon {
+    float: left;
+    margin-top: 3px; }
 
 #content .md-button.share:active > md-icon {
   background-color: #dadada;
@@ -280,10 +291,6 @@ md-toolbar h1 {
 
 .icon-button {
   padding: 3px 5px 5px 0; }
-
-.menu-chat-icon {
-  float: right;
-  margin-right: 24px; }
 
 form md-input-container {
   width: 100%; }
@@ -436,14 +443,14 @@ h3 {
 
 .horizontal-list {
   width: 100%;
-  height: 145px;
+  height: 110px;
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap; }
 
 .horizontal-list-item {
   width: 120px;
-  height: 120px;
+  height: 90px;
   min-width: 120px;
   display: inline-block;
   vertical-align: middle;

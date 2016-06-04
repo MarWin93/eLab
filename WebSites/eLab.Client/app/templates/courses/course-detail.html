@@ -8,9 +8,10 @@
                            ng-click="$mdOpenMenu($event)">
                     <md-icon class="material-icons">more_horiz</md-icon>
                 </md-button>
-                <md-menu-content width="2">
+                <md-menu-content width="3">
+                    <p class="md-menu-header">Tematyka:</p>
                     <md-menu-item>
-                        <md-button ng-click="cc.editCourse(cc.selected)">
+                        <md-button ng-click="cc.goToUpdateCourse(cc.selected)">
                             <div layout="row" flex="">
                                 <md-icon class="md-icom">edit_mode</md-icon>
                                 <p flex="">edytuj</p>
@@ -22,6 +23,14 @@
                             <div layout="row" flex="">
                                 <md-icon class="md-icom">delete</md-icon>
                                 <p flex="">usuń</p>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="cc.goToCreateCourse()">
+                            <div layout="row" flex="">
+                                <md-icon class="md-icom">add</md-icon>
+                                <p flex="">dodaj</p>
                             </div>
                         </md-button>
                     </md-menu-item>
@@ -37,6 +46,7 @@
             <md-list-item
                     class="md-2-line"
                     ng-repeat="topic in cc.selected.topics"
+                    ng-click="cc.goToTopic(topic.id, $event)"
             >
                 <img ng-src="assets/img/avatar-1.gif" class="md-avatar" alt="{{item}}">
                 <div class="md-list-item-text">
@@ -48,14 +58,19 @@
                         <md-tooltip md-direction="top">edytuj warsztat</md-tooltip>mode_edit
                     </md-icon>
                 </md-button>
-                <md-button class="md-icon-button to-right" ng-click="cc.startClass(topic.id, $event)">
-                <md-icon class="material-icons" style="font-size: 32px; margin-top: -5px">
-                    <md-tooltip md-direction="top">Rozpocznij warsztat</md-tooltip>play_arrow
-                </md-icon>
-                    </md-button>
+                <md-button class="md-icon-button to-right button-list" ng-click="cc.startClass(topic.id, $event)">
+                    <md-icon class="material-icons" style="font-size: 32px; margin-top: -6px">
+                        <md-tooltip md-direction="top">Rozpocznij warsztat</md-tooltip>play_arrow
+                    </md-icon>
+                </md-button>
             </md-list-item>
         </md-list>
         <p class="empty-list" ng-if="cc.selected.topics.length == 0">brak warsztatów</p>
+        <div layout="row" layout-align="end center">
+            <md-button ng-click="cc.createTopic(cc.selected)" class="md-primary add-button">
+                <md-icon class="material-icons icon-button">add</md-icon>dodaj warsztat
+            </md-button>
+        </div>
         <md-divider class="divider-padded"></md-divider>
         <md-subheader class="list-header">Do pobrania:</md-subheader>
 
@@ -69,10 +84,9 @@
             </md-list-item>
         </md-list>
         <p class="empty-list" ng-if="!cc.selected.files.length">brak plików</p>
-        <md-divider class="divider-padded"></md-divider>
         <div layout="row" layout-align="end center">
-            <md-button ng-click="" class="md-primary md-raised">
-                <md-icon class="material-icons icon-button">add</md-icon>dodaj tematykę
+            <md-button ng-click="" class="md-primary add-button">
+                <md-icon class="material-icons icon-button">add</md-icon>dodaj pliki
             </md-button>
         </div>
     </md-card-content>
