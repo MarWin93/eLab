@@ -18,5 +18,12 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
             var classesJson = Mapper.Map<IEnumerable<Class>, IEnumerable<ClassJson>>(classes);
             return classesJson;
         }
+
+        public ClassJson GetClassById(int id)
+        {
+            var classdb = _db.Classes.Include("Groups").FirstOrDefault(x => x.Id == id);
+            var classesJson = Mapper.Map<Class, ClassJson>(classdb);
+            return classesJson;
+        }
     }
 }

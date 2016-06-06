@@ -19,24 +19,42 @@ namespace eWarsztaty.Web.Controllers
         }
 
         // GET api/groups/5
-        public string Get(int id)
+        public GroupsJson Get(int id)
         {
-            return "value";
+            if (id > 0)
+            {
+                var groupRepository = new GroupRepository();
+                return groupRepository.GetGroupById(id);
+            }
+            else
+            {
+                var newGroup = new GroupsJson();
+                return newGroup;
+            }
         }
 
         // POST api/groups
-        public void Post([FromBody]string value)
+        public IHttpActionResult Post([FromBody]GroupsJson group)
         {
+            var groupRepository = new GroupRepository();
+            groupRepository.SaveGroup(group);
+            //return Created<CoursesJson>(Request.RequestUri + )
+            return Ok();
         }
 
         // PUT api/groups/5
-        public void Put(int id, [FromBody]string value)
+        public IHttpActionResult Put(int id, [FromBody]GroupsJson course)
         {
+            var groupRepository = new GroupRepository();
+            groupRepository.SaveCourse(id, course);
+            return Ok();
         }
 
         // DELETE api/groups/5
         public void Delete(int id)
         {
+            var groupRepository = new GroupRepository();
+            groupRepository.DeleteCourse(id);
         }
     }
 }

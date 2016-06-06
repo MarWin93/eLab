@@ -20,9 +20,18 @@ namespace eWarsztaty.Web.Controllers
         }
 
         // GET api/classes/5
-        public string Get(int id)
+        public ClassJson Get(int id)
         {
-            return "value";
+            if (id > 0)
+            {
+                var classRepository = new ClassRepository();
+                return classRepository.GetClassById(id);
+            }
+            else
+            {
+                var newClass = new ClassJson();
+                return newClass;
+            }
         }
 
         // POST api/classes
