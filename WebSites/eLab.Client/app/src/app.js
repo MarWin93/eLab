@@ -14,6 +14,8 @@ var eLabApp = angular.module('eLabApp', [
             .accentPalette('red');
     });
 
+eLabApp.value('API_PATH', 'http://localhost:8089/api/');
+
 eLabApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
@@ -31,15 +33,15 @@ eLabApp.config(['$routeProvider',
             controller: 'CourseController',
             controllerAs: 'cc'
         }).
-            // course view (topics list)
-        when('/courses/:courseId', {
-            templateUrl: 'templates/courses/course-detail.html',
+        // add new course
+        when('/courses/add', {
+            templateUrl: 'templates/courses/course-add.html',
             controller: 'CourseController',
             controllerAs: 'cc'
         }).
-            // add new course
-        when('/courses/add', {
-            templateUrl: 'templates/courses/course-edit.html',
+            // course view (topics list)
+        when('/courses/:courseId', {
+            templateUrl: 'templates/courses/course-detail.html',
             controller: 'CourseController',
             controllerAs: 'cc'
         }).
@@ -109,7 +111,11 @@ eLabApp.config(['$routeProvider',
         //     controller: 'GroupController',
         //     controllerAs: 'gc'
         // }).
-        
+        when('/topics/add', {
+            templateUrl: 'templates/topics/topic-add.html',
+            controller: 'TopicController',
+            controllerAs: 'tc'
+        }).
         // other
             // settings
         when('/settings', {

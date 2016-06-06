@@ -1,30 +1,18 @@
 <md-card>
     <div class="card-cover" id="cover-{{cc.selected.id}}"></div>
-    <form>
-        <md-card-content id="popupContainer">
-            <div layout="row">
+    <form class="md-inline-form" layout="column">
+        <md-card-content>
                 <md-input-container class="ng-pristine ng-valid md-input ng-touched" flex-gt-sm>
                     <label>Nazwa kursu</label>
                     <input ng-model="cc.selected.name" class="title"/>
                 </md-input-container>
-            </div>
-            <div layout="row">
-                <md-input-container class="ng-pristine ng-valid md-input ng-touched" flex-gt-sm>
-                    <label>Podtytuł</label>
-                    <input ng-model="cc.selected.subtitle"/>
-                </md-input-container>
-            </div>
-            <div layout="row">
                 <md-input-container class="md-block">
                     <label>Opis</label>
-                    <textarea ng-model="user.description" rows="5" md-select-on-focus></textarea>
+                    <textarea ng-model="cc.selected.description" rows="5" md-select-on-focus=""></textarea>
                 </md-input-container>
-            </div>
-            <div layout="row">
                 <md-card-title-text>
                     <span class="md-headline">Dołączone pliki</span>
                 </md-card-title-text>
-            </div>
             <div layout="row">
                 <table>
                     <tr>
@@ -40,6 +28,13 @@
                         </td>
                     </tr>
                 </table>
+            </div>
+            <md-divider class="divider-padded"></md-divider>
+
+            <div layout="row" layout-align="end center">
+                <md-button ng-click="cc.updateCourse()" class="md-primary add-button">
+                    <md-icon class="material-icons icon-button">edit_mode</md-icon>Zapisz zmiany
+                </md-button>
             </div>
         </md-card-content>
     </form>

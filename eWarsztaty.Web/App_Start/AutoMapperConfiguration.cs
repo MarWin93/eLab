@@ -86,6 +86,7 @@ namespace eWarsztaty.Web.App_Start
                 .ForMember(x => x.Status, opt => opt.Ignore());
 
             Mapper.CreateMap<Course, CoursesJson>()
+                .ForMember(x => x.Closed, opt => opt.Ignore())
                 .ForMember(dest => dest.Topics, opt => opt.MapFrom(src => src.Topics));
 
             Mapper.CreateMap<CoursesJson, Course>()
@@ -94,15 +95,21 @@ namespace eWarsztaty.Web.App_Start
                 .ForMember(x => x.ProwadzacyId, opt => opt.Ignore())
                 .ForMember(x => x.Status, opt => opt.Ignore());
 
+            Mapper.CreateMap<Uzytkownik, StudentJson>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Login));
+
             Mapper.CreateMap<Group, GroupsJson>();
 
             Mapper.CreateMap<GroupsJson, Group>()
+                .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.Students))
+                .ForMember(x => x.Students, opt => opt.Ignore())
                 .ForMember(x => x.Class, opt => opt.Ignore())
                 .ForMember(x => x.ClassId, opt => opt.Ignore());
 
             Mapper.CreateMap<Class, ClassJson>()
-            .ForMember(dest => dest.Groups, opt => opt.MapFrom(src => src.Groups))
-            .ForMember(x => x.Selected, opt => opt.Ignore());
+                .ForMember(x => x.Closed, opt => opt.Ignore())
+                .ForMember(dest => dest.Groups, opt => opt.MapFrom(src => src.Groups))
+                .ForMember(x => x.Selected, opt => opt.Ignore());
 
             Mapper.CreateMap<ClassJson, Class>()
                 .ForMember(x => x.Status, opt => opt.Ignore())

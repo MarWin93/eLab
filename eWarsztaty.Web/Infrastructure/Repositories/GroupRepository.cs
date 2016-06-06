@@ -14,7 +14,7 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
 
         public IEnumerable<GroupsJson> GetAllGroups()
         {
-            var groups = _db.Groups.ToList();
+            var groups = _db.Groups.Include("Students").ToList();
             var groupsJson = Mapper.Map<IEnumerable<Group>, IEnumerable<GroupsJson>>(groups);
             return groupsJson;
         }

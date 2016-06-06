@@ -141,10 +141,34 @@ md-sidenav button .material-icons {
   width: 36px;
   height: 36px; }
 
+.md-button {
+  padding: 0 12px; }
+
+.md-menu {
+  padding: 0; }
+
+md-menu-content {
+  padding: 0; }
+
+.md-menu-header {
+  padding: 0 16px;
+  font-size: 15px; }
+
+.to-right {
+  margin-right: 0 !important;
+  margin-left: 0 !important; }
+
 md-button.menuBtn > md-icon {
   fill: white;
   width: 24px;
   height: 24px; }
+
+.add-button {
+  width: 175px;
+  text-align: center; }
+  .add-button md-icon {
+    float: left;
+    margin-top: 3px; }
 
 #content .md-button.share:active > md-icon {
   background-color: #dadada;
@@ -166,7 +190,7 @@ md-card {
   margin: 8px 0; }
   md-card .card-cover {
     width: 100%;
-    height: 120px;
+    height: 100px;
     display: block;
     background-repeat: no-repeat;
     -webkit-background-size: cover;
@@ -177,7 +201,7 @@ md-card {
     background-position-y: 50%; }
     @media only screen and (min-width: 960px) {
       md-card .card-cover {
-        height: 180px; } }
+        height: 150px; } }
   md-card md-icon {
     width: 24px; }
     md-card md-icon:hover {
@@ -232,6 +256,11 @@ md-toolbar h1 {
   -webkit-transform: scale(0.7);
   -moz-transform: scale(0.7); }
 
+.dashboard-list-header {
+  padding: 10px 0 10px 5px; }
+  .dashboard-list-header .md-subheader-inner {
+    padding: 0; }
+
 .list-header {
   padding-bottom: 0; }
 
@@ -246,18 +275,29 @@ md-toolbar h1 {
   .list-icon-big:focus {
     outline: none; }
 
-.menu-chat-icon {
-  float: right;
-  margin-right: 24px; }
+.list-icon-medium {
+  margin-right: 10px; }
 
-form {
-  padding: 16px; }
-  form md-input-container {
+.icon-pull-right {
+  margin: 0 18px 0 0;
+  height: 28px;
+  padding: 2px;
+  width: 28px;
+  font-size: 28px !important; }
+  .icon-pull-right:hover {
+    cursor: pointer; }
+  .icon-pull-right:focus {
+    outline: 0; }
+
+.icon-button {
+  padding: 3px 5px 5px 0; }
+
+form md-input-container {
+  width: 100%; }
+  form md-input-container .title {
+    font-size: 24px; }
+  form md-input-container textarea {
     width: 100%; }
-    form md-input-container .title {
-      font-size: 24px; }
-    form md-input-container textarea {
-      width: 100%; }
 
 table {
   width: 100%;
@@ -383,6 +423,41 @@ md-bottom-sheet md-icon {
 canvas {
   width: 100%;
   height: 100%; }
+
+.material-icons:focus {
+  outline: 0; }
+
+p.course-description {
+  font-size: 14px;
+  margin: 10px 0;
+  display: block; }
+
+p.empty-list {
+  padding: 6px 16px 16px 16px;
+  margin: 0;
+  text-transform: uppercase; }
+
+h3 {
+  font-weight: normal;
+  font-size: 18px; }
+
+.horizontal-list {
+  width: 100%;
+  height: 110px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap; }
+
+.horizontal-list-item {
+  width: 120px;
+  height: 90px;
+  min-width: 120px;
+  display: inline-block;
+  vertical-align: middle;
+  white-space: normal;
+  margin: 0 5px;
+  padding: 0;
+  line-height: 20px; }
 
 /**
  * For the correct positioning of the placeholder element, the dnd-list and

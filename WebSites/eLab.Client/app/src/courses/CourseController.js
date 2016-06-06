@@ -3,26 +3,41 @@
     angular
         .module('courses')
         .controller('CourseController', [
-            '$scope', 'courseService', '$routeParams', '$filter',
+            '$scope', 'courseService', '$routeParams', '$filter', '$timeout', '$q', '$http', 'API_PATH',
             CourseController
         ]);
 
-    function CourseController($scope, courseService, $routeParams, $filter) {
+    function CourseController($scope, courseService, $routeParams, $filter, $timeout, $q, $http, API_PATH) {
         var self = this;
 
+        self.new = {'name': '', 'description': '', 'closed' :false};
         self.selected = null;
         self.courses = [ ];
+
         self.selectCourse = selectCourse;
         self.goToCourse = goToCourse;
-        self.editCourse = editCourse;
+        
+        self.goToUpdateCourse = goToUpdateCourse;
+        self.updateCourse = updateCourse;
+
+        self.goToCreateCourse = goToCreateCourse;
+        self.createCourse = createCourse;
+        
+        self.deleteCourse = deleteCourse;
+        
         self.startClass = startClass;
+        self.createTopic = createTopic;
         self.reloadTrianglify = reloadTrianglify;
 
         courseService.loadAllCourses()
             .then( function(courses) {
                 self.courses = [].concat(courses);
                 self.selected = $filter('filter')(self.courses, {id: $routeParams.courseId})[0];
-            });
+            }).then( function(){
+            $timeout(function () {
+                self.reloadTrianglify();
+            })
+        });
 
         function selectCourse(course){
             self.selected = course;
@@ -33,14 +48,63 @@
             window.location = "#/courses/"+self.selected.id;
         }
 
-        function editCourse(course){
+        function goToUpdateCourse(course){
             self.selectCourse(course);
             window.location = "#/courses/"+self.selected.id+'/edit';
         }
+
+        function updateCourse(){
+            var def = $q.defer();
+
+            $http.put(API_PATH + 'courses/' + self.selected.id, self.selected)
+                .success(function(data) {
+                    window.location = "#/courses/";
+                })
+                .error(function() {
+                    def.reject("Failed to update course");
+                });
+            return def.promise;
+        }
+
+        function deleteCourse(course){
+            var def = $q.defer();
+
+            $http.delete(API_PATH + 'courses/' + course.id)
+                .success(function(data) {
+                    window.location = "#/courses/";
+                })
+                .error(function() {
+                    def.reject("Failed to delete course");
+                });
+            return def.promise;
+        }
+
+        function goToCreateCourse(){
+            window.location = "#/courses/add";
+        }
+        
+        function createCourse(){
+            var def = $q.defer();
+
+            $http.post(API_PATH + 'courses', self.new)
+                .success(function(data) {
+                    window.location = "#/courses/";
+                })
+                .error(function() {
+                    def.reject("Failed to create course");
+                });
+            return def.promise;
+        }
+
         function startClass(topic_id, event){
             // TODO change hardcoded class ID
             window.location = "#/classes/1";
         }
+
+        function createTopic(course){
+            window.location = '#/topics/add';
+        }
+
         function reloadTrianglify(course){
             var pattern;
             var dimensions;
@@ -81,9 +145,6 @@
                 }
             }
         }
-        angular.element(document).ready(function(){
-            self.reloadTrianglify();
-        });
 
         $scope.$on('toggleChatWindow', function() {
             // TODO fix event sequence

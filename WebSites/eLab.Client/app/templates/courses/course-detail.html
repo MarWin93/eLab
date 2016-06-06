@@ -1,11 +1,46 @@
 <md-card>
     <div class="card-cover" id="cover-{{cc.selected.id}}"></div>
     <md-card-title>
-        <md-card-title-text>
+        <md-card-title-text layout="row"  layout-align="space-between center">
             <span class="md-headline">{{cc.selected.name}}</span>
+            <md-menu md-position-mode="target-right target">
+                <md-button class="md-icon-button to-right"
+                           ng-click="$mdOpenMenu($event)">
+                    <md-icon class="material-icons">more_horiz</md-icon>
+                </md-button>
+                <md-menu-content width="3">
+                    <p class="md-menu-header">Tematyka:</p>
+                    <md-menu-item>
+                        <md-button ng-click="cc.goToUpdateCourse(cc.selected)">
+                            <div layout="row" flex="">
+                                <md-icon class="md-icom">edit_mode</md-icon>
+                                <p flex="">edytuj</p>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="cc.deleteCourse(cc.selected)">
+                            <div layout="row" flex="">
+                                <md-icon class="md-icom">delete</md-icon>
+                                <p flex="">usuń</p>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="cc.goToCreateCourse()">
+                            <div layout="row" flex="">
+                                <md-icon class="md-icom">add</md-icon>
+                                <p flex="">dodaj</p>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
         </md-card-title-text>
     </md-card-title>
     <md-card-content>
+        <p class="course-description">{{cc.selected.description}}</p>
+
         <md-subheader class="md-no-sticky">Warsztaty:</md-subheader>
         <md-list>
             <md-list-item
@@ -18,13 +53,24 @@
                     <h3>{{topic.name}}</h3>
                     <p>{{topic.description}}</p>
                 </div>
-                <md-icon
-                        class="material-icons list-icon-big"
-                        ng-click="cc.startClass(topic.id, $event)">
-                    <md-tooltip md-direction="top">Rozpocznij warsztat</md-tooltip>
-                    play_arrow </md-icon>
+                <md-button class="md-icon-button to-right" ng-click="">
+                    <md-icon class="material-icons">
+                        <md-tooltip md-direction="top">edytuj warsztat</md-tooltip>mode_edit
+                    </md-icon>
+                </md-button>
+                <md-button class="md-icon-button to-right button-list" ng-click="cc.startClass(topic.id, $event)">
+                    <md-icon class="material-icons" style="font-size: 32px; margin-top: -6px">
+                        <md-tooltip md-direction="top">Rozpocznij warsztat</md-tooltip>play_arrow
+                    </md-icon>
+                </md-button>
             </md-list-item>
         </md-list>
+        <p class="empty-list" ng-if="cc.selected.topics.length == 0">brak warsztatów</p>
+        <div layout="row" layout-align="end center">
+            <md-button ng-click="cc.createTopic(cc.selected)" class="md-primary add-button">
+                <md-icon class="material-icons icon-button">add</md-icon>dodaj warsztat
+            </md-button>
+        </div>
         <md-divider class="divider-padded"></md-divider>
         <md-subheader class="list-header">Do pobrania:</md-subheader>
 
@@ -37,9 +83,12 @@
                 <p>{{file.name}}<span class="download-size">({{file.size}} KB)</span></p>
             </md-list-item>
         </md-list>
-        <md-divider class="divider-padded"></md-divider>
-        <md-button>Dodaj nowy warsztat</md-button>
-        <md-button ng-click="cc.editCourse(cc.selected)">Edytuj kurs</md-button>
+        <p class="empty-list" ng-if="!cc.selected.files.length">brak plików</p>
+        <div layout="row" layout-align="end center">
+            <md-button ng-click="" class="md-primary add-button">
+                <md-icon class="material-icons icon-button">add</md-icon>dodaj pliki
+            </md-button>
+        </div>
     </md-card-content>
 
 </md-card>

@@ -1,14 +1,76 @@
-
 <md-card>
-    <md-card-title>
-        <h1>Edycja lekcji</h1>
-    </md-card-title>
-    <md-card-content>
-        formularz
-        <ul>
-            <li>Temat</li>
-            <li>Dodawanie materiałów</li>
-            <li>...</li>
-        </ul>
-    </md-card-content>
+    <form>
+        <md-card-content id="popupContainer">
+            <div layout="row">
+                <md-input-container class="ng-pristine ng-valid md-input ng-touched" flex-gt-sm>
+                    <label>Nazwa warsztatu</label>
+                    <input ng-model="cc.name" class="title"/>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container class="md-block">
+                    <label>Opis</label>
+                    <textarea ng-model="cc.description" md-maxlength="500" rows="5" md-select-on-focus></textarea>
+                </md-input-container>
+            </div>
+            <md-input-container>
+                <label>Wybór tematyki</label>
+                <small>pobieranie listy tematyk</small>
+                <md-select ng-model="cc.globalCourses">
+                    <md-option ng-repeat="course in cc.courses" value="{{courses.text}}" ng-disabled="$index === 1">
+                        {{courses.text}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm >
+                    <label>Hasło dostępu</label>
+                    <input ng-model="cc.password" md-maxlength="20"/>
+                </md-input-container>
+            </div>
+
+            <!--			<div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm >
+                                <label>Data rozpoczecia warsztatu</label>
+                                <input ng-model="cc.startdate"/>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm >
+                                <label>Długosc warsztatu</label>
+                                <input ng-model="cc.duration"/>
+                            </md-input-container>
+                        </div>-->
+
+            <md-divider class="divider-padded"></md-divider>
+            <div layout="row">
+                <md-card-title-text>
+                    <span class="md-headline">Dołączone pliki</span>
+                </md-card-title-text>
+            </div>
+            <div layout="row">
+                <md-button ng-click="">Dodaj plik</md-button>
+            </div>
+            <div layout="row">
+                <table>
+                    <tr>
+                        <td>Nazwa pliku</td>
+                        <td>Rozmiar pliku</td>
+                        <td>Edycja</td>
+                    </tr>-
+                    <tr ng-repeat="file in cc.files">
+                        <td>{{file.name}}</td>
+                        <td>{{file.size}}</td>
+                        <td>
+                            <md-icon class="material-icons">delete</md-icon>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </md-card-content>
+        <md-card-footer>
+            <md-divider class="divider-padded"></md-divider>
+            <a href="#/classes" class='pull-right'>
+                <md-icon class="material-icons">done</md-icon>
+            </a>
+            <!--<md-button ng-click="cc.editClass(cc.selected)">Zapisz</md-button>-->
+    </form>
 </md-card>

@@ -16,6 +16,7 @@ namespace eWarsztaty.Web.Models.JsonModels
         public string Name { get; set; }
         public string Description { get; set; }
         public bool Selected { get; set; }
+        public bool Closed { get; set; }
 
         public ICollection<GroupsJson> Groups { get; set; }
     }

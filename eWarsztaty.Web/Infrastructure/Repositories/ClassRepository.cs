@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using eWarsztaty.Web.Helpers;
 
 namespace eWarsztaty.Web.Infrastructure.Repositories
 {
@@ -24,6 +25,13 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
             var classdb = _db.Classes.Include("Groups").FirstOrDefault(x => x.Id == id);
             var classesJson = Mapper.Map<Class, ClassJson>(classdb);
             return classesJson;
+        }
+
+        public void CloseCourse(int classId)
+        {
+            var classDb = _db.Classes.FirstOrDefault(x => x.Id == classId);
+            classDb.Status = (int)eWarsztatyEnums.ClassStatus.Closed;
+            _db.SaveChanges();
         }
     }
 }
