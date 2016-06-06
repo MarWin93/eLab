@@ -1,10 +1,6 @@
 ﻿using eWarsztaty.Web.Infrastructure.Repositories;
 using eWarsztaty.Web.Models.JsonModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace eWarsztaty.Web.Controllers
@@ -43,10 +39,10 @@ namespace eWarsztaty.Web.Controllers
         }
 
         // PUT api/groups/5
-        public IHttpActionResult Put(int id, [FromBody]GroupsJson course)
+        public IHttpActionResult Put(int id, [FromBody]GroupsJson group)
         {
             var groupRepository = new GroupRepository();
-            groupRepository.SaveCourse(id, course);
+            groupRepository.SaveGroup(id, group);
             return Ok();
         }
 
@@ -54,7 +50,7 @@ namespace eWarsztaty.Web.Controllers
         public void Delete(int id)
         {
             var groupRepository = new GroupRepository();
-            groupRepository.DeleteCourse(id);
+            groupRepository.DeleteGroup(id);
         }
     }
 }

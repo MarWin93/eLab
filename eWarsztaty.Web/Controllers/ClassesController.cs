@@ -1,12 +1,7 @@
 ﻿using eWarsztaty.Web.Infrastructure.Repositories;
 using eWarsztaty.Web.Models.JsonModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using eWarsztaty.Web.Infrastructure.Repositories;
 
 namespace eWarsztaty.Web.Controllers
 {
@@ -24,6 +19,7 @@ namespace eWarsztaty.Web.Controllers
         {
             if (id > 0)
             {
+
                 var classRepository = new ClassRepository();
                 return classRepository.GetClassById(id);
             }
@@ -35,18 +31,27 @@ namespace eWarsztaty.Web.Controllers
         }
 
         // POST api/classes
-        public void Post([FromBody]string value)
+        public IHttpActionResult Post([FromBody]ClassJson classJson)
         {
+            var classRepository = new ClassRepository();
+            classRepository.SaveClass(classJson);
+            return Ok();
         }
 
         // PUT api/classes/5
-        public void Put(int id, [FromBody]string value)
+        public IHttpActionResult Put(int id, [FromBody]ClassJson classJson)
         {
+            var classRepository = new ClassRepository();
+            classRepository.SaveClass(id, classJson);
+            return Ok();
         }
 
         // DELETE api/classes/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            var classRepository = new ClassRepository();
+            classRepository.DeleteClass(id);
+            return Ok();
         }
 
         [Route("api/classes/{id}/close")]

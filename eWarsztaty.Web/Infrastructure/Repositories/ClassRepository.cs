@@ -22,9 +22,31 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
 
         public ClassJson GetClassById(int id)
         {
-            var classdb = _db.Classes.Include("Groups").FirstOrDefault(x => x.Id == id);
-            var classesJson = Mapper.Map<Class, ClassJson>(classdb);
-            return classesJson;
+            var classDb = _db.Classes.Include("Groups").FirstOrDefault(x => x.Id == id);
+            var classJson = Mapper.Map<Class, ClassJson>(classDb);
+            return classJson;
+        }
+
+        public void SaveClass(ClassJson classJson)
+        {
+            var classDb = Mapper.Map<ClassJson, Class>(classJson);
+            _db.Classes.Add(classDb);
+            _db.SaveChanges();
+        }
+
+        public void SaveClass(int classId, ClassJson classJson)
+        {
+            var classDb = _db.Classes.FirstOrDefault(x => x.Id == classId);
+            classDb.Name = classJson.Name;
+            classDb.Description = classJson.Description;
+            _db.SaveChanges();
+        }
+
+        public void DeleteClass(int classId)
+        {
+            var classDb = _db.Classes.FirstOrDefault(x => x.Id == classId);
+            _db.Classes.Remove(classDb);
+            _db.SaveChanges();
         }
 
         public void CloseCourse(int classId)

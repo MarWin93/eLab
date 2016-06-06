@@ -21,30 +21,29 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
 
         public GroupsJson GetGroupById(int id)
         {
-            var course = _db.Groups.Include("Topics").Include("Prowadzacy").FirstOrDefault(x => x.Id == id);
-            var coursesJson = Mapper.Map<Course, CoursesJson>(course);
-            return coursesJson;
+            var group = _db.Groups.Include("Topics").Include("Prowadzacy").FirstOrDefault(x => x.Id == id);
+            var groupJson = Mapper.Map<Group, GroupsJson>(group);
+            return groupJson;
         }
 
-        public void SaveCourse(CoursesJson course)
+        public void SaveGroup(GroupsJson group)
         {
-            var courseDb = Mapper.Map<CoursesJson, Course>(course);
-            _db.Courses.Add(courseDb);
+            var groupDb = Mapper.Map<GroupsJson, Group>(group);
+            _db.Groups.Add(groupDb);
             _db.SaveChanges();
         }
 
-        public void SaveCourse(int courseId, CoursesJson course)
+        public void SaveGroup(int groupId, GroupsJson group)
         {
-            var courseDb = _db.Courses.FirstOrDefault(x => x.Id == courseId);
-            courseDb.Name = course.Name;
-            courseDb.Description = course.Description;
+            var groupDb = _db.Groups.FirstOrDefault(x => x.Id == groupId);
+            groupDb.Name = group.Name;
             _db.SaveChanges();
         }
 
-        public void DeleteCourse(int courseId)
+        public void DeleteGroup(int groupId)
         {
-            var courseDb = _db.Courses.FirstOrDefault(x => x.Id == courseId);
-            _db.Courses.Remove(courseDb);
+            var groupDb = _db.Groups.FirstOrDefault(x => x.Id == groupId);
+            _db.Groups.Remove(groupDb);
             _db.SaveChanges();
         }
     }

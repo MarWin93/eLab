@@ -164,10 +164,15 @@
 
             context.Topics.AddOrUpdate(d => d.Id, new Topic() { Name = "Wprowadzenie do nierelacyjnych baz danych", Description = "krótki opis danej lekcji", Status = 0, CourseId = 1 },
                 new Topic() { Name = "Zapoznanie z narzędziami oraz środowiskiem", Description = "krótki opis danej lekcji", Status = 0, CourseId = 1 });
-
             context.SaveChanges();
 
+            context.Classes.AddOrUpdate(d => d.Id, new Class() { Name = "Lekcja1", Description = "krótki opis Lekcja1", Status = 0, TopicId = 1},
+                new Class() { Name = "Lekcja2", Description = "krótki opis Lekcja2", Status = 0, TopicId = 1});
 
+            context.Groups.AddOrUpdate(d => d.Id, new Group() { Name = "Grupa1", ClassId = 1},
+                new Group() { Name = "Grupa1", ClassId = 2 });
+
+            context.SaveChanges();
         }
     }
 }

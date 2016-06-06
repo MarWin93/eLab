@@ -32,7 +32,7 @@ namespace eWarsztaty.Domain
                 this.HasOptional(t => t.Course)
                     .WithMany(t => t.Topics)
                     .HasForeignKey(d => d.CourseId)
-                    .WillCascadeOnDelete(false);
+                    .WillCascadeOnDelete(true);
             }
         }
         #endregion
