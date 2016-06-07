@@ -20,7 +20,7 @@ eLabApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
         // home page
-            // last added courses and classes
+            // last added courses and topics
         when('/', {
             templateUrl: 'templates/home.html',
             controller: 'CourseController',
@@ -57,64 +57,42 @@ eLabApp.config(['$routeProvider',
         //    controller: 'CourseController'
         //}).
         
-        // classes
-            // add new class
-        when('/classes/add', {
-            templateUrl: 'templates/classes/class-edit.html',
-            controller: 'ClassController',
-            controllerAs: 'clc'
+        // topics
+            // add new topic
+        when('/topics/add', {
+            templateUrl: 'templates/topics/topic-edit.html',
+            controller: 'TopicController',
+            controllerAs: 'tc'
         }).
             // drafts, archives
-        when('/classes', {
-            templateUrl: 'templates/classes/class-list.html',
-            controller: 'ClassController',
-            controllerAs: 'clc'
+        when('/topics', {
+            templateUrl: 'templates/topics/topic-list.html',
+            controller: 'TopicController',
+            controllerAs: 'tc'
         }).
-            // classes
-        when('/classes/:classId', {
-            templateUrl: 'templates/classes/class-detail.html',
+            // topics details
+        when('/topics/:topicId', {
+            templateUrl: 'templates/topics/topic-detail.html',
             controller: 'ClassController',
-            controllerAs: 'clc'
+            controllerAs: 'tc'
         }).
             // edit
-        when('/classes/:classId/edit', {
-            templateUrl: 'templates/classes/class-edit.html',
-            controller: 'ClassController',
-            controllerAs: 'clc'
+        when('/topics/:topicId/edit', {
+            templateUrl: 'templates/topics/topic-edit.html',
+            controller: 'TopicController',
+            controllerAs: 'tc'
         }).
             // screens preview
-        when('/classes/:classId/screens', {
+        when('/topics/:topicId/screens', {
             templateUrl: 'templates/screens/screen-list.html',
             controller: 'ScreensController',
             controllerAs: 'sc'
         }).
             // one screen live preview
-        when('/classes/:classId/screens/:computerId', {
+        when('/topics/:topicId/screens/:computerId', {
             templateUrl: 'templates/screens/screen-detail.html',
             controller: 'ScreensController',
             controllerAs: 'sc'
-        }).
-            // add test to class - optional
-        //when('/classes/:classId/tests/add', {
-        //    templateUrl: 'templates/courses/course-certificate.html',
-        //    controller: 'CourseController'
-        //}).
-            // edit test - optional
-        //when('/classes/:classId/tests/:testId', {
-        //    templateUrl: 'templates/courses/course-certificate.html',
-        //    controller: 'CourseController'
-        //}).
-        // groups
-            // show groups, add new, edit, add student to group
-        // when('/classes/:classId/groups/', {
-        //     templateUrl: 'templates/groups/group-edit.html',
-        //     controller: 'GroupController',
-        //     controllerAs: 'gc'
-        // }).
-        when('/topics/add', {
-            templateUrl: 'templates/topics/topic-add.html',
-            controller: 'TopicController',
-            controllerAs: 'tc'
         }).
         // other
             // settings

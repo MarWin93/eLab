@@ -1,0 +1,75 @@
+
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">Lista warsztatów</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <div layout="row" layout-align="end center">
+            <md-button ng-click="tc.navigation.addTopic(cc.selected)" class="md-primary add-button">
+                <md-icon class="material-icons icon-button">add</md-icon>dodaj warsztat
+            </md-button>
+        </div>
+        <md-divider class="divider-padded"></md-divider>
+        <md-subheader class="md-no-sticky">Planowane warsztaty:</md-subheader>
+        <md-list>
+            <md-list-item class="md-2-line"
+                          ng-repeat="topic in tc.topics"
+                          ng-click="tc.goToTopic(topic.id)">
+                <img ng-src="assets/img/avatar-1.gif" class="md-avatar" alt="{{item}}">
+                <div class="md-list-item-text">
+                    <h3>{{topic.name}}</h3>
+                    <p>{{topic.description}}</p>
+                </div>
+                <md-button class="md-icon-button to-right" ng-click="tc.navigation.editTopic(topic.id)">
+                    <md-icon class="material-icons">
+                        <md-tooltip md-direction="top">edytuj warsztat</md-tooltip>mode_edit
+                    </md-icon>
+                </md-button>
+                <md-button class="md-icon-button to-right" ng-click="tc.deleteTopic(topic.id)">
+                    <md-icon class="material-icons">
+                        <md-tooltip md-direction="top">Usuń warsztat</md-tooltip>
+                        delete
+                    </md-icon>
+                </md-button>
+                <md-button class="md-icon-button to-right button-list" ng-click="tc.navigation.startTopic(topic.id)">
+                    <md-icon class="material-icons" style="font-size: 32px; margin-top: -6px">
+                        <md-tooltip md-direction="top">Rozpocznij warsztat</md-tooltip>play_arrow
+                    </md-icon>
+                </md-button>
+            </md-list-item>
+        </md-list>
+    </md-card-content>
+    <md-divider class="divider-padded"></md-divider>
+    <md-card-content>
+        <md-subheader class="md-no-sticky">Archiwalne warsztaty:</md-subheader>
+        <md-list>
+            <md-list-item class="md-2-line"
+                          ng-repeat="topic in tc.topics"
+                          ng-click="tc.goToTopic(topic.id)">
+                <img ng-src="assets/img/avatar-1.gif" class="md-avatar" alt="{{item}}">
+                <div class="md-list-item-text">
+                    <h3>{{topic.name}}</h3>
+                    <p>{{topic.description}}</p>
+                </div>
+                <md-button class="md-icon-button to-right" ng-click="tc.navigation.editTopic(topic.id)">
+                    <md-icon class="material-icons">
+                        <md-tooltip md-direction="top">edytuj warsztat</md-tooltip>mode_edit
+                    </md-icon>
+                </md-button>
+                <md-button class="md-icon-button to-right" ng-click="tc.deleteTopic(topic.id)">
+                    <md-icon class="material-icons">
+                        <md-tooltip md-direction="top">Usuń warsztat</md-tooltip>
+                        delete
+                    </md-icon>
+                </md-button>
+                <md-button class="md-icon-button to-right button-list" ng-click="tc.navigation.startTopic(topic.id)">
+                    <md-icon class="material-icons" style="font-size: 32px; margin-top: -6px">
+                        <md-tooltip md-direction="top">Rozpocznij warsztat</md-tooltip>play_arrow
+                    </md-icon>
+                </md-button>
+            </md-list-item>
+        </md-list>
+    </md-card-content>
+</md-card>

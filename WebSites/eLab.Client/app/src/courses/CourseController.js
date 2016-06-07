@@ -3,31 +3,17 @@
     angular
         .module('courses')
         .controller('CourseController', [
-            '$scope', 'courseService', '$routeParams', '$filter', '$timeout', '$q', '$http', 'API_PATH',
+            '$scope', 'courseService', '$routeParams', '$filter', '$timeout', '$q', '$http', 'API_PATH', 'topicService',
             CourseController
         ]);
 
-    function CourseController($scope, courseService, $routeParams, $filter, $timeout, $q, $http, API_PATH) {
+    function CourseController($scope, courseService, $routeParams, $filter, $timeout, $q, $http, API_PATH, topicService) {
         var self = this;
 
         self.new = {'name': '', 'description': '', 'closed' :false};
         self.selected = null;
-        self.courses = [ ];
-
-        self.selectCourse = selectCourse;
-        self.goToCourse = goToCourse;
-        
-        self.goToUpdateCourse = goToUpdateCourse;
-        self.updateCourse = updateCourse;
-
-        self.goToCreateCourse = goToCreateCourse;
-        self.createCourse = createCourse;
-        
-        self.deleteCourse = deleteCourse;
-        
-        self.startClass = startClass;
-        self.createTopic = createTopic;
-        self.reloadTrianglify = reloadTrianglify;
+        self.courses = [];
+        self.topicsNavigation = topicService.navigation;
 
         courseService.loadAllCourses()
             .then( function(courses) {
@@ -39,21 +25,21 @@
             })
         });
 
-        function selectCourse(course){
+        this.selectCourse = function (course) {
             self.selected = course;
         }
 
-        function goToCourse(course){
+        this.goToCourse = function (course) {
             self.selectCourse(course);
             window.location = "#/courses/"+self.selected.id;
         }
 
-        function goToUpdateCourse(course){
+        this.goToUpdateCourse = function (course){
             self.selectCourse(course);
             window.location = "#/courses/"+self.selected.id+'/edit';
         }
 
-        function updateCourse(){
+        this.updateCourse = function (){
             var def = $q.defer();
 
             $http.put(API_PATH + 'courses/' + self.selected.id, self.selected)
@@ -66,7 +52,7 @@
             return def.promise;
         }
 
-        function deleteCourse(course){
+        this.deleteCourse = function (course){
             var def = $q.defer();
 
             $http.delete(API_PATH + 'courses/' + course.id)
@@ -79,11 +65,11 @@
             return def.promise;
         }
 
-        function goToCreateCourse(){
+        this.goToCreateCourse = function (){
             window.location = "#/courses/add";
         }
         
-        function createCourse(){
+        this.createCourse = function (){
             var def = $q.defer();
 
             $http.post(API_PATH + 'courses', self.new)
@@ -96,16 +82,22 @@
             return def.promise;
         }
 
-        function startClass(topic_id, event){
-            // TODO change hardcoded class ID
-            window.location = "#/classes/1";
-        }
+        //this.startTopic = function (class_id, event) {
+        //    // TODO change hardcoded class ID
+        //    window.location = "#/topics/1";
+        //}
 
-        function createTopic(course){
-            window.location = '#/topics/add';
-        }
+        //this.editTopic = function (class_id, event) {
+        //    console.log('siema');
+        //    window.location = "#/topics/" + class_id + "/edit";
+        //}
 
-        function reloadTrianglify(course){
+        // TODO delete it if unnecessary
+        //this.createTopic = function (course){
+        //    window.location = '#/topics/add';
+        //}
+
+        this.reloadTrianglify = function (course) {
             var pattern;
             var dimensions;
             var cover;

@@ -4,41 +4,41 @@
             <div layout="row">
                 <md-input-container class="ng-pristine ng-valid md-input ng-touched" flex-gt-sm>
                     <label>Nazwa warsztatu</label>
-                    <input ng-model="clc.name" class="title"/>
+                    <input ng-model="tc.selected.name" class="title" />
                 </md-input-container>
             </div>
             <div layout="row">
                 <md-input-container class="md-block">
                     <label>Opis</label>
-                    <textarea ng-model="clc.description" md-maxlength="500" rows="5" md-select-on-focus></textarea>
+                    <textarea ng-model="tc.selected.description" md-maxlength="500" rows="5" md-select-on-focus></textarea>
                 </md-input-container>
             </div>
             <md-input-container>
                 <label>Wybór tematyki</label>
                 <small>pobieranie listy tematyk</small>
-                <md-select ng-model="cc.globalCourses">
-                    <md-option ng-repeat="course in clc.courses" value="{{courses.text}}" ng-disabled="$index === 1">
+                <md-select ng-model="cc.courses">
+                    <md-option ng-repeat="course in cc.courses" value="{{courses.text}}" ng-disabled="$index === 1">
                         {{courses.text}}
                     </md-option>
                 </md-select>
             </md-input-container>
             <div layout-gt-sm="row">
-                <md-input-container class="md-block" flex-gt-sm >
+                <md-input-container class="md-block" flex-gt-sm>
                     <label>Hasło dostępu</label>
-                    <input ng-model="clc.password" md-maxlength="20"/>
+                    <input ng-model="tc.selected.password" md-maxlength="20" />
                 </md-input-container>
             </div>
 
             <!--			<div layout-gt-sm="row">
-                            <md-input-container class="md-block" flex-gt-sm >
-                                <label>Data rozpoczecia warsztatu</label>
-                                <input ng-model="cc.startdate"/>
-                            </md-input-container>
-                            <md-input-container class="md-block" flex-gt-sm >
-                                <label>Długosc warsztatu</label>
-                                <input ng-model="cc.duration"/>
-                            </md-input-container>
-                        </div>-->
+                        <md-input-container class="md-block" flex-gt-sm >
+                            <label>Data rozpoczecia warsztatu</label>
+                            <input ng-model="cc.startdate"/>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm >
+                            <label>Długosc warsztatu</label>
+                            <input ng-model="cc.duration"/>
+                        </md-input-container>
+                    </div>-->
 
             <md-divider class="divider-padded"></md-divider>
             <div layout="row">
@@ -47,16 +47,13 @@
                 </md-card-title-text>
             </div>
             <div layout="row">
-                <md-button ng-click="">Dodaj plik</md-button>
-            </div>
-            <div layout="row">
                 <table>
                     <tr>
                         <td>Nazwa pliku</td>
                         <td>Rozmiar pliku</td>
                         <td>Edycja</td>
                     </tr>-
-                    <tr ng-repeat="file in clc.files">
+                    <tr ng-repeat="file in tc.selected.files">
                         <td>{{file.name}}</td>
                         <td>{{file.size}}</td>
                         <td>
@@ -65,12 +62,20 @@
                     </tr>
                 </table>
             </div>
-        </md-card-content>
-        <md-card-footer>
+
+            <div layout="row" layout-align="end center">
+                <md-button class="md-primary add-button">
+                    <md-icon class="material-icons icon-button">add</md-icon>dodaj pliki
+                </md-button>
+            </div>
+
             <md-divider class="divider-padded"></md-divider>
-            <a href="#/classes" class='pull-right'>
-                <md-icon class="material-icons">done</md-icon>
-            </a>
+            <div layout="row" layout-align="end center">
+                <md-button ng-click="tc.updateTopic()" class="md-primary add-button">
+                    <md-icon class="material-icons icon-button">edit_mode</md-icon>Zapisz zmiany
+                </md-button>
+            </div>
             <!--<md-button ng-click="cc.editClass(cc.selected)">Zapisz</md-button>-->
+        </md-card-content>
     </form>
 </md-card>
