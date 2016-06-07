@@ -125,6 +125,9 @@ eLabApp.config(['$routeProvider',
         when('/help', {
             templateUrl: 'templates/help.html'
         }).
+        when('/login', {
+            templateUrl: 'templates/login.html'
+        }).
         otherwise({
             redirectTo: '/'
         });
