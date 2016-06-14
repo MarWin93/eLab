@@ -3,11 +3,11 @@
     angular
         .module('elab')
         .controller('ElabController', [
-            '$scope', 'elabService', '$mdSidenav', '$timeout',
+            '$scope', '$rootScope', 'elabService', '$mdSidenav', '$timeout',
             ElabController
         ]);
 
-    function ElabController($scope, elabService, $mdSidenav, $timeout) {
+    function ElabController($scope, $rootScope, elabService, $mdSidenav, $timeout) {
         var self = this;
         self.chat = true;
         self.selected = null;
@@ -25,18 +25,24 @@
         self.goToCourse = goToCourse;
         self.toggleChatWindow = toggleChatWindow;
         self.reloadTrianglify = reloadTrianglify;
-        
+
         self.login = login;
         self.logout = logout;
-        
-        elabService.loadAllCourses()
-            .then( function(courses) {
-                self.courses = [].concat(courses);
-                self.selected = courses[0];
-            }).then( function(){
-            $timeout(function () {
-                self.reloadTrianglify();
-            })
+    
+        function updateCourses() {
+            elabService.loadAllCourses()
+                .then(function (courses) {
+                    self.courses = [].concat(courses);
+                    self.selected = courses[0];
+                }).then(function () {
+                    $timeout(function () {
+                        self.reloadTrianglify();
+                    })
+                });
+        }
+        updateCourses();
+        $scope.$on('updateCourses', function () {
+            updateCourses();
         });
 
         function toggleSidenav() {

@@ -3,22 +3,29 @@
     angular
         .module('courses')
         .controller('CourseController', [
-            '$scope', 'courseService', '$routeParams', '$filter', '$timeout', '$q', '$http', 'API_PATH', 'topicService',
+            '$scope', '$rootScope', 'courseService', '$routeParams', '$filter', '$timeout', '$q', '$http', 'API_PATH', 'topicService',
             CourseController
         ]);
 
-    function CourseController($scope, courseService, $routeParams, $filter, $timeout, $q, $http, API_PATH, topicService) {
+    function CourseController($scope, $rootScope, courseService, $routeParams, $filter, $timeout, $q, $http, API_PATH, topicService) {
         var self = this;
 
         self.new = {'name': '', 'description': '', 'closed' :false};
         self.selected = null;
         self.courses = [];
         self.topicsNavigation = topicService.navigation;
+        var selected_id = $routeParams.courseId;
+
+        if (selected_id) {
+            courseService.loadCourse(selected_id)
+                .then(function (course) {
+                    self.selected = course;
+                });
+        }
 
         courseService.loadAllCourses()
             .then( function(courses) {
                 self.courses = [].concat(courses);
-                self.selected = $filter('filter')(self.courses, {id: $routeParams.courseId})[0];
             }).then( function(){
             $timeout(function () {
                 self.reloadTrianglify();
@@ -39,16 +46,32 @@
             window.location = "#/courses/"+self.selected.id+'/edit';
         }
 
+        this.goToCreateCourse = function () {
+            window.location = "#/courses/add";
+        }
+
         this.updateCourse = function (){
             var def = $q.defer();
 
-            $http.put(API_PATH + 'courses/' + self.selected.id, self.selected)
-                .success(function(data) {
-                    window.location = "#/courses/";
-                })
-                .error(function() {
-                    def.reject("Failed to update course");
-                });
+            if (selected_id)
+                $http.put(API_PATH + 'courses/' + self.selected.id, self.selected)
+                    .success(function(data) {
+                        window.location = "#/courses/";
+                        $scope.$emit('updateCourses');
+                    })
+                    .error(function() {
+                        def.reject("Failed to update course");
+                    });
+            else
+                $http.post(API_PATH + 'courses', self.selected)
+                   .success(function (data) {
+                       window.location = "#/courses/";
+                       $scope.$emit('updateCourses');
+                   })
+                   .error(function () {
+                       def.reject("Failed to create course");
+                   });
+
             return def.promise;
         }
 
@@ -58,27 +81,12 @@
             $http.delete(API_PATH + 'courses/' + course.id)
                 .success(function(data) {
                     window.location = "#/courses/";
+                    $scope.$emit('updateCourses');
                 })
                 .error(function() {
                     def.reject("Failed to delete course");
                 });
-            return def.promise;
-        }
 
-        this.goToCreateCourse = function (){
-            window.location = "#/courses/add";
-        }
-        
-        this.createCourse = function (){
-            var def = $q.defer();
-
-            $http.post(API_PATH + 'courses', self.new)
-                .success(function(data) {
-                    window.location = "#/courses/";
-                })
-                .error(function() {
-                    def.reject("Failed to create course");
-                });
             return def.promise;
         }
 

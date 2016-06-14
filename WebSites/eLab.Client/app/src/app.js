@@ -35,7 +35,7 @@ eLabApp.config(['$routeProvider',
         }).
         // add new course
         when('/courses/add', {
-            templateUrl: 'templates/courses/course-add.html',
+            templateUrl: 'templates/courses/course-edit.html',
             controller: 'CourseController',
             controllerAs: 'cc'
         }).

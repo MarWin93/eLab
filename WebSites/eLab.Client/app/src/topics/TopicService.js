@@ -30,7 +30,7 @@
                         def.resolve(data);
                     })
                     .error(function () {
-                        def.reject("Failed to get topics");
+                        def.reject("Failed to get topic");
                     });
                 return def.promise;
             },
