@@ -13,7 +13,7 @@
         self.selected = null;
         self.courses = [ ];
 
-        self.username = null;
+        self.username = sessionStorage.getItem('userName');
         self.user_id = null;
         self.is_lecturer = null;
 
@@ -25,8 +25,10 @@
         self.goToCourse = goToCourse;
         self.toggleChatWindow = toggleChatWindow;
         self.reloadTrianglify = reloadTrianglify;
+        
         self.login = login;
-
+        self.logout = logout;
+        
         elabService.loadAllCourses()
             .then( function(courses) {
                 self.courses = [].concat(courses);
@@ -91,10 +93,18 @@
                 sessionStorage.setItem('userName', resp.data.userName);
                 sessionStorage.setItem('accessToken', resp.data.access_token);
                 sessionStorage.setItem('refreshToken', resp.data.refresh_token);
+                this.username = sessionStorage.getItem('userName');
+                window.location = "#";
             }, function (err) {
                 console.log('login failed!');
                 $scope.responseData="Error " + err.status;
             });
+        }
+        function logout(){
+            this.username = null;
+            sessionStorage.removeItem('userName');
+            sessionStorage.removeItem('accessToken');
+            window.location = "#";
         }
     }
 })();

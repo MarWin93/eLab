@@ -34,10 +34,15 @@
             <md-icon class="material-icons">menu</md-icon>
         </md-button>
         <a href="#/"><h1>eLab</h1></a>
-        <a>witaj {{elab.username}}!</a>
-        <md-button ng-click="elab.toggleChatWindow()" class="md-icon-button" style="margin-right: 16px">
-            <md-icon class="material-icons">chat</md-icon>
-        </md-button>
+        <div>
+            <a>witaj {{elab.username}}!</a>
+            <md-button ng-click="elab.logout()" class="md-icon-button" style="margin-right: 0">
+                <md-icon class="material-icons">account_circle</md-icon>
+            </md-button>
+            <md-button ng-click="elab.toggleChatWindow()" class="md-icon-button" style="margin-right: 16px">
+                <md-icon class="material-icons">chat</md-icon>
+            </md-button>
+        </div>
     </md-toolbar>
     <div flex layout="row">
 
