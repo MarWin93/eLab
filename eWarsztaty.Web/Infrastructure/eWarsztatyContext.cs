@@ -68,8 +68,9 @@ namespace eWarsztaty.Web.Infrastructure
 
         public Uzytkownik GetUser(string userName, string password)
         {
+            var encryptedPassword = CustomMembershipProvider.GetMd5Hash(password);
             var user = Uzytkownicy.FirstOrDefault(u => u.Login ==
-                           userName && u.Haslo == password);
+                           userName && u.Haslo == encryptedPassword);
             return user;
         }
 

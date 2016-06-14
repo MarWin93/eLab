@@ -92,7 +92,6 @@ namespace eWarsztaty.Web.App_Start
             Mapper.CreateMap<CoursesJson, Course>()
                 .ForMember(x => x.Topics, opt => opt.Ignore())
                 .ForMember(x => x.Prowadzacy, opt => opt.Ignore())
-                .ForMember(x => x.ProwadzacyId, opt => opt.Ignore())
                 .ForMember(x => x.Status, opt => opt.Ignore());
 
             Mapper.CreateMap<Uzytkownik, StudentJson>()

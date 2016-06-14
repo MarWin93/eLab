@@ -243,6 +243,7 @@
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\TOKENController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Controllers\UprawnieniaController.cs" />
     <Compile Include="Controllers\UzytkownicyController.cs" />
@@ -263,13 +264,16 @@
     <Compile Include="Infrastructure\Repositories\ClassRepository.cs" />
     <Compile Include="Infrastructure\Repositories\CourseRepository.cs" />
     <Compile Include="Infrastructure\Repositories\GroupRepository.cs" />
+    <Compile Include="Infrastructure\Repositories\TokenRepostiory.cs" />
     <Compile Include="Infrastructure\Repositories\TopicRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\JsonModels\ClassJson.cs" />
     <Compile Include="Models\JsonModels\CoursesJson.cs" />
     <Compile Include="Models\JsonModels\GroupsJson.cs" />
+    <Compile Include="Models\JsonModels\LoginCredentialsJson.cs" />
     <Compile Include="Models\JsonModels\StudentJson.cs" />
+    <Compile Include="Models\JsonModels\TokenJson.cs" />
     <Compile Include="Models\JsonModels\TopicsJson.cs" />
     <Compile Include="Models\ViewModels\AddRoleToUserView.cs" />
     <Compile Include="Models\ViewModels\CurrentRoleView.cs" />
