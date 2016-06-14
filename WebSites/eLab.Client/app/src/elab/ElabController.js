@@ -14,7 +14,7 @@
         self.courses = [ ];
 
         self.username = sessionStorage.getItem('userName');
-        self.user_id = null;
+        self.user_id = sessionStorage.getItem('userId');
         self.is_lecturer = null;
 
         self.login_username = null;
@@ -85,14 +85,16 @@
                 password: self.login_password
             };
             var promiselogin = elabService.login(userLogin);
-            promiselogin.then(function (resp) {
+            promiselogin.then(function (response) {
                 console.log('login successful!');
-                self.username = resp.data.userName;
+                console.log(response);
+                self.username = response.data.userName;
                 //Store the token information in the SessionStorage
                 //So that it can be accessed for other views
-                sessionStorage.setItem('userName', resp.data.userName);
-                sessionStorage.setItem('accessToken', resp.data.access_token);
-                sessionStorage.setItem('refreshToken', resp.data.refresh_token);
+                sessionStorage.setItem('userName', response.data.userName);
+                sessionStorage.setItem('userId', response.data.userId);
+                sessionStorage.setItem('accessToken', response.data.access_token);
+                sessionStorage.setItem('refreshToken', response.data.refresh_token);
                 this.username = sessionStorage.getItem('userName');
                 window.location = "#";
             }, function (err) {
@@ -102,6 +104,7 @@
         }
         function logout(){
             this.username = null;
+            this.user_id = null;
             sessionStorage.removeItem('userName');
             sessionStorage.removeItem('accessToken');
             window.location = "#";
