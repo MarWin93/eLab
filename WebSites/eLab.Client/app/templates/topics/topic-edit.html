@@ -15,12 +15,11 @@
             </div>
             <md-input-container>
                 <label>Wybór tematyki</label>
-                <small>pobieranie listy tematyk</small>
-                <md-select ng-model="cc.courses">
-                    <md-option ng-repeat="course in cc.courses" value="{{courses.text}}" ng-disabled="$index === 1">
-                        {{courses.text}}
-                    </md-option>
+                <md-select placeholder="Wybór tematyki" ng-model="tc.selected.course">
+                    <md-option ng-value="0">Brak tematyki</md-option>
+                    <md-option ng-value="course.id" ng-repeat="course in tc.courses">{{course.name}}</md-option>
                 </md-select>
+
             </md-input-container>
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>

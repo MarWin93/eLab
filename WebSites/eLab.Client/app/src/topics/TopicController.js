@@ -3,18 +3,24 @@
     angular
         .module('topics')
         .controller('TopicController', [
-            '$scope', 'topicService', '$routeParams', '$filter', '$timeout', '$q', '$http', 'API_PATH',
+            '$scope', 'topicService', '$routeParams', '$filter', '$timeout', '$q', '$http', 'API_PATH', 'courseService',
             TopicController
         ]);
 
-    function TopicController($scope, topicService, $routeParams, $filter, $timeout, $q, $http, API_PATH) {
+    function TopicController($scope, topicService, $routeParams, $filter, $timeout, $q, $http, API_PATH, courseService) {
         var self = this;
         //self.groups = [];
         self.topics = [];
+        self.courses = [];
         self.selected = null;
         self.group_count = null;
         self.navigation = topicService.navigation;
         var selected_id = $routeParams.topicId;
+
+        courseService.loadAllCourses()
+           .then(function (courses) {
+               self.courses = [].concat(courses);
+           });
         
         if (selected_id)
             topicService.loadTopic(selected_id)
@@ -52,6 +58,10 @@
 
         this.deleteTopic = function (selected_id) {
             var def = $q.defer();
+
+            if (!confirm('Czy na pewno chcesz usunąć warsztat?')) {
+                return;
+            }
 
             $http.delete(API_PATH + 'topics/' + selected_id, self.selected)
                 .success(function (data) {

@@ -20,6 +20,19 @@
                         def.reject("Failed to get courses");
                     });
                 return def.promise;
+            },
+            loadCourse: function (course_id) {
+                var def = $q.defer();
+
+                $http.get(API_PATH + 'courses/' + course_id)
+                    .success(function (data) {
+                        courses = data;
+                        def.resolve(data);
+                    })
+                    .error(function () {
+                        def.reject("Failed to get course");
+                    });
+                return def.promise;
             }
         };
     }
