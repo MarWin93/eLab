@@ -6,7 +6,7 @@
                 <md-card-title-text>
                     <span class="md-headline">{{course.name}}</span>
                 </md-card-title-text>
-                <md-menu md-position-mode="target-right target">
+                <md-menu md-position-mode="target-right target" ng-if="cc.canEdit(course)">
                     <md-button class="md-icon-button to-right"
                                ng-click="$mdOpenMenu($event)">
                         <md-icon class="material-icons">more_horiz</md-icon>

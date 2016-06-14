@@ -1,0 +1,24 @@
+<md-card>
+    <form>
+        <md-card-content>
+            <div layout="row">
+                <md-input-container class="ng-pristine ng-valid md-input ng-touched" flex-gt-sm>
+                    <label>Nazwa tematyki</label>
+                    <input ng-model="cc.new.name" class="title"/>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container class="md-block">
+                    <label>Opis</label>
+                    <textarea ng-model="cc.new.description" rows="5" md-select-on-focus></textarea>
+                </md-input-container>
+            </div>
+            <div layout="row" layout-align="end center">
+                <md-button ng-click="cc.createCourse()" class="md-primary md-raised"
+                           ng-disabled="!cc.new.name.length">
+                    <md-icon class="material-icons icon-button">add</md-icon>dodaj tematykę
+                </md-button>
+            </div>
+        </md-card-content>
+    </form>
+</md-card>

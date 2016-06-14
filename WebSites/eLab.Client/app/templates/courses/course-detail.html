@@ -10,7 +10,7 @@
                 </md-button>
                 <md-menu-content width="3">
                     <p class="md-menu-header">Tematyka:</p>
-                    <md-menu-item>
+                    <md-menu-item ng-if="cc.canEdit(cc.selected)">
                         <md-button ng-click="cc.goToUpdateCourse(cc.selected)">
                             <div layout="row" flex="">
                                 <md-icon class="md-icom">edit_mode</md-icon>
@@ -18,7 +18,7 @@
                             </div>
                         </md-button>
                     </md-menu-item>
-                    <md-menu-item>
+                    <md-menu-item ng-if="cc.canEdit(cc.selected)">
                         <md-button ng-click="cc.deleteCourse(cc.selected)">
                             <div layout="row" flex="">
                                 <md-icon class="md-icom">delete</md-icon>

@@ -94,14 +94,15 @@
             promiselogin.then(function (response) {
                 console.log('login successful!');
                 console.log(response);
-                self.username = response.data.userName;
                 //Store the token information in the SessionStorage
                 //So that it can be accessed for other views
-                sessionStorage.setItem('userName', response.data.userName);
-                sessionStorage.setItem('userId', response.data.userId);
+                console.log(response.data.username);
+                sessionStorage.setItem('userName', response.data.username);
+                sessionStorage.setItem('userId', response.data.id);
                 sessionStorage.setItem('accessToken', response.data.access_token);
                 sessionStorage.setItem('refreshToken', response.data.refresh_token);
-                this.username = sessionStorage.getItem('userName');
+                self.username = sessionStorage.getItem('userName');
+                self.user_id = sessionStorage.getItem('userId');
                 window.location = "#";
             }, function (err) {
                 console.log('login failed!');
@@ -109,8 +110,8 @@
             });
         }
         function logout(){
-            this.username = null;
-            this.user_id = null;
+            self.username = null;
+            self.user_id = null;
             sessionStorage.removeItem('userName');
             sessionStorage.removeItem('accessToken');
             window.location = "#";

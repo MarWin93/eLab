@@ -14,7 +14,7 @@
             'name': '',
             'description': '',
             'closed': false,
-            'prowadzacy_id': sessionStorage.getItem('userId')
+            'prowadzacyId': self.user_id = sessionStorage.getItem('userId')
         };
         self.selected = null;
         self.courses = [];
@@ -61,7 +61,6 @@
 
         this.updateCourse = function (){
             var def = $q.defer();
-
             if (selected_id)
                 $http.put(API_PATH + 'courses/' + self.selected.id, self.selected)
                     .success(function(data) {
@@ -84,6 +83,16 @@
             return def.promise;
         };
 
+        this.createCourse = function (){
+            $http.post(API_PATH + 'courses', self.new)
+                .success(function (data) {
+                    window.location = "#/courses/";
+                    $scope.$emit('updateCourses');
+                })
+                .error(function () {
+                    def.reject("Failed to create course");
+                });
+        };
         this.deleteCourse = function (course){
             var def = $q.defer();
 
@@ -99,6 +108,9 @@
             return def.promise;
         };
 
+        this.canEdit = function (course){
+            return course.prowadzacyId == sessionStorage.getItem('userId');
+        };
         //this.startTopic = function (class_id, event) {
         //    // TODO change hardcoded class ID
         //    window.location = "#/topics/1";
