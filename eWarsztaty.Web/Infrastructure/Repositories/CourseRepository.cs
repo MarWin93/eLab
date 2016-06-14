@@ -29,7 +29,6 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
         public void SaveCourse(CoursesJson course)
         {
             var courseDb = Mapper.Map<CoursesJson, Course>(course);
-            courseDb.ProwadzacyId = 1;
             _db.Courses.Add(courseDb);
             _db.SaveChanges();
         }

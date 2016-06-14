@@ -24,12 +24,11 @@
             },
             login : function(userlogin){
                 console.log(userlogin);
-                return $http({
-                    url: API_PATH + "TOKEN",
-                    method: "POST",
-                    data: {grant_type: 'password', username: userlogin.username, password: userlogin.password},
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                });
+
+                return $http.post(
+                    API_PATH + 'TOKEN',
+                    {grant_type: 'password', username: userlogin.username, password: userlogin.password}
+                )
             },
             register : function(userInfo){
                 return $http({

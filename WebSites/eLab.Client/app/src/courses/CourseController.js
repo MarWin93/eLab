@@ -10,7 +10,12 @@
     function CourseController($scope, $rootScope, courseService, $routeParams, $filter, $timeout, $q, $http, API_PATH, topicService) {
         var self = this;
 
-        self.new = {'name': '', 'description': '', 'closed' :false};
+        self.new = {
+            'name': '',
+            'description': '',
+            'closed': false,
+            'prowadzacy_id': sessionStorage.getItem('userId')
+        };
         self.selected = null;
         self.courses = [];
         self.topicsNavigation = topicService.navigation;
@@ -34,21 +39,25 @@
 
         this.selectCourse = function (course) {
             self.selected = course;
-        }
+        };
 
         this.goToCourse = function (course) {
             self.selectCourse(course);
             window.location = "#/courses/"+self.selected.id;
-        }
+        };
 
         this.goToUpdateCourse = function (course){
             self.selectCourse(course);
             window.location = "#/courses/"+self.selected.id+'/edit';
-        }
+        };
 
         this.goToCreateCourse = function () {
             window.location = "#/courses/add";
-        }
+        };
+
+        this.goToCreateCourse = function () {
+            window.location = "#/courses/add";
+        };
 
         this.updateCourse = function (){
             var def = $q.defer();
@@ -73,7 +82,7 @@
                    });
 
             return def.promise;
-        }
+        };
 
         this.deleteCourse = function (course){
             var def = $q.defer();
@@ -88,7 +97,7 @@
                 });
 
             return def.promise;
-        }
+        };
 
         //this.startTopic = function (class_id, event) {
         //    // TODO change hardcoded class ID
@@ -144,7 +153,7 @@
                     }
                 }
             }
-        }
+        };
 
         $scope.$on('toggleChatWindow', function() {
             // TODO fix event sequence
