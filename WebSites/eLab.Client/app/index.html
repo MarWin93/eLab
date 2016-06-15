@@ -1,13 +1,13 @@
 ﻿<!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
     <title>eLab</title>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
-    <meta name="theme-color" content="#009688" />
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#009688"/>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
 
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
     <link rel="stylesheet" href="../node_modules/angular-material/angular-material.css"/>
@@ -46,7 +46,8 @@
     </md-toolbar>
     <div flex layout="row">
 
-        <md-sidenav ng-click="elab.toggleSidenav()" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2">
+        <md-sidenav ng-click="elab.toggleSidenav()" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left"
+                    class="md-whiteframe-z2">
             <a href="#/" class="heading-link">
                 <h1 class="sidenav-heading sidenav-heading-first">
                     <md-icon aria-label="Menu" class="material-icons">home</md-icon>
@@ -62,7 +63,8 @@
             <md-list class="sidebar-menu">
                 <md-list-item ng-repeat="course in elab.courses">
                     <a href="#/courses/{{course.id}}">
-                        <md-button ng-click="elab.selectCourse(course)" ng-class="{'selected' : course === elab.selected }">
+                        <md-button ng-click="elab.selectCourse(course)"
+                                   ng-class="{'selected' : course === elab.selected }">
                             <md-icon id="icon-{{course.id}}"></md-icon>
                             {{course.name}}
                         </md-button>
@@ -96,7 +98,6 @@
         </md-content>
 
 
-
     </div>
 </section>
 <section ng-if="!elab.username" class="section-container">
@@ -107,37 +108,43 @@
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;
-            font-family: 'Roboto', sans-serif; }
+            font-family: 'Roboto', sans-serif;
+        }
 
         html, body, section {
             padding: 0;
             margin: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden; }
+            overflow: hidden;
+        }
 
         .section-container {
             display: flex;
             align-items: center;
-            justify-content: center; }
+            justify-content: center;
+        }
 
         .box {
             width: 340px;
-            height: 280px;
+            height: 290px;
             background-color: #f2f2f2;
             display: block;
             border-radius: 15px;
             -webkit-box-shadow: 0 0 48px 0 rgba(0, 0, 0, 0.57);
             -moz-box-shadow: 0 0 48px 0 rgba(0, 0, 0, 0.57);
             box-shadow: 0 0 48px 0 rgba(0, 0, 0, 0.57);
-            padding: 20px; }
+            padding: 20px;
+        }
 
         .row {
-            width: 100%; }
+            width: 100%;
+        }
 
         .logo-center {
             margin: 0 auto 15px auto;
-            display: block; }
+            display: block;
+        }
 
         .login-button {
             color: #ffffff;
@@ -145,11 +152,15 @@
             text-transform: uppercase;
             font-size: 20px;
             padding: 15px 35px;
+            border: none;
             margin: 0 auto;
             display: block;
             text-align: center;
             text-decoration: none;
-            border-radius: 5px; }
+            border-radius: 5px;
+            width: 100%;
+        }
+
         .login-button:hover {
             background-color: #008c7f;
             cursor: pointer;
@@ -164,20 +175,30 @@
             margin: 0 0 15px;
             padding: 15px;
             box-sizing: border-box;
-            font-size: 14px; }
+            font-size: 14px;
+        }
+        .error {
+            color: #f15c59;
+            font-weight: bold;
+            text-align: center;
+            margin: 0;
+        }
 
     </style>
     <div class="box">
         <div class="row">
             <img src="assets/img/logo-horizontal-grey.png" class="logo-center"/>
         </div>
-        <form class="login-form">
+        <form class="login-form" ng-submit="elab.login()">
             <div class="row">
                 <input ng-model="elab.login_username" type="text" placeholder="login"/>
                 <input ng-model="elab.login_password" type="password" placeholder="hasło"/>
             </div>
+            <div class="row" style="height: 24px; display: block">
+                <p class="error">{{elab.error}}</p>
+            </div>
             <div class="row">
-                <a ng-click="elab.login()" class="login-button">zaloguj się</a>
+                <button type="submit" class="login-button">zaloguj się</button>
             </div>
         </form>
     </div>

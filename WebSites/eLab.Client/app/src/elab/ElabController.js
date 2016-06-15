@@ -19,6 +19,7 @@
 
         self.login_username = null;
         self.login_password = null;
+        self.error = null;
 
         self.selectCourse = selectCourse;
         self.toggleSidenav = toggleSidenav;
@@ -28,7 +29,7 @@
 
         self.login = login;
         self.logout = logout;
-    
+
         function updateCourses() {
             elabService.loadAllCourses()
                 .then(function (courses) {
@@ -85,6 +86,10 @@
         }
 
         function login(){
+            if (!self.login_password){
+                self.error = 'Hasło jest wymagane.';
+                return
+            }
             var userLogin = {
                 grant_type: 'password',
                 username: self.login_username,
@@ -92,11 +97,10 @@
             };
             var promiselogin = elabService.login(userLogin);
             promiselogin.then(function (response) {
-                console.log('login successful!');
-                console.log(response);
-                //Store the token information in the SessionStorage
-                //So that it can be accessed for other views
-                console.log(response.data.username);
+                if (!response.data.username){
+                    self.error = 'Niepoprawny login lub hasło.';
+                    return
+                }
                 sessionStorage.setItem('userName', response.data.username);
                 sessionStorage.setItem('userId', response.data.id);
                 sessionStorage.setItem('accessToken', response.data.access_token);
@@ -105,7 +109,6 @@
                 self.user_id = sessionStorage.getItem('userId');
                 window.location = "#";
             }, function (err) {
-                console.log('login failed!');
                 $scope.responseData="Error " + err.status;
             });
         }
