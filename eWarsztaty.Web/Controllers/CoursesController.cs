@@ -1,19 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using eWarsztaty.Domain;
 using eWarsztaty.Web.Infrastructure.Repositories;
 using eWarsztaty.Web.Models.JsonModels;
-using Microsoft.Ajax.Utilities;
 
 namespace eWarsztaty.Web.Controllers
 {
     public class CoursesController : ApiController
     {
+        readonly CourseRepository _courseRepository = new CourseRepository();
         // GET api/courses
         public IEnumerable<CoursesJson> Get()
         {
-            var courseRepository = new CourseRepository();
-            return courseRepository.GetAllCourses();
+            return _courseRepository.GetAllCourses();
         }
 
         // GET api/courses/5
@@ -21,47 +19,37 @@ namespace eWarsztaty.Web.Controllers
         {
             if (id > 0)
             {
-                
-                var courseRepository = new CourseRepository();
-                return courseRepository.GetCourseById(id);
+                return _courseRepository.GetCourseById(id);
             }
-            else
-            {
-                var newCourse = new CoursesJson();
-                return newCourse;
-            }
+            var newCourse = new CoursesJson();
+            return newCourse;
         }
 
         // POST api/courses
         public IHttpActionResult Post([FromBody]CoursesJson course)
         {
-            var courseRepository = new CourseRepository();
-            courseRepository.SaveCourse(course);
-            //return Created<CoursesJson>(Request.RequestUri + )
+            _courseRepository.SaveCourse(course);
             return Ok();
         }
 
         // PUT api/courses/5
         public IHttpActionResult Put(int id, [FromBody]CoursesJson course)
         {
-            var courseRepository = new CourseRepository();
-            courseRepository.SaveCourse(id, course);
+            _courseRepository.SaveCourse(id, course);
             return Ok();
         }
 
         // DELETE api/courses/5
         public void Delete(int id)
         {
-            var courseRepository = new CourseRepository();
-            courseRepository.DeleteCourse(id);
+            _courseRepository.DeleteCourse(id);
         }
 
         [Route("api/courses/{id}/close")]
         [HttpGet]
         public IHttpActionResult CloseCourse(int id)
         {
-            var courseRepository = new CourseRepository();
-            courseRepository.CloseCourse(id);
+            _courseRepository.CloseCourse(id);
             return Ok();
         }
     }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AutoMapper.Mappers;
+using eWarsztaty.Web.Helpers;
 using eWarsztaty.Web.Models.JsonModels;
 using eWarsztaty.Web.Models.ViewModels;
 
@@ -86,7 +87,8 @@ namespace eWarsztaty.Web.App_Start
                 .ForMember(x => x.Status, opt => opt.Ignore());
 
             Mapper.CreateMap<Course, CoursesJson>()
-                .ForMember(x => x.Closed, opt => opt.Ignore())
+                .ForMember(x => x.Closed, opt => opt.MapFrom(
+                    src => src.Status == (int)eWarsztatyEnums.CourseStatus.Closed))
                 .ForMember(dest => dest.Topics, opt => opt.MapFrom(src => src.Topics));
 
             Mapper.CreateMap<CoursesJson, Course>()

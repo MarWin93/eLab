@@ -27,13 +27,7 @@ namespace eWarsztaty.Domain
         #region Map
         public class Map : EntityTypeConfiguration<Course>
         {
-            //public Map()
-            //{
-            //    this.HasRequired(t => t.Prowadzacy)
-            //        .WithMany(t => t.Warsztaty)
-            //        .HasForeignKey(d => d.ProwadzacyId)
-            //        .WillCascadeOnDelete(false);
-            //}
+
         }
         #endregion
     }
