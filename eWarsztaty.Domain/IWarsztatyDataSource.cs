@@ -21,6 +21,7 @@ namespace eWarsztaty.Domain
         IQueryable<Course> Courses { get; }
         IQueryable<Group> Groups { get; }
         IQueryable<Topic> Topics { get; }
+        IQueryable<Participation> Participations { get; }
 
         void Save();
     }

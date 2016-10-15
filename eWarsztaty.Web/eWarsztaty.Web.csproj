@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -242,6 +243,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ParticipationController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\TOKENController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
@@ -264,11 +266,13 @@
     <Compile Include="Infrastructure\Repositories\ClassRepository.cs" />
     <Compile Include="Infrastructure\Repositories\CourseRepository.cs" />
     <Compile Include="Infrastructure\Repositories\GroupRepository.cs" />
+    <Compile Include="Infrastructure\Repositories\ParticipationRepository.cs" />
     <Compile Include="Infrastructure\Repositories\TokenRepostiory.cs" />
     <Compile Include="Infrastructure\Repositories\TopicRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\JsonModels\ClassJson.cs" />
+    <Compile Include="Models\JsonModels\ParticipationsJson.cs" />
     <Compile Include="Models\JsonModels\CoursesJson.cs" />
     <Compile Include="Models\JsonModels\GroupsJson.cs" />
     <Compile Include="Models\JsonModels\LoginCredentialsJson.cs" />
