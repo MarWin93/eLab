@@ -23,16 +23,19 @@ namespace eWarsztaty.Web.Controllers
         public TokenJson Post([FromBody]LoginCredentialsJson value)
         {
             var tokenRepository = new TokenRepostiory();
-            var user = tokenRepository.GetUserByCredentials(value.Username, value.Password);
-            if (user != null)
+            var userAndRole = tokenRepository.GetUserAndHisRoleByCredentials(value.Username, value.Password);
+            if (userAndRole.Item1 != null)
             {
-                return new TokenJson {Id = user.UzytkownikId, Username = user.Login};
+                return new TokenJson
+                {
+                    Id = userAndRole.Item1.UzytkownikId, Username = userAndRole.Item1.Login,
+                    RoleId = userAndRole.Item2 != null ? userAndRole.Item2.RolaId : 0,
+                    RoleName = userAndRole.Item2 != null ? userAndRole.Item2.Nazwa : null
+                };
             }
-            else
-            {
-                BadRequest();
-                return  new TokenJson();
-            }
+
+            BadRequest();
+            return  new TokenJson();
         }
 
         // PUT: api/TOKEN/5
