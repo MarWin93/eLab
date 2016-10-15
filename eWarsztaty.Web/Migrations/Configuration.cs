@@ -172,6 +172,12 @@
             context.Groups.AddOrUpdate(d => d.Id, new Group() { Name = "Grupa1", ClassId = 1},
                 new Group() { Name = "Grupa1", ClassId = 2 });
 
+            context.Participations.AddOrUpdate(d => d.Id,
+                new Participation() { Active = true, CourseId = 1, UserId = 1},
+                new Participation() { Active = true, CourseId = 1, UserId = 2 },
+                new Participation() { Active = true, CourseId = 1, UserId = 3},
+                new Participation() { Active = true, CourseId=2, UserId = 2 });
+
             context.SaveChanges();
         }
     }

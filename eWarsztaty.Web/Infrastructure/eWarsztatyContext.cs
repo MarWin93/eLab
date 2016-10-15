@@ -24,7 +24,8 @@ namespace eWarsztaty.Web.Infrastructure
         public DbSet<Course> Courses { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Topic> Topics { get; set; }
- 
+        public DbSet<Participation> Participations { get; set; }
+
 
         public eWarsztatyContext():base("DefaultConnection")
         {
@@ -272,6 +273,12 @@ namespace eWarsztaty.Web.Infrastructure
         IQueryable<Topic> IWarsztatyDataSource.Topics
         {
             get { return Topics; }
+        }
+
+
+        IQueryable<Participation> IWarsztatyDataSource.Participations
+        {
+            get { return Participations; }
         }
     }
 }
