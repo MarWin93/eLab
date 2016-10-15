@@ -20,9 +20,11 @@ namespace eWarsztaty.Domain
 
         public ICollection<Topic> Topics { get; set; }
 
-        [ForeignKey("ProwadzacyId")]
-        public virtual Uzytkownik Prowadzacy { get; set; }
-        public int ProwadzacyId { get; set; }
+        public ICollection<Participation> Participations { get; set; }
+
+        //[ForeignKey("ProwadzacyId")]
+        //public virtual Uzytkownik Prowadzacy { get; set; }
+        //public int ProwadzacyId { get; set; }
 
         #region Map
         public class Map : EntityTypeConfiguration<Course>

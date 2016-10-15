@@ -16,6 +16,5 @@ namespace eWarsztaty.Web.Models.JsonModels
         public bool Closed { get; set; }
 
         public ICollection<TopicsJson> Topics { get; set; }
-        public int ProwadzacyId { get; set; }
     }
 }

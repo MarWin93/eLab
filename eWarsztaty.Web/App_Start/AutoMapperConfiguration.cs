@@ -20,7 +20,8 @@ namespace eWarsztaty.Web.App_Start
             Mapper.CreateMap<UzytkownikView, Uzytkownik>()
                 .ForMember(x => x.UdzialyWWarsztacie, opt => opt.Ignore())
                 .ForMember(x => x.Warsztaty, opt => opt.Ignore())
-                .ForMember(x => x.UzytkownicyRole, opt => opt.Ignore());
+                .ForMember(x => x.UzytkownicyRole, opt => opt.Ignore())
+                .ForMember(x => x.Participations, opt => opt.Ignore());
 
 
             Mapper.CreateMap<Uzytkownik, UzytkownicyListView>()
@@ -28,8 +29,8 @@ namespace eWarsztaty.Web.App_Start
             Mapper.CreateMap<UzytkownicyListView, Uzytkownik>()
                 .ForMember(x => x.UdzialyWWarsztacie, opt => opt.Ignore())
                 .ForMember(x => x.Warsztaty, opt => opt.Ignore())
-                .ForMember(x => x.UzytkownicyRole, opt => opt.Ignore());
-
+                .ForMember(x => x.UzytkownicyRole, opt => opt.Ignore())
+                .ForMember(x => x.Participations, opt => opt.Ignore());
 
             Mapper.CreateMap<Rola, RoleView>()
                 .ForMember(x => x.SelectedUprawnienia, opt => opt.Ignore())
@@ -91,8 +92,8 @@ namespace eWarsztaty.Web.App_Start
 
             Mapper.CreateMap<CoursesJson, Course>()
                 .ForMember(x => x.Topics, opt => opt.Ignore())
-                .ForMember(x => x.Prowadzacy, opt => opt.Ignore())
-                .ForMember(x => x.Status, opt => opt.Ignore());
+                .ForMember(x => x.Status, opt => opt.Ignore())
+                .ForMember(x => x.Participations, opt => opt.Ignore());
 
             Mapper.CreateMap<Uzytkownik, StudentJson>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Login));
@@ -115,20 +116,12 @@ namespace eWarsztaty.Web.App_Start
                 .ForMember(x => x.Topic, opt => opt.Ignore())
                 .ForMember(x => x.TopicId, opt => opt.Ignore());
 
-            Mapper.CreateMap<Participation, ParticipationsJson>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Students, opt => opt.MapFrom(src => src.Students));
+            Mapper.CreateMap<Participation, ParticipationsJson>();
 
             Mapper.CreateMap<ParticipationsJson, Participation>()
                 .ForMember(x => x.Course, opt => opt.Ignore())
-                .ForMember(x => x.CourseId, opt => opt.Ignore())
-                .ForMember(x => x.ParticipationSince, opt => opt.Ignore())
-                .ForMember(x => x.ParticipationTo, opt => opt.Ignore())
-                .ForMember(x => x.Active, opt => opt.Ignore())
-                .ForMember(x => x.User, opt => opt.Ignore())
-                .ForMember(x => x.Students, opt => opt.Ignore())
-                .ForMember(x => x.UserId, opt => opt.Ignore());
+                .ForMember(x => x.User, opt => opt.Ignore());
+
 
             Mapper.AssertConfigurationIsValid();
         }
