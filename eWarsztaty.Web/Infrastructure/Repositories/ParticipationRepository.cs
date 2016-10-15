@@ -13,18 +13,79 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
 
         private eWarsztatyContext _db = new eWarsztatyContext();
 
-        public IEnumerable<TopicsJson> GetAllTopics()
+        public bool IsExistParticipation(int CourseId, int UserId)
         {
-            var topics = _db.Topics.ToList();
-            var topicsJson = Mapper.Map<IEnumerable<Topic>, IEnumerable<TopicsJson>>(topics);
-            return topicsJson;
+            var exist = _db.Participations.Include("Course").Include("User").Any(x => x.CourseId == CourseId && x.UserId == UserId);
+            return exist;
         }
 
-        public ParticipationsJson GetParticipationsByCourseId(int id)
+        public IEnumerable<ParticipationsJson> GetAllParticipants()
         {
-            var participation = _db.Participations.Include("Course").FirstOrDefault(x => x.CourseId == id);
-            var participationJson = Mapper.Map<Participation, ParticipationsJson>(participation);
-            return participationJson;
+            var participantions = _db.Participations.ToList();
+            var participantsJson = Mapper.Map<IEnumerable<Participation>, IEnumerable<ParticipationsJson>>(participantions);
+            return participantsJson;
         }
+
+        public IEnumerable<ParticipationsJson> GetParticipationsByCourseId(int id)
+        {
+
+            var participants = (from p in _db.Participations
+                             where p.CourseId == id
+                             select p).ToList();
+            var participantsJson = Mapper.Map<IEnumerable<Participation>, IEnumerable<ParticipationsJson>>(participants);
+            return participantsJson;
+        }
+
+
+        public IEnumerable<ParticipationsJson> GetParticipationsByUserId(int id)
+        {
+
+            var participants = (from p in _db.Participations
+                                where p.UserId == id
+                                select p).ToList();
+            var participantsJson = Mapper.Map<IEnumerable<Participation>, IEnumerable<ParticipationsJson>>(participants);
+            return participantsJson;
+        }
+
+        public bool GetParticipationByCourseIdByUserId(int CourseId, int UserId)
+        {
+            var exist = _db.Participations.Include("Course").Include("User").Any(x => x.CourseId == CourseId && x.UserId == UserId && x.Active == true);
+            return exist;
+        }
+
+
+        public void SaveParticipation(ParticipationsJson participation)
+        {
+            var participationDb = Mapper.Map<ParticipationsJson, Participation>(participation);
+            _db.Participations.Add(participationDb);
+            _db.SaveChanges();
+        }
+
+        public void LeaveParticipationByCourseIdByUserId(int CourseId, int UserId)
+        {
+            // exist and active
+            if (GetParticipationByCourseIdByUserId(CourseId, UserId)) {
+                var participationDB = _db.Participations.FirstOrDefault(x => x.CourseId == CourseId && x.UserId == UserId);
+                participationDB.Active = false;
+                DateTime now = DateTime.Now;
+                participationDB.ParticipationTo = now; 
+                _db.SaveChanges();
+            }
+        }
+
+        public void EnrollParticipationByCourseIdByUserId(int CourseId, int UserId)
+        {
+            // exist
+            if (IsExistParticipation(CourseId, UserId)) {
+                var participationDB = _db.Participations.FirstOrDefault(x => x.CourseId == CourseId && x.UserId == UserId);
+                participationDB.Active = true;
+                DateTime now = DateTime.Now;
+                participationDB.ParticipationSince = now;
+                participationDB.ParticipationTo = null;
+                _db.SaveChanges();
+            } 
+
+        }
+
     }
 }

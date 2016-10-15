@@ -13,11 +13,6 @@ namespace eWarsztaty.Domain
     public class Participation
     {
 
-        public Participation()
-        {
-            this.Students = new List<Uzytkownik>();
-        }
-
         [Key]
         public int Id { get; set; }
 
@@ -35,9 +30,24 @@ namespace eWarsztaty.Domain
 
         [ForeignKey("CourseId")]
         public virtual Course Course { get; set; }
-        public int? CourseId { get; set; }
+        public int CourseId { get; set; }
 
-        public ICollection<Uzytkownik> Students { get; set; }
+        #region Map
+        public class Map : EntityTypeConfiguration<Participation>
+        {
+            public Map()
+            {
+                this.HasRequired(t => t.Course)
+                    .WithMany(t => t.Participations)
+                    .HasForeignKey(d => d.CourseId)
+                    .WillCascadeOnDelete(false);
 
+                this.HasRequired(t => t.User)
+                   .WithMany(t => t.Participations)
+                   .HasForeignKey(d => d.UserId)
+                   .WillCascadeOnDelete(false);
+            }
+        }
+        #endregion
     }
 }

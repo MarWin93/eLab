@@ -29,5 +29,7 @@ namespace eWarsztaty.Domain
 
         public ICollection<Warsztat> Warsztaty { get; set; }
 
+        public ICollection<Participation> Participations { get; set; }
+
     }
 }
