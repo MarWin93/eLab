@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace eWarsztaty.Domain
 {
@@ -13,20 +8,42 @@ namespace eWarsztaty.Domain
         public int PlikId { get; set; }
         public string Nazwa { get; set; }
         public string Rozszerzenie { get; set; }
-        public bool Zadanie { get; set; }
+        public string Size { get; set; } //in kb
+        public bool Zadanie { get; set; } //depricated
 
         public byte[] File { get; set; }
 
+
+        //Depricated
         [ForeignKey("WarsztatId")]
-        public virtual Warsztat Warsztat { get; set; }
-        public int WarsztatId { get; set; }
+        public virtual Warsztat Warsztat{ get; set; }
+        public int? WarsztatId { get; set; }
+
+        [ForeignKey("CourseId")]
+        public virtual Course Course { get; set; }
+        public int? CourseId { get; set; }
+
+        [ForeignKey("TopicId")]
+        public virtual Topic Topic { get; set; }
+        public int? TopicId { get; set; }
 
         #region Map
         public class Map : EntityTypeConfiguration<Plik>
         {
             public Map()
             {
-                this.HasRequired(t => t.Warsztat)
+                HasOptional(t => t.Course)
+                    .WithMany(t => t.Files)
+                    .HasForeignKey(d => d.CourseId)
+                    .WillCascadeOnDelete(true);
+
+                HasOptional(t => t.Topic)
+                    .WithMany(t => t.Files)
+                    .HasForeignKey(d => d.TopicId)
+                    .WillCascadeOnDelete(false);
+
+                //depricated
+                HasOptional(t => t.Warsztat)
                     .WithMany(t => t.Pliki)
                     .HasForeignKey(d => d.WarsztatId)
                     .WillCascadeOnDelete(false);

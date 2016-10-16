@@ -75,24 +75,50 @@ namespace eWarsztaty.Web.App_Start
                  .ForMember(x => x.Zadanie, opt => opt.Ignore())
                  .ForMember(x => x.File, opt => opt.Ignore())
                  .ForMember(x => x.Warsztat, opt => opt.Ignore())
-                 .ForMember(x => x.WarsztatId, opt => opt.Ignore());
+                 .ForMember(x => x.WarsztatId, opt => opt.Ignore())
+                 .ForMember(x => x.Course, opt => opt.Ignore())
+                 .ForMember(x => x.CourseId, opt => opt.Ignore())
+                 .ForMember(x => x.TopicId, opt => opt.Ignore())
+                 .ForMember(x => x.Size, opt => opt.Ignore())
+                 .ForMember(x => x.Topic, opt => opt.Ignore());
 
             //elab maps
             Mapper.CreateMap<Topic, TopicsJson>();
 
             Mapper.CreateMap<TopicsJson, Topic>()
+                .ForMember(x => x.Files, opt => opt.Ignore())
                 .ForMember(x => x.Course, opt => opt.Ignore())
                 .ForMember(x => x.CourseId, opt => opt.Ignore())
                 .ForMember(x => x.Classes, opt => opt.Ignore())
                 .ForMember(x => x.Status, opt => opt.Ignore());
 
+            Mapper.CreateMap<Plik, FilesJson>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Nazwa))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PlikId));
+
+            Mapper.CreateMap<FilesJson, Plik>()
+                .ForMember(dest => dest.Nazwa, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.PlikId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(x => x.Warsztat, opt => opt.Ignore())
+                .ForMember(x => x.Course, opt => opt.Ignore())
+                .ForMember(x => x.CourseId, opt => opt.Ignore())
+                .ForMember(x => x.Topic, opt => opt.Ignore())
+                .ForMember(x => x.TopicId, opt => opt.Ignore())
+                .ForMember(x => x.WarsztatId, opt => opt.Ignore())
+                .ForMember(x => x.File, opt => opt.Ignore())
+                .ForMember(x => x.Rozszerzenie, opt => opt.Ignore())
+                .ForMember(x => x.Zadanie, opt => opt.Ignore());
+
             Mapper.CreateMap<Course, CoursesJson>()
                 .ForMember(x => x.Closed, opt => opt.MapFrom(
                     src => src.Status == (int)eWarsztatyEnums.CourseStatus.Closed))
-                .ForMember(dest => dest.Topics, opt => opt.MapFrom(src => src.Topics));
+                .ForMember(dest => dest.Topics, opt => opt.MapFrom(src => src.Topics))
+                .ForMember(dest => dest.Files, opt => opt.MapFrom(src => src.Files));
 
             Mapper.CreateMap<CoursesJson, Course>()
+                .ForMember(x => x.Files, opt => opt.Ignore())
                 .ForMember(x => x.Topics, opt => opt.Ignore())
+                .ForMember(x => x.Files, opt => opt.Ignore())
                 .ForMember(x => x.Prowadzacy, opt => opt.Ignore())
                 .ForMember(x => x.Status, opt => opt.Ignore());
 

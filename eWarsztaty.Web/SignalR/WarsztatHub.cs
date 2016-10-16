@@ -243,7 +243,7 @@ namespace eWarsztaty.Web.SignalR
             }
         }
 
-        private static string GetPorwadzacyConnectionIdByWarsztatId(int warsztatId)
+        private static string GetPorwadzacyConnectionIdByWarsztatId(int? warsztatId)
         {
 
             using (var _db = new eWarsztatyContext())

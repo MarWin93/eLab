@@ -20,7 +20,7 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
 
         public CoursesJson GetCourseById(int id)
         {
-            var course = _db.Courses.Include("Topics").Include("Prowadzacy").FirstOrDefault(x=>x.Id == id);
+            var course = _db.Courses.Include("Topics").Include("Prowadzacy").Include("Files").FirstOrDefault(x=>x.Id == id);
             var coursesJson = Mapper.Map<Course, CoursesJson>(course);
             return coursesJson;
         }

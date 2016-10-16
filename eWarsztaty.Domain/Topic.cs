@@ -19,6 +19,7 @@ namespace eWarsztaty.Domain
         public int Status { get; set; }
 
         public ICollection<Class> Classes { get; set; }
+        public ICollection<Plik> Files { get; set; }
 
         [ForeignKey("CourseId")]
         public virtual Course Course { get; set; }

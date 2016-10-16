@@ -19,6 +19,7 @@ namespace eWarsztaty.Domain
         public int Status { get; set; }
 
         public ICollection<Topic> Topics { get; set; }
+        public ICollection<Plik> Files { get; set; }
 
         [ForeignKey("ProwadzacyId")]
         public virtual Uzytkownik Prowadzacy { get; set; }
