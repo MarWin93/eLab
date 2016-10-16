@@ -123,7 +123,6 @@ namespace eWarsztaty.Web.App_Start
                 .ForMember(x => x.Files, opt => opt.Ignore())
                 .ForMember(x => x.Topics, opt => opt.Ignore())
                 .ForMember(x => x.Files, opt => opt.Ignore())
-                .ForMember(x => x.Prowadzacy, opt => opt.Ignore())
                 .ForMember(x => x.Status, opt => opt.Ignore())
                 .ForMember(x => x.Participations, opt => opt.Ignore());
 
