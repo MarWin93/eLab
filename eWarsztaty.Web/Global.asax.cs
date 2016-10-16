@@ -17,7 +17,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using WebMatrix.WebData;
-using Microsoft.AspNet.SignalR.Configuration;
+
 namespace eWarsztaty.Web
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 

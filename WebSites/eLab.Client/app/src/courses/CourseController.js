@@ -109,7 +109,7 @@
         };
 
         this.canEdit = function (course){
-            return course.prowadzacyId == sessionStorage.getItem('userId');
+            // return course.prowadzacyId == sessionStorage.getItem('userId');
         };
         //this.startTopic = function (class_id, event) {
         //    // TODO change hardcoded class ID

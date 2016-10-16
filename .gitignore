@@ -154,3 +154,12 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+
+# node modules
+node_modules/
+
+# css map files
+*.css.map
+
+# idea files
+.idea/
