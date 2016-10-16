@@ -1,7 +1,7 @@
 {
   "name": "e-LAB",
   "private": true,
-  "version": "0.1",
+  "version": "0.0.1",
   "description": "Platforma przeznaczona do prowadzenia zajęć w laboratorium komputerowym",
   "peerDependencies": {
     "angular": "1.5.8",

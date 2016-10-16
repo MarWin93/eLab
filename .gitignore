@@ -43,7 +43,6 @@ build/
 *.vssscc
 .builds
 *.pidb
-*.log
 *.scc
 
 # Visual C++ cache files
@@ -163,3 +162,6 @@ node_modules/
 
 # idea files
 .idea/
+
+# visual studio machine files
+.vs/
