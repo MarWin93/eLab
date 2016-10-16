@@ -4,15 +4,15 @@ using System;
 
 namespace eWarsztaty.Web.Models.JsonModels
 {
-    public class ParticipationsJson
+    public class EnrollmentInTopicJson
     {
 
-       
-        public int CourseId { get; set; }
+     
+        public int TopicId { get; set; }
         public int UserId { get; set; }
         public bool Active { get; set; }
-        public DateTime ParticipationSince { get; set; }
-        public DateTime ParticipationTo { get; set; }
+        public DateTime EnrollmentSince { get; set; }
+        public DateTime EnrollmentTo { get; set; }
         
     }
 }
