@@ -54,7 +54,7 @@
                     });
 
             return def.promise;
-        }
+        };
 
         this.deleteTopic = function (selected_id) {
             var def = $q.defer();

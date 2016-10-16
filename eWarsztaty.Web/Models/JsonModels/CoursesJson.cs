@@ -8,6 +8,7 @@ namespace eWarsztaty.Web.Models.JsonModels
         public CoursesJson()
         {
             this.Topics = new List<TopicsJson>();
+            this.Files = new List<FilesJson>();
         }
 
         public int Id { get; set; }

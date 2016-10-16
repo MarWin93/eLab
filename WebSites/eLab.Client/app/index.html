@@ -34,7 +34,7 @@
             <md-icon class="material-icons">menu</md-icon>
         </md-button>
         <a href="#/"><h1>eLab</h1></a>
-        <div>
+        <div class="login-partial">
             <a>witaj {{elab.username}}!</a>
             <md-button ng-click="elab.logout()" class="md-icon-button" style="margin-right: 0">
                 <md-icon class="material-icons">exit_to_app</md-icon>
@@ -64,7 +64,8 @@
                 <md-list-item ng-repeat="course in elab.courses">
                     <a href="#/courses/{{course.id}}">
                         <md-button ng-click="elab.selectCourse(course)"
-                                   ng-class="{'selected' : course === elab.selected }">
+                                   ng-class="{'selected' : course === elab.selected }"
+                                   class="button-left-menu">
                             <md-icon id="icon-{{course.id}}"></md-icon>
                             {{course.name}}
                         </md-button>

@@ -142,7 +142,13 @@ md-sidenav button .material-icons {
   height: 36px; }
 
 .md-button {
-  padding: 0 12px; }
+  padding: 0 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center; }
+  .md-button md-icon {
+    padding: 0 5px; }
 
 .md-menu {
   padding: 0; }
@@ -164,11 +170,7 @@ md-button.menuBtn > md-icon {
   height: 24px; }
 
 .add-button {
-  width: 175px;
   text-align: center; }
-  .add-button md-icon {
-    float: left;
-    margin-top: 3px; }
 
 #content .md-button.share:active > md-icon {
   background-color: #dadada;
@@ -182,6 +184,11 @@ md-button.menuBtn > md-icon {
   max-width: 500px; }
 
 /* Utils */
+.login-partial {
+  display: flex;
+  flex-direction: row;
+  align-items: center; }
+
 .content-wrapper {
   position: relative; }
 
@@ -207,15 +214,18 @@ md-card {
     md-card md-icon:hover {
       color: #F44336; }
 
-.list-element {
-  -webkit-transition: all 0.4s ease;
-  -moz-transition: all 0.4s ease;
-  -ms-transition: all 0.4s ease;
-  -o-transition: all 0.4s ease;
-  transition: all 0.4s ease; }
-  .list-element:hover {
-    cursor: pointer;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
+.list-element:hover {
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
+
+button.button-left-menu {
+  justify-content: flex-start;
+  padding: 0 0 0 3px; }
+  button.button-left-menu md-icon {
+    padding: 0;
+    margin: 0; }
+  button.button-left-menu span {
+    margin-left: 5px; }
 
 /* Typography support coming in 0.8.0 */
 .md-subheadline {
@@ -288,9 +298,6 @@ md-toolbar h1 {
     cursor: pointer; }
   .icon-pull-right:focus {
     outline: 0; }
-
-.icon-button {
-  padding: 3px 5px 5px 0; }
 
 form md-input-container {
   width: 100%; }
@@ -443,21 +450,26 @@ h3 {
 
 .horizontal-list {
   width: 100%;
-  height: 110px;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap; }
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 20px 0; }
+  .horizontal-list .horizontal-list-item {
+    width: 120px;
+    height: 90px;
+    margin: 5px;
+    white-space: normal;
+    line-height: 24px; }
+    .horizontal-list .horizontal-list-item md-icon {
+      margin: 0; }
 
-.horizontal-list-item {
-  width: 120px;
-  height: 90px;
-  min-width: 120px;
-  display: inline-block;
-  vertical-align: middle;
-  white-space: normal;
-  margin: 0 5px;
-  padding: 0;
-  line-height: 20px; }
+.md-subheader {
+  height: 40px;
+  display: flex;
+  align-items: center; }
+  .md-subheader .md-subheader-inner {
+    font-size: 16px;
+    padding: 0 16px; }
 
 /**
  * For the correct positioning of the placeholder element, the dnd-list and

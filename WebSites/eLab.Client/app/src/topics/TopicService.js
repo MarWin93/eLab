@@ -23,7 +23,6 @@
             },
             loadTopic: function (topic_id) {
                 var def = $q.defer();
-
                 $http.get(API_PATH + 'topics/' + topic_id)
                     .success(function (data) {
                         topics = data;

@@ -1,11 +1,9 @@
 <md-card>
     <md-card-title>
         <md-card-title-text>
-            <span class="md-headline">Strona startowa</span>
         </md-card-title-text>
     </md-card-title>
     <md-card-content>
-        <p>lista ostatnio zapisanych kursów oraz zajęć (drafts and archives)</p>
         <md-subheader class="dashboard-list-header">Lista tematyk</md-subheader>
         <div class="horizontal-list" layout="row" layout-align="start stretch">
             <a href="#/courses/add"><md-button class="horizontal-list-item md-raised md-primary">
@@ -17,8 +15,15 @@
             </md-button>
         </div>
 
-        <p><a href="#/topics">Lista warsztatów</a></p>
-        <p><a href="#/courses/add">Dodaj tematykę</a></p>
-        <p><a href="#/topics/add">Dodaj warsztat</a></p>
+        <md-subheader class="dashboard-list-header">Lista warsztatów</md-subheader>
+        <div class="horizontal-list" layout="row" layout-align="start stretch">
+            <a href="#/topics/add"><md-button class="horizontal-list-item md-raised md-primary">
+                <md-icon class="material-icons icon-button">add</md-icon>dodaj
+            </md-button></a>
+            <md-button ng-click="elab.goToTopic(topic)" class="horizontal-list-item md-raised"
+                       ng-repeat="topics in elab.topics">
+                {{course.name}}
+            </md-button>
+        </div>
     </md-card-content>
 </md-card>

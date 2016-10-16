@@ -8,36 +8,38 @@
         ]);
 
     function ElabController($scope, $rootScope, elabService, $mdSidenav, $timeout) {
-        var self = this;
-        self.chat = true;
-        self.selected = null;
-        self.courses = [ ];
+        var vm = this;
+        vm.chat = true;
+        vm.selected = null;
+        vm.courses = [ ];
+        vm.topics = [];
+        
+        vm.username = sessionStorage.getItem('userName');
+        vm.user_id = sessionStorage.getItem('userId');
+        vm.is_lecturer = null;
 
-        self.username = sessionStorage.getItem('userName');
-        self.user_id = sessionStorage.getItem('userId');
-        self.is_lecturer = null;
+        vm.login_username = null;
+        vm.login_password = null;
+        vm.error = null;
 
-        self.login_username = null;
-        self.login_password = null;
-        self.error = null;
-
-        self.selectCourse = selectCourse;
-        self.toggleSidenav = toggleSidenav;
-        self.goToCourse = goToCourse;
-        self.toggleChatWindow = toggleChatWindow;
-        self.reloadTrianglify = reloadTrianglify;
-
-        self.login = login;
-        self.logout = logout;
+        vm.selectCourse = selectCourse;
+        vm.toggleSidenav = toggleSidenav;
+        vm.goToCourse = goToCourse;
+        vm.goToTopic = goToTopic;
+        vm.toggleChatWindow = toggleChatWindow;
+        vm.reloadTrianglify = reloadTrianglify;
+    
+        vm.login = login;
+        vm.logout = logout;
 
         function updateCourses() {
             elabService.loadAllCourses()
                 .then(function (courses) {
-                    self.courses = [].concat(courses);
-                    self.selected = courses[0];
+                    vm.courses = [].concat(courses);
+                    vm.selected = courses[0];
                 }).then(function () {
                     $timeout(function () {
-                        self.reloadTrianglify();
+                        vm.reloadTrianglify();
                     })
                 });
         }
@@ -51,16 +53,20 @@
         }
 
         function selectCourse(course){
-            self.selected = course;
+            vm.selected = course;
         }
 
         function goToCourse(course){
-            self.selectCourse(course);
-            window.location = "#/courses/"+self.selected.id;
+            vm.selectCourse(course);
+            window.location = "#/courses/"+vm.selected.id;
+        }
+        
+        function goToTopic(topic) {
+            window.location = "#/topics/"+topic.id;
         }
 
         function toggleChatWindow(){
-            self.chat = !self.chat;
+            vm.chat = !vm.chat;
             $scope.$broadcast('toggleChatWindow');
         }
 
@@ -68,15 +74,15 @@
             var pattern;
             var icon;
             var id;
-            for (var i=0; i<self.courses.length; i++) {
-                id = 'icon-' + self.courses[i].id;
+            for (var i=0; i<vm.courses.length; i++) {
+                id = 'icon-' + vm.courses[i].id;
                 icon = document.getElementById(id);
                 if(icon){
                     pattern = Trianglify({
                         width: 30,
                         height: 30,
                         cell_size: 18,
-                        seed: self.courses[i].name,
+                        seed: vm.courses[i].name,
                         x_colors: 'random'
                     });
                     icon.innerHTML = '';
@@ -86,35 +92,35 @@
         }
 
         function login(){
-            if (!self.login_password){
-                self.error = 'Hasło jest wymagane.';
+            if (!vm.login_password){
+                vm.error = 'Hasło jest wymagane.';
                 return
             }
             var userLogin = {
                 grant_type: 'password',
-                username: self.login_username,
-                password: self.login_password
+                username: vm.login_username,
+                password: vm.login_password
             };
             var promiselogin = elabService.login(userLogin);
             promiselogin.then(function (response) {
                 if (!response.data.username){
-                    self.error = 'Niepoprawny login lub hasło.';
+                    vm.error = 'Niepoprawny login lub hasło.';
                     return
                 }
                 sessionStorage.setItem('userName', response.data.username);
                 sessionStorage.setItem('userId', response.data.id);
                 sessionStorage.setItem('accessToken', response.data.access_token);
                 sessionStorage.setItem('refreshToken', response.data.refresh_token);
-                self.username = sessionStorage.getItem('userName');
-                self.user_id = sessionStorage.getItem('userId');
+                vm.username = sessionStorage.getItem('userName');
+                vm.user_id = sessionStorage.getItem('userId');
                 window.location = "#";
             }, function (err) {
                 $scope.responseData="Error " + err.status;
             });
         }
         function logout(){
-            self.username = null;
-            self.user_id = null;
+            vm.username = null;
+            vm.user_id = null;
             sessionStorage.removeItem('userName');
             sessionStorage.removeItem('accessToken');
             window.location = "#";

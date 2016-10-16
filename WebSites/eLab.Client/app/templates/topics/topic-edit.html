@@ -15,7 +15,7 @@
             </div>
             <md-input-container>
                 <label>Wybór tematyki</label>
-                <md-select placeholder="Wybór tematyki" ng-model="tc.selected.course">
+                <md-select placeholder="Wybór tematyki" ng-model="tc.selected.courseId">
                     <md-option ng-value="0">Brak tematyki</md-option>
                     <md-option ng-value="course.id" ng-repeat="course in tc.courses">{{course.name}}</md-option>
                 </md-select>

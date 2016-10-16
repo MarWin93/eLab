@@ -123,13 +123,38 @@
                     url: API_PATH + 'courses/' + selected_id + '/upload',
                     data: {file: file}
                 }).then(function (response) {
-                    console.log(response);
-                    console.log("File upload successful.");
+                    courseService.loadCourse(selected_id)
+                        .then(function (course) {
+                            vm.selected = course;
+                        });
                 }).catch(function (error) {
                     console.log("Failed to upload file.");
                     console.log(error)
                 });
             }
+        };
+
+        vm.fileDownload = function (file) {
+            $http.get(API_PATH + 'courses/' + selected_id + '/download/' + file.id)
+                .then(function (response) {
+
+                    var byteNumbers = new Array(response.data.length);
+                    for (var i = 0; i < response.data.length; i++) {
+                        byteNumbers[i] = response.data.charCodeAt(i);
+                    }
+                    var byteArray = new Uint8Array(byteNumbers);
+
+                    var a = window.document.createElement('a');
+                    a.href = window.URL.createObjectURL(new Blob([byteArray], {type: 'octet/stream'}));
+                    a.download = file.name;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                })
+                .catch(function (error) {
+                    console.log("Failed to delete download file");
+                    console.log(error);
+                });
         };
 
         //this.startTopic = function (class_id, event) {
