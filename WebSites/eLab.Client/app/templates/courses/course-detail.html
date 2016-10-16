@@ -77,7 +77,6 @@
         <md-list>
             <md-list-item
                     ng-repeat="file in cc.selected.files"
-                    ng-click="cc.goToTopic(topic.id, $event)"
             >
                 <md-icon class="material-icons list-icon"> description </md-icon>
                 <p>{{file.name}}<span class="download-size">({{file.size}} KB)</span></p>
@@ -85,7 +84,7 @@
         </md-list>
         <p class="empty-list" ng-if="!cc.selected.files.length">brak plików</p>
         <div layout="row" layout-align="end center">
-            <md-button ng-click="" class="md-primary add-button">
+            <md-button ngf-select="cc.fileUpload($file, $invalidFiles)" class="md-primary add-button">
                 <md-icon class="material-icons icon-button">add</md-icon>dodaj pliki
             </md-button>
         </div>

@@ -1,90 +1,92 @@
-(function(){
+(function () {
 
     angular
-        .module('courses')
+        .module('courses', ['ngFileUpload'])
         .controller('CourseController', [
-            '$scope', '$rootScope', 'courseService', '$routeParams', '$filter', '$timeout', '$q', '$http', 'API_PATH', 'topicService',
+            '$scope', '$rootScope', 'courseService', '$routeParams', '$filter', '$timeout', '$q', '$http', 'API_PATH',
+            'topicService', 'Upload',
             CourseController
         ]);
 
-    function CourseController($scope, $rootScope, courseService, $routeParams, $filter, $timeout, $q, $http, API_PATH, topicService) {
-        var self = this;
+    function CourseController($scope, $rootScope, courseService, $routeParams, $filter, $timeout, $q, $http, API_PATH,
+                              topicService, Upload) {
+        var vm = this;
 
-        self.new = {
+        vm.new = {
             'name': '',
             'description': '',
             'closed': false,
-            'prowadzacyId': self.user_id = sessionStorage.getItem('userId')
+            'prowadzacyId': vm.user_id = sessionStorage.getItem('userId')
         };
-        self.selected = null;
-        self.courses = [];
-        self.topicsNavigation = topicService.navigation;
+        vm.selected = null;
+        vm.courses = [];
+        vm.topicsNavigation = topicService.navigation;
         var selected_id = $routeParams.courseId;
 
         if (selected_id) {
             courseService.loadCourse(selected_id)
                 .then(function (course) {
-                    self.selected = course;
+                    vm.selected = course;
                 });
         }
 
         courseService.loadAllCourses()
-            .then( function(courses) {
-                self.courses = [].concat(courses);
-            }).then( function(){
+            .then(function (courses) {
+                vm.courses = [].concat(courses);
+            }).then(function () {
             $timeout(function () {
-                self.reloadTrianglify();
+                vm.reloadTrianglify();
             })
         });
 
-        this.selectCourse = function (course) {
-            self.selected = course;
+        vm.selectCourse = function (course) {
+            vm.selected = course;
         };
 
-        this.goToCourse = function (course) {
-            self.selectCourse(course);
-            window.location = "#/courses/"+self.selected.id;
+        vm.goToCourse = function (course) {
+            vm.selectCourse(course);
+            window.location = "#/courses/" + vm.selected.id;
         };
 
-        this.goToUpdateCourse = function (course){
-            self.selectCourse(course);
-            window.location = "#/courses/"+self.selected.id+'/edit';
+        vm.goToUpdateCourse = function (course) {
+            vm.selectCourse(course);
+            window.location = "#/courses/" + vm.selected.id + '/edit';
         };
 
-        this.goToCreateCourse = function () {
+        vm.goToCreateCourse = function () {
             window.location = "#/courses/add";
         };
 
-        this.goToCreateCourse = function () {
+        vm.goToCreateCourse = function () {
             window.location = "#/courses/add";
         };
 
-        this.updateCourse = function (){
+        vm.updateCourse = function () {
             var def = $q.defer();
             if (selected_id)
-                $http.put(API_PATH + 'courses/' + self.selected.id, self.selected)
-                    .success(function(data) {
+                $http.put(API_PATH + 'courses/' + vm.selected.id, vm.selected)
+                    .success(function (data) {
                         window.location = "#/courses/";
                         $scope.$emit('updateCourses');
                     })
-                    .error(function() {
+                    .error(function () {
                         def.reject("Failed to update course");
                     });
             else
-                $http.post(API_PATH + 'courses', self.selected)
-                   .success(function (data) {
-                       window.location = "#/courses/";
-                       $scope.$emit('updateCourses');
-                   })
-                   .error(function () {
-                       def.reject("Failed to create course");
-                   });
+                $http.post(API_PATH + 'courses', vm.selected)
+                    .success(function (data) {
+                        window.location = "#/courses/";
+                        $scope.$emit('updateCourses');
+                    })
+                    .error(function () {
+                        def.reject("Failed to create course");
+                    });
 
             return def.promise;
         };
 
-        this.createCourse = function (){
-            $http.post(API_PATH + 'courses', self.new)
+        vm.createCourse = function () {
+            $http.post(API_PATH + 'courses', vm.new)
                 .success(function (data) {
                     window.location = "#/courses/";
                     $scope.$emit('updateCourses');
@@ -93,24 +95,41 @@
                     def.reject("Failed to create course");
                 });
         };
-        this.deleteCourse = function (course){
+        vm.deleteCourse = function (course) {
             var def = $q.defer();
 
             $http.delete(API_PATH + 'courses/' + course.id)
-                .success(function(data) {
+                .success(function (data) {
                     window.location = "#/courses/";
                     $scope.$emit('updateCourses');
                 })
-                .error(function() {
+                .error(function () {
                     def.reject("Failed to delete course");
                 });
 
             return def.promise;
         };
 
-        this.canEdit = function (course){
+        vm.canEdit = function (course) {
             // return course.prowadzacyId == sessionStorage.getItem('userId');
         };
+
+        vm.fileUpload = function (file, errFiles) {
+            vm.file = file;
+            vm.errFile = errFiles && errFiles[0];
+            if (file) {
+                console.log(file);
+                $http.post(API_PATH + 'courses/' + selected_id + '/upload', file)
+                    .then(function (data) {
+                        console.log("File upload successful.");
+                    })
+                    .catch(function (error) {
+                        console.log("Failed to upload file.");
+                        console.log(error)
+                    });
+            }
+        };
+
         //this.startTopic = function (class_id, event) {
         //    // TODO change hardcoded class ID
         //    window.location = "#/topics/1";
@@ -131,10 +150,10 @@
             var dimensions;
             var cover;
             var id;
-            if (course){
+            if (course) {
                 id = 'cover-' + course.id;
                 cover = document.getElementById(id);
-                if(cover){
+                if (cover) {
                     dimensions = cover.getClientRects()[0];
                     pattern = Trianglify({
                         width: dimensions.width,
@@ -147,17 +166,17 @@
                     cover.appendChild(pattern.canvas());
                 }
             }
-            else{
-                for (var i=0; i<self.courses.length; i++) {
-                    id = 'cover-' + self.courses[i].id;
+            else {
+                for (var i = 0; i < vm.courses.length; i++) {
+                    id = 'cover-' + vm.courses[i].id;
                     cover = document.getElementById(id);
-                    if(cover){
+                    if (cover) {
                         dimensions = cover.getClientRects()[0];
                         pattern = Trianglify({
                             width: dimensions.width,
                             height: dimensions.height,
                             cell_size: 75,
-                            seed: self.courses[i].name,
+                            seed: vm.courses[i].name,
                             x_colors: 'random'
                         });
                         cover.innerHTML = '';
@@ -167,9 +186,11 @@
             }
         };
 
-        $scope.$on('toggleChatWindow', function() {
+        $scope.$on('toggleChatWindow', function () {
             // TODO fix event sequence
             // self.reloadTrianglify();
         });
+
+
     }
 })();

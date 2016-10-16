@@ -23,8 +23,6 @@
                 return def.promise;
             },
             login : function(userlogin){
-                console.log(userlogin);
-
                 return $http.post(
                     API_PATH + 'TOKEN',
                     {grant_type: 'password', username: userlogin.username, password: userlogin.password}
