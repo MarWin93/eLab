@@ -22,7 +22,7 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
         public IEnumerable<ParticipationsJson> GetAllParticipants()
         {
             var participantions = _db.Participations.ToList();
-            var participantsJson = Mapper.Map<IEnumerable<Participation>, IEnumerable<ParticipationsJson>>(participantions);
+            var participantsJson = Mapper.Map<IEnumerable<ParticipationInCourse>, IEnumerable<ParticipationsJson>>(participantions);
             return participantsJson;
         }
 
@@ -32,7 +32,7 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
             var participants = (from p in _db.Participations
                              where p.CourseId == id
                              select p).ToList();
-            var participantsJson = Mapper.Map<IEnumerable<Participation>, IEnumerable<ParticipationsJson>>(participants);
+            var participantsJson = Mapper.Map<IEnumerable<ParticipationInCourse>, IEnumerable<ParticipationsJson>>(participants);
             return participantsJson;
         }
 
@@ -43,7 +43,7 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
             var participants = (from p in _db.Participations
                                 where p.UserId == id
                                 select p).ToList();
-            var participantsJson = Mapper.Map<IEnumerable<Participation>, IEnumerable<ParticipationsJson>>(participants);
+            var participantsJson = Mapper.Map<IEnumerable<ParticipationInCourse>, IEnumerable<ParticipationsJson>>(participants);
             return participantsJson;
         }
 
@@ -56,14 +56,14 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
 
         public void SaveParticipation(ParticipationsJson participation)
         {
-            var participationDb = Mapper.Map<ParticipationsJson, Participation>(participation);
+            var participationDb = Mapper.Map<ParticipationsJson, ParticipationInCourse>(participation);
             _db.Participations.Add(participationDb);
             _db.SaveChanges();
         }
 
         public void LeaveParticipationByCourseIdByUserId(int CourseId, int UserId)
         {
-            // exist and active
+            // if exist and active
             if (GetParticipationByCourseIdByUserId(CourseId, UserId)) {
                 var participationDB = _db.Participations.FirstOrDefault(x => x.CourseId == CourseId && x.UserId == UserId);
                 participationDB.Active = false;
@@ -75,7 +75,7 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
 
         public void EnrollParticipationByCourseIdByUserId(int CourseId, int UserId)
         {
-            // exist
+            // if exist
             if (IsExistParticipation(CourseId, UserId)) {
                 var participationDB = _db.Participations.FirstOrDefault(x => x.CourseId == CourseId && x.UserId == UserId);
                 participationDB.Active = true;

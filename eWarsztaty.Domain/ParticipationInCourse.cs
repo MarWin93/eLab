@@ -10,15 +10,12 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace eWarsztaty.Domain
 {
-    public class Participation
+    public class ParticipationInCourse
     {
-
-        [Key]
-        public int Id { get; set; }
 
         public bool Active { get; set; }
 
-        // uczestniczy od teggo czasu - uzupełniane w momencie dołączania zapisania się do kursu
+        // uczestniczy od tego czasu - uzupełniane w momencie dołączania zapisania się do kursu
         public DateTime? ParticipationSince { get; set; }
 
         // uczestniczy do tego czasu - uzupełniane w momencie wypisania się z kursu
@@ -26,14 +23,18 @@ namespace eWarsztaty.Domain
 
         [ForeignKey("UserId")]
         public virtual Uzytkownik User { get; set; }
+        [Key]
+        [Column(Order = 1)]
         public int UserId { get; set; }
 
         [ForeignKey("CourseId")]
         public virtual Course Course { get; set; }
+        [Key]
+        [Column(Order = 0)]
         public int CourseId { get; set; }
 
         #region Map
-        public class Map : EntityTypeConfiguration<Participation>
+        public class Map : EntityTypeConfiguration<ParticipationInCourse>
         {
             public Map()
             {

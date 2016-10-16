@@ -20,7 +20,8 @@ namespace eWarsztaty.Domain
 
         public ICollection<Topic> Topics { get; set; }
 
-        public ICollection<Participation> Participations { get; set; }
+        public ICollection<ParticipationInCourse> Participations { get; set; }
+
 
         //[ForeignKey("ProwadzacyId")]
         //public virtual Uzytkownik Prowadzacy { get; set; }

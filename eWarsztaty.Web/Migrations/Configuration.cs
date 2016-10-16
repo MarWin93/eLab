@@ -173,10 +173,16 @@
                 new Group() { Name = "Grupa1", ClassId = 2 });
 
             context.Participations.AddOrUpdate(
-                new Participation() { Active = true, CourseId = 1, UserId = 1},
-                new Participation() { Active = true, CourseId = 1, UserId = 2 },
-                new Participation() { Active = true, CourseId = 1, UserId = 3},
-                new Participation() { Active = true, CourseId=2, UserId = 2 });
+                new ParticipationInCourse() { Active = true, CourseId = 1, UserId = 1},
+                new ParticipationInCourse() { Active = true, CourseId = 1, UserId = 2 },
+                new ParticipationInCourse() { Active = true, CourseId = 1, UserId = 3},
+                new ParticipationInCourse() { Active = true, CourseId = 2, UserId = 2 });
+
+
+            context.EnrolmentsInTopics.AddOrUpdate(
+                new EnrollmentInTopic() { Active = true, TopicId = 1, UserId = 1 },
+                new EnrollmentInTopic() { Active = true, TopicId = 1, UserId = 2 },
+                new EnrollmentInTopic() { Active = true, TopicId = 2, UserId = 1 });
 
             context.SaveChanges();
         }

@@ -24,7 +24,9 @@ namespace eWarsztaty.Web.Infrastructure
         public DbSet<Course> Courses { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Topic> Topics { get; set; }
-        public DbSet<Participation> Participations { get; set; }
+        public DbSet<ParticipationInCourse> Participations { get; set; }
+        public DbSet<EnrollmentInTopic> EnrolmentsInTopics { get; set; }
+
 
 
         public eWarsztatyContext():base("DefaultConnection")
@@ -276,9 +278,14 @@ namespace eWarsztaty.Web.Infrastructure
         }
 
 
-        IQueryable<Participation> IWarsztatyDataSource.Participations
+        IQueryable<ParticipationInCourse> IWarsztatyDataSource.Participations
         {
             get { return Participations; }
+        }
+
+        IQueryable<EnrollmentInTopic> IWarsztatyDataSource.Enrollments
+        {
+            get { return EnrolmentsInTopics; }
         }
     }
 }
