@@ -119,14 +119,16 @@
             vm.errFile = errFiles && errFiles[0];
             if (file) {
                 console.log(file);
-                $http.post(API_PATH + 'courses/' + selected_id + '/upload', file)
-                    .then(function (data) {
-                        console.log("File upload successful.");
-                    })
-                    .catch(function (error) {
-                        console.log("Failed to upload file.");
-                        console.log(error)
-                    });
+                Upload.upload({
+                    url: API_PATH + 'courses/' + selected_id + '/upload',
+                    data: {file: file}
+                }).then(function (response) {
+                    console.log(response);
+                    console.log("File upload successful.");
+                }).catch(function (error) {
+                    console.log("Failed to upload file.");
+                    console.log(error)
+                });
             }
         };
 
