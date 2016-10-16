@@ -13,7 +13,7 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
 
         public IEnumerable<CoursesJson> GetAllCourses()
         {
-            var courses = _db.Courses.Include("Topics").Include("Prowadzacy").ToList();
+            var courses = _db.Courses.Include("Topics").ToList();
             var coursesJson = Mapper.Map<IEnumerable<Course>, IEnumerable<CoursesJson>>(courses);
             return coursesJson;
         }
