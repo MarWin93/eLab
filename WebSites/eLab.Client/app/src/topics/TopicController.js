@@ -11,6 +11,7 @@
         var self = this;
         //self.groups = [];
         self.topics = [];
+        self.archivedTopics = [];    
         self.courses = [];
         self.selected = null;
         self.group_count = null;
@@ -30,7 +31,12 @@
         else
             topicService.loadAllTopics()
                 .then(function (topics) {
-                    self.topics = topics;
+                    self.topics = topics.filter(function (topic) {
+                        return topic.isArchived == false;
+                    });
+                    self.archivedTopics = topics.filter(function (archivedTopic) {
+                        return archivedTopic.isArchived == true;
+                    });
                 });
 
         this.updateTopic = function () {

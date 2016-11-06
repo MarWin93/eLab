@@ -52,6 +52,14 @@ namespace eWarsztaty.Web.Controllers
         public void Delete(int id)
         {
             _topicRepository.DeleteTopic(id);
+        }   
+
+        [Route("api/topics/{id}/close")]
+        [HttpGet]
+        public IHttpActionResult CloseTopic(int id)
+        {
+            _topicRepository.CloseTopic(id);
+            return Ok();
         }
 
         [HttpPost, Route("api/topics/{id}/upload")]

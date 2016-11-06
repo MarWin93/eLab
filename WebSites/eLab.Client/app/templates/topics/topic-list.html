@@ -46,25 +46,25 @@
         <md-subheader class="md-no-sticky">Archiwalne warsztaty:</md-subheader>
         <md-list>
             <md-list-item class="md-2-line"
-                          ng-repeat="topic in tc.topics"
-                          ng-click="tc.goToTopic(topic.id)">
+                          ng-repeat="archivedTopic in tc.archivedTopics"
+                          ng-click="tc.goToTopic(archivedTopic.id)">
                 <img ng-src="assets/img/avatar-1.gif" class="md-avatar" alt="{{item}}">
                 <div class="md-list-item-text">
-                    <h3>{{topic.name}}</h3>
-                    <p>{{topic.description}}</p>
+                    <h3>{{archivedTopic.name}}</h3>
+                    <p>{{archivedTopic.description}}</p>
                 </div>
-                <md-button class="md-icon-button to-right" ng-click="tc.navigation.editTopic(topic.id)">
+                <md-button class="md-icon-button to-right" ng-click="tc.navigation.editTopic(archivedTopic.id)">
                     <md-icon class="material-icons">
                         <md-tooltip md-direction="top">edytuj warsztat</md-tooltip>mode_edit
                     </md-icon>
                 </md-button>
-                <md-button class="md-icon-button to-right" ng-click="tc.deleteTopic(topic.id)">
+                <md-button class="md-icon-button to-right" ng-click="tc.deleteTopic(archivedTopic.id)">
                     <md-icon class="material-icons">
                         <md-tooltip md-direction="top">Usuń warsztat</md-tooltip>
                         delete
                     </md-icon>
                 </md-button>
-                <md-button class="md-icon-button to-right button-list" ng-click="tc.navigation.startTopic(topic.id)">
+                <md-button class="md-icon-button to-right button-list" ng-click="tc.navigation.startTopic(archivedTopic.id)">
                     <md-icon class="material-icons" style="font-size: 32px; margin-top: -6px">
                         <md-tooltip md-direction="top">Rozpocznij warsztat</md-tooltip>play_arrow
                     </md-icon>

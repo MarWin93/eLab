@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using eWarsztaty.Web.Helpers;
 
 namespace eWarsztaty.Web.Infrastructure.Repositories
 {
@@ -33,10 +34,12 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
             _db.SaveChanges();
         }
 
-        public void SaveTopic(int topicId, TopicsJson group)
+        public void SaveTopic(int topicId, TopicsJson topic)
         {
             var topicDb = _db.Topics.FirstOrDefault(x => x.Id == topicId);
-            topicDb.Name = group.Name;
+            topicDb.Name = topic.Name;
+            topicDb.Description = topic.Description;
+            topicDb.CourseId = topic.CourseId;
             _db.SaveChanges();
         }
 
@@ -44,6 +47,13 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
         {
             var topicDb = _db.Topics.FirstOrDefault(x => x.Id == topicId);
             _db.Topics.Remove(topicDb);
+            _db.SaveChanges();
+        }
+
+        public void CloseTopic(int topicId)
+        {
+            var topicDb = _db.Topics.FirstOrDefault(x => x.Id == topicId);
+            topicDb.Status = (int)eWarsztatyEnums.TopicStatus.Closed;
             _db.SaveChanges();
         }
     }

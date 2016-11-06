@@ -26,7 +26,7 @@ namespace eWarsztaty.Web.Helpers
             Closed
         }
 
-        public enum ClassStatus
+        public enum TopicStatus
         {
             Added = 0,
             Opened,

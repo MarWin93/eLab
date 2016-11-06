@@ -88,12 +88,13 @@ namespace eWarsztaty.Web.App_Start
                  .ForMember(x => x.Topic, opt => opt.Ignore());
 
             //elab maps
-            Mapper.CreateMap<Topic, TopicsJson>();
+            Mapper.CreateMap<Topic, TopicsJson>()
+                .ForMember(x => x.IsArchived, opt => opt.MapFrom(
+                    src => src.Status == (int) eWarsztatyEnums.TopicStatus.Closed));
 
             Mapper.CreateMap<TopicsJson, Topic>()
                 .ForMember(x => x.Files, opt => opt.Ignore())
                 .ForMember(x => x.Course, opt => opt.Ignore())
-                .ForMember(x => x.CourseId, opt => opt.Ignore())
                 .ForMember(x => x.Classes, opt => opt.Ignore())
                 .ForMember(x => x.Status, opt => opt.Ignore())
                  .ForMember(x => x.EnrollmentsInTopics, opt => opt.Ignore());

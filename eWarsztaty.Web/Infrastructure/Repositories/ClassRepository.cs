@@ -49,10 +49,10 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
             _db.SaveChanges();
         }
 
-        public void CloseCourse(int classId)
+        public void CloseClass(int classId)
         {
             var classDb = _db.Classes.FirstOrDefault(x => x.Id == classId);
-            classDb.Status = (int)eWarsztatyEnums.ClassStatus.Closed;
+            classDb.Status = (int)eWarsztatyEnums.TopicStatus.Closed;
             _db.SaveChanges();
         }
     }
