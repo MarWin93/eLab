@@ -16,7 +16,8 @@
             'name': '',
             'description': '',
             'closed': false,
-            'prowadzacyId': vm.user_id = sessionStorage.getItem('userId')
+            'enrollmentKey': '',
+            'teacherId': vm.user_id = sessionStorage.getItem('userId')
         };
         vm.selected = null;
         vm.courses = [];
@@ -111,7 +112,7 @@
         };
 
         vm.canEdit = function (course) {
-            // return course.prowadzacyId == sessionStorage.getItem('userId');
+            return course.teacherId == sessionStorage.getItem('userId');
         };
 
         vm.fileUpload = function (file, errFiles) {

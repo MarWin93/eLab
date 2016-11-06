@@ -10,6 +10,12 @@
                     <label>Opis</label>
                     <textarea ng-model="cc.selected.description" rows="5" md-select-on-focus=""></textarea>
                 </md-input-container>
+          
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Hasło dostępu</label>
+                    <input ng-model="cc.selected.enrollmentKey" md-maxlength="20" />
+                </md-input-container>
+     
                 <md-card-title-text>
                     <span class="md-headline">Dołączone pliki</span>
                 </md-card-title-text>
@@ -18,7 +24,7 @@
                     <tr>
                         <td>Nazwa pliku</td>
                         <td>Rozmiar pliku</td>
-                        <td>Edycja</td>
+                        <td>Usuń</td>
                     </tr>
                     <tr ng-repeat="file in cc.selected.files">
                         <td>{{file.name}}</td>
