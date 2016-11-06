@@ -13,6 +13,6 @@ namespace eWarsztaty.Web.Models.JsonModels
         public bool Active { get; set; }
         public DateTime ParticipationSince { get; set; }
         public DateTime ParticipationTo { get; set; }
-        
+
     }
 }

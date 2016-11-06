@@ -17,6 +17,7 @@ namespace eWarsztaty.Domain
         public string Name { get; set; }
         public string Description { get; set; }
         public int Status { get; set; }
+        public string EnrollmentKey { get; set; }
 
         public ICollection<Topic> Topics { get; set; }
         public ICollection<Plik> Files { get; set; }
@@ -24,14 +25,19 @@ namespace eWarsztaty.Domain
         public ICollection<ParticipationInCourse> Participations { get; set; }
 
 
-        //[ForeignKey("ProwadzacyId")]
-        //public virtual Uzytkownik Prowadzacy { get; set; }
-        //public int ProwadzacyId { get; set; }
+        [ForeignKey("TeacherId")]
+        public virtual Uzytkownik Teacher { get; set; }
+        public int TeacherId { get; set; }
 
         #region Map
         public class Map : EntityTypeConfiguration<Course>
         {
-
+            public Map() {
+                this.HasRequired(t => t.Teacher)
+                .WithMany(t => t.Courses)
+                       .HasForeignKey(d => d.TeacherId)
+                       .WillCascadeOnDelete(false);
+            }
         }
         #endregion
     }

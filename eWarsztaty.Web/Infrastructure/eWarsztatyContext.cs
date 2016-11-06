@@ -29,7 +29,7 @@ namespace eWarsztaty.Web.Infrastructure
 
 
 
-        public eWarsztatyContext():base("DefaultConnection")
+        public eWarsztatyContext():base("MyConnection")
         {
 
         }

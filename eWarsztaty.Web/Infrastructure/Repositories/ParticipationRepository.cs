@@ -54,11 +54,21 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
         }
 
 
-        public void SaveParticipation(ParticipationsJson participation)
+        public bool AddParticipation(ParticipationsJson participation, string EnrollmentKey)
         {
-            var participationDb = Mapper.Map<ParticipationsJson, ParticipationInCourse>(participation);
-            _db.Participations.Add(participationDb);
-            _db.SaveChanges();
+            //Sprawdzenie, czy podany string jest zgodny z Course.EnrollmentKey
+            bool validEnrollmentKey = _db.Courses.Any(x => x.Id == participation.CourseId && x.EnrollmentKey == EnrollmentKey);
+            var exist = _db.Participations.Any(x => x.CourseId == participation.CourseId && x.UserId == participation.UserId);
+            if (validEnrollmentKey && !exist) { 
+                var participationDB = Mapper.Map<ParticipationsJson, ParticipationInCourse>(participation);
+                participationDB.Active = true;
+                DateTime now = DateTime.Now;
+                participationDB.ParticipationSince = now;
+                participationDB.ParticipationTo = null;
+                _db.Participations.Add(participationDB);
+                _db.SaveChanges();
+            }
+            return validEnrollmentKey && !exist;
         }
 
         public void LeaveParticipationByCourseIdByUserId(int CourseId, int UserId)
@@ -73,17 +83,22 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
             }
         }
 
-        public void EnrollParticipationByCourseIdByUserId(int CourseId, int UserId)
+        public bool EnrollParticipationByCourseIdByUserId(int CourseId, int UserId, string EnrollmentKey)
         {
             // if exist
-            if (IsExistParticipation(CourseId, UserId)) {
+            bool existingParticipations = IsExistParticipation(CourseId, UserId);
+            bool validEnrollmentCourse = _db.Courses.Any(x => x.Id == CourseId && x.EnrollmentKey == EnrollmentKey);
+            bool possible = existingParticipations && validEnrollmentCourse;
+            if (possible)
+            {
                 var participationDB = _db.Participations.FirstOrDefault(x => x.CourseId == CourseId && x.UserId == UserId);
                 participationDB.Active = true;
                 DateTime now = DateTime.Now;
                 participationDB.ParticipationSince = now;
                 participationDB.ParticipationTo = null;
                 _db.SaveChanges();
-            } 
+            }
+            return possible;
 
         }
 

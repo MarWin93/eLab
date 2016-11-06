@@ -55,10 +55,6 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
 
         public void SaveEnrollment(EnrollmentInTopicJson enrollment)
         {
-            
-            //Sprawdzenie, czy podany string jest zgodny z TopicEnrollmentKey
-          //  var validEnrollmentTopic = _db.Topics.Any(x => x.Id == enrollment.TopicId && x.EnrollmentKey == EnrollmentKey);
-
             var enrollmentDB = Mapper.Map<EnrollmentInTopicJson, EnrollmentInTopic>(enrollment);
             _db.EnrolmentsInTopics.Add(enrollmentDB);
             _db.SaveChanges();
@@ -78,8 +74,6 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
 
         public void EnrollArchiveEnrollmentByTopicIdByUserId(int TopicId, int UserId)
         {
-            //TO DO: Sprawdzenie, czy podany string jest zgodny z TopicEnrollmentKey
-         //   var validEnrollmentTopic = _db.Topics.Any(x => x.Id == TopicId && x.EnrollmentKey == EnrollmentKey);
                 var enrollmentDB = _db.EnrolmentsInTopics.FirstOrDefault(x => x.TopicId == TopicId && x.UserId == UserId);
                 enrollmentDB.Active = true;
                 DateTime now = DateTime.Now;

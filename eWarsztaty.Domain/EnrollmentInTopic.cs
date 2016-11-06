@@ -15,7 +15,6 @@ namespace eWarsztaty.Domain
         public bool Active { get; set; }
 
         // Zapisany od tego czasu - uzupełniane w momencie zapisania się na warsztaty (topic)
-        //(podania popranwego klucza)
         public DateTime? EnrollmentSince { get; set; }
 
         // Zapisany do tego czasu - uzupełniane w momencie wypisania się z warsztatów (topic)

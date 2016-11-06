@@ -18,8 +18,7 @@ namespace eWarsztaty.Web.Controllers
         [Route("api/participations")]
         [HttpGet]
         public IEnumerable<ParticipationsJson> Get()
-        {
-           
+        {      
             return _participationRepository.GetAllParticipants();
         }
 
@@ -54,33 +53,45 @@ namespace eWarsztaty.Web.Controllers
             }
         }
 
-        // PUT api/participations
-        [Route("api/participations")]
-        [HttpPut]
-        public IHttpActionResult Put([FromBody]ParticipationsJson participation)
+        // IN FUTURE
+        // PUT api/participations/enroll/KLUCZ123
+        // Zapisanie się na kurs dla nowych uczestnikow
+        [Route("api/participations/enroll/{EnrollmentKey}")]
+        [HttpPost]
+        public IHttpActionResult Post([FromBody]ParticipationsJson participation, string EnrollmentKey)
         {
-            _participationRepository.SaveParticipation(participation);
-            return Ok();
+
+            if (_participationRepository.AddParticipation(participation, EnrollmentKey))
+                return this.Ok();
+            else
+            {
+                return this.NotFound();
+            }
         }
 
-        // GET api/participations/5/3/leave
+        // PUT api/participations/5/3/leave
         // Wypisanie sie z kursu, dla zapisanego uzytkownika
         [Route("api/participations/{CourseId}/{UserId}/leave")]
-        [HttpGet]
+        [HttpPut]
         public IHttpActionResult LeaveCourse(int CourseId, int UserId)
         {
             _participationRepository.LeaveParticipationByCourseIdByUserId(CourseId, UserId);
-            return Ok();
+            return this.Ok();
         }
 
-        // GET api/participations/5/3/enroll
+        // PUT api/participations/5/3/enroll/KLUCZ123
         // przywrocenie uczestnictwa z wypisanego kursu
-        [Route("api/participations/{CourseId}/{UserId}/enroll")]
-        [HttpGet]
-        public IHttpActionResult EnrollToCourse(int CourseId, int UserId)
+        [Route("api/participations/{CourseId}/{UserId}/enroll/{EnrollmentKey}")]
+        [HttpPut]
+        public IHttpActionResult EnrollToCourse(int CourseId, int UserId, string EnrollmentKey)
         {
-            _participationRepository.EnrollParticipationByCourseIdByUserId(CourseId, UserId);
-            return Ok();
+           
+            if (_participationRepository.EnrollParticipationByCourseIdByUserId(CourseId, UserId, EnrollmentKey))
+                return this.Ok();
+            else
+            {
+                return this.NotFound();
+            }
         }
     }
 }

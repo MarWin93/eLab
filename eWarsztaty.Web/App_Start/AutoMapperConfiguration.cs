@@ -22,6 +22,7 @@ namespace eWarsztaty.Web.App_Start
                 .ForMember(x => x.UdzialyWWarsztacie, opt => opt.Ignore())
                 .ForMember(x => x.Warsztaty, opt => opt.Ignore())
                 .ForMember(x => x.UzytkownicyRole, opt => opt.Ignore())
+                 .ForMember(x => x.Courses, opt => opt.Ignore())
                 .ForMember(x => x.Participations, opt => opt.Ignore())
                 .ForMember(x => x.EnrollmentsInTopics, opt => opt.Ignore());
 
@@ -32,6 +33,7 @@ namespace eWarsztaty.Web.App_Start
                 .ForMember(x => x.UdzialyWWarsztacie, opt => opt.Ignore())
                 .ForMember(x => x.Warsztaty, opt => opt.Ignore())
                 .ForMember(x => x.UzytkownicyRole, opt => opt.Ignore())
+                .ForMember(x => x.Courses, opt => opt.Ignore())
                 .ForMember(x => x.Participations, opt => opt.Ignore())
                 .ForMember(x => x.EnrollmentsInTopics, opt => opt.Ignore());
 
@@ -117,14 +119,16 @@ namespace eWarsztaty.Web.App_Start
                 .ForMember(x => x.Closed, opt => opt.MapFrom(
                     src => src.Status == (int)eWarsztatyEnums.CourseStatus.Closed))
                 .ForMember(dest => dest.Topics, opt => opt.MapFrom(src => src.Topics))
-                .ForMember(dest => dest.Files, opt => opt.MapFrom(src => src.Files));
+                .ForMember(dest => dest.Files, opt => opt.MapFrom(src => src.Files))
+                ;
 
             Mapper.CreateMap<CoursesJson, Course>()
                 .ForMember(x => x.Files, opt => opt.Ignore())
                 .ForMember(x => x.Topics, opt => opt.Ignore())
                 .ForMember(x => x.Files, opt => opt.Ignore())
                 .ForMember(x => x.Status, opt => opt.Ignore())
-                .ForMember(x => x.Participations, opt => opt.Ignore());
+                .ForMember(x => x.Participations, opt => opt.Ignore())
+                .ForMember(x => x.Teacher, opt => opt.Ignore());
 
             Mapper.CreateMap<Uzytkownik, StudentJson>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Login));

@@ -16,6 +16,7 @@ namespace eWarsztaty.Domain
         public bool Active { get; set; }
 
         // uczestniczy od tego czasu - uzupełniane w momencie dołączania zapisania się do kursu
+        //(podania popranwego klucza)
         public DateTime? ParticipationSince { get; set; }
 
         // uczestniczy do tego czasu - uzupełniane w momencie wypisania się z kursu

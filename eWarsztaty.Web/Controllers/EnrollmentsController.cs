@@ -53,10 +53,6 @@ namespace eWarsztaty.Web.Controllers
             }
         }
 
-        // IN FUTURE
-        // PUT api/enrollments/enroll/KLUCZ123
-        // [Route("api/enrollments/enroll/{EnrollmentKey}")]
-
         // PUT api/enrollments/
         [Route("api/enrollments")]
         [HttpPut]

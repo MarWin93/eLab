@@ -159,23 +159,24 @@
             //);
 
             //elab seed objects
-            context.Courses.AddOrUpdate(d => d.Id, new Course() { Name = "Nierelacyjne bazy danych", Description = "Więcej informacji o NO-SQL.", Status = 0},
-                new Course() { Name = "Eksploracja danych", Description = "krótki opis danej lekcji", Status = 0});
+            context.Courses.AddOrUpdate(d => d.Id,
+                new Course() { Name = "Nierelacyjne bazy danych", Description = "Więcej informacji o NO-SQL.", Status = 0, EnrollmentKey = "NBD123", TeacherId = 4 },
+                new Course() { Name = "Eksploracja danych", Description = "krótki opis danej lekcji", Status = 0, EnrollmentKey="ED123", TeacherId = 5 });
 
             context.Topics.AddOrUpdate(d => d.Id, new Topic() { Name = "Wprowadzenie do nierelacyjnych baz danych", Description = "krótki opis danej lekcji", Status = 0, CourseId = 1 },
                 new Topic() { Name = "Zapoznanie z narzędziami oraz środowiskiem", Description = "krótki opis danej lekcji", Status = 0, CourseId = 1 });
             context.SaveChanges();
 
-            context.Classes.AddOrUpdate(d => d.Id, new Class() { Name = "Lekcja1", Description = "krótki opis Lekcja1", Status = 0, TopicId = 1},
-                new Class() { Name = "Lekcja2", Description = "krótki opis Lekcja2", Status = 0, TopicId = 1});
+            context.Classes.AddOrUpdate(d => d.Id, new Class() { Name = "Lekcja1", Description = "krótki opis Lekcja1", Status = 0, TopicId = 1 },
+                new Class() { Name = "Lekcja2", Description = "krótki opis Lekcja2", Status = 0, TopicId = 1 });
 
-            context.Groups.AddOrUpdate(d => d.Id, new Group() { Name = "Grupa1", ClassId = 1},
+            context.Groups.AddOrUpdate(d => d.Id, new Group() { Name = "Grupa1", ClassId = 1 },
                 new Group() { Name = "Grupa1", ClassId = 2 });
 
             context.Participations.AddOrUpdate(
-                new ParticipationInCourse() { Active = true, CourseId = 1, UserId = 1},
+                new ParticipationInCourse() { Active = true, CourseId = 1, UserId = 1 },
                 new ParticipationInCourse() { Active = true, CourseId = 1, UserId = 2 },
-                new ParticipationInCourse() { Active = true, CourseId = 1, UserId = 3},
+                new ParticipationInCourse() { Active = true, CourseId = 1, UserId = 3 },
                 new ParticipationInCourse() { Active = true, CourseId = 2, UserId = 2 });
 
 

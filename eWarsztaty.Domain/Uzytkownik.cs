@@ -33,6 +33,8 @@ namespace eWarsztaty.Domain
 
         public ICollection<EnrollmentInTopic> EnrollmentsInTopics { get; set; }
 
-       
+        public ICollection<Course> Courses { get; set; }
+
+
     }
 }

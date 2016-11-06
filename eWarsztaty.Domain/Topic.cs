@@ -25,8 +25,6 @@ namespace eWarsztaty.Domain
         public virtual Course Course { get; set; }
         public int? CourseId { get; set; }
 
-      //  public string EnrollmentKey { get; set; }
-
         public ICollection<EnrollmentInTopic> EnrollmentsInTopics { get; set; }
 
         #region Map
