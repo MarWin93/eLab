@@ -1,0 +1,11 @@
+
+<md-card ng-repeat="course in ctrl.courses" class="list-element" ui-sref="courseDetailsUser({courseId: course.id})" ng-click="$event.stopPropagation()">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">{{course.name}}</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <p>{{course.description}}</p>
+    </md-card-content>
+</md-card>

@@ -1,69 +1,23 @@
 <md-card>
     <md-card-title>
-        <md-card-title-text>
-            <span class="md-headline"></span>
+        <md-card-title-text layout="row" layout-align="space-between center">
+            <span class="md-headline">{{ctrl.topic.name}}</span>
         </md-card-title-text>
     </md-card-title>
     <md-card-content>
-        <div layout="row">
-            <p>Liczba grup:</p>
-        </div>
-        <div layout="row">
-            <md-slider flex="70" min="2" max="4" ng-model="clc.group_count"
-                       aria-label="groups"
-                       id="groups-slider" class="md-primary">
-            </md-slider>
-            <div flex="10"></div>
-            <div flex="20" layout="" layout-align="center center">
-                <md-input-container class="no-margin full-width">
-                    <input class="" type="number" max="4" min="2" ng-model="clc.group_count"
-                           aria-label="groups" aria-controls="groups-slider">
-                </md-input-container>
-            </div>
-        </div>
-
-        <div class="simpleDemo">
-            <div ng-repeat="(listName, list) in clc.selected.lists">
-                <div ng-if="listName == 'unassigned'">
-                    <md-subheader class="panel-title">Nieprzypisani:</md-subheader>
-                    <ul dnd-list="list">
-                        <md-list-item ng-repeat="item in list"
-                                      dnd-draggable="item"
-                                      dnd-moved="list.splice($index, 1)"
-                                      dnd-effect-allowed="move"
-                                      dnd-selected="gc.selected.lists.selected = item"
-                                      ng-class="{'selected': gc.selected.lists.selected === item}">
-                            <img ng-src="assets/img/avatar-1.gif" class="md-avatar" alt="{{item}}">
-                            <div class="md-list-item-text">
-                                <h3>{{item}}</h3>
-                            </div>
-                        </md-list-item>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="simpleDemo">
-            <div ng-repeat="(listName, list) in clc.selected.lists">
-                <div ng-if="listName != 'unassigned'">
-                    <md-subheader class="panel-title">{{listName}}:</md-subheader>
-
-                    <ul dnd-list="list">
-
-                        <md-list-item ng-repeat="item in list"
-                                      dnd-draggable="item"
-                                      dnd-moved="list.splice($index, 1)"
-                                      dnd-effect-allowed="move"
-                                      dnd-selected="gc.selected.lists.selected = item"
-                                      ng-class="{'selected': gc.selected.lists.selected === item}">
-                            <img ng-src="assets/img/avatar-1.gif" class="md-avatar" alt="{{item}}">
-                            <div class="md-list-item-text">
-                                <h3>{{item}}</h3>
-                            </div>
-                        </md-list-item>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <md-divider class="divider-padded"></md-divider>
+        <div style="height:400px; background: #808080"></div>
+        <p class="course-description">{{ctrl.topic.description}}</p>
+        <md-divider class="divider-padded"></md-divider>
+        <md-subheader class="list-header">Do pobrania:</md-subheader>
+        <md-list>
+            <md-list-item ng-repeat="file in ctrl.topic.files"
+                          ng-click="ctrl.fileDownload(file)">
+                <md-icon class="material-icons list-icon"> description </md-icon>
+                <p>{{file.name}}<span class="download-size">({{file.size}} KB)</span></p>
+            </md-list-item>
+        </md-list>
+        <p class="empty-list" ng-if="ctrl.topic.files.length == 0">brak plikow</p>
     </md-card-content>
 
 </md-card>

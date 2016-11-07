@@ -3,7 +3,13 @@ angular.module('eLabApp').service('courseService', function ($http, API_PATH){
         getCourses: function() {
             return $http.get(API_PATH + 'courses');
         },
-        
+        getUserCourses: function (user_id) {
+            return $http.get(API_PATH + 'participations/user/' + user_id);
+        },
+        /*userIsEnrolledInCourse: function (course_id, user_id) {
+            return $http.get(API_PATH + 'participations/' + course_id + '/' + user_id);
+        },
+        */
         getCourse: function (course_id) {
             return $http.get(API_PATH + 'courses/' + course_id);
         },

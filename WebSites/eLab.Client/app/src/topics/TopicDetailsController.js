@@ -1,5 +1,7 @@
-angular.module('eLabApp').controller('TopicDetailsController', function ($scope, $state, topicService, $stateParams, 
-                                                                         topic, courses, Upload, API_PATH) {
+angular.module('eLabApp').controller('TopicDetailsController', function ($scope, $rootScope, $state, topicService, $stateParams, 
+                                                                         topic, courses, Upload, API_PATH, $http) {
+
+
     var vm = this;
 
     vm.topic = topic;

@@ -33,9 +33,9 @@ namespace eWarsztaty.Web.Controllers
         // GET api/participations/user/5
         [Route("api/participations/user/{UserId}")]
         [HttpGet]
-        public IEnumerable<ParticipationsJson> GetCourses(int UserId)
+        public IEnumerable<CoursesJson> GetCourses(int UserId)
         {
-            return _participationRepository.GetParticipationsByUserId(UserId);
+            return _participationRepository.GetCoursesFromParticipationsByUserId(UserId);
         }
 
         // GET api/participations/5/3
@@ -53,15 +53,13 @@ namespace eWarsztaty.Web.Controllers
             }
         }
 
-        // IN FUTURE
-        // PUT api/participations/enroll/KLUCZ123
-        // Zapisanie się na kurs dla nowych uczestnikow
-        [Route("api/participations/enroll/{EnrollmentKey}")]
-        [HttpPost]
-        public IHttpActionResult Post([FromBody]ParticipationsJson participation, string EnrollmentKey)
+        // PUT api/participations/5/3/leave
+        // Wypisanie sie z kursu, dla zapisanego uzytkownika
+        [Route("api/participations/{CourseId}/{UserId}/leave")]
+        [HttpPut]
+        public IHttpActionResult LeaveCourse(int CourseId, int UserId)
         {
-
-            if (_participationRepository.AddParticipation(participation, EnrollmentKey))
+            if (_participationRepository.LeaveParticipationByCourseIdByUserId(CourseId, UserId))
                 return this.Ok();
             else
             {
@@ -69,18 +67,8 @@ namespace eWarsztaty.Web.Controllers
             }
         }
 
-        // PUT api/participations/5/3/leave
-        // Wypisanie sie z kursu, dla zapisanego uzytkownika
-        [Route("api/participations/{CourseId}/{UserId}/leave")]
-        [HttpPut]
-        public IHttpActionResult LeaveCourse(int CourseId, int UserId)
-        {
-            _participationRepository.LeaveParticipationByCourseIdByUserId(CourseId, UserId);
-            return this.Ok();
-        }
-
         // PUT api/participations/5/3/enroll/KLUCZ123
-        // przywrocenie uczestnictwa z wypisanego kursu
+        // zapisianie sie uczestnika na kurs
         [Route("api/participations/{CourseId}/{UserId}/enroll/{EnrollmentKey}")]
         [HttpPut]
         public IHttpActionResult EnrollToCourse(int CourseId, int UserId, string EnrollmentKey)

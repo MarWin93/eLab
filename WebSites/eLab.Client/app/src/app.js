@@ -156,7 +156,7 @@ var eLabApp = angular.module('eLabApp', ['ngMaterial', 'ngResource', 'ui.router'
             .state('topicStart', {
                 //TODO
                 url: '/teacher/courses/:courseId/topics/:topicId/start',
-                templateUrl: 'templates/topics/topic-edit.html',
+                templateUrl: 'templates/topics/topic-detail.html',
                 controller: 'TopicDetailsController as ctrl',
                 resolve: {
                     topic: function (topicService, $stateParams) {
@@ -213,7 +213,8 @@ var eLabApp = angular.module('eLabApp', ['ngMaterial', 'ngResource', 'ui.router'
                 controller: 'CourseController as ctrl',
                 resolve: {
                     courses: function (courseService, $rootScope) {
-                        return courseService.getCourses().then(function (response) {
+                        return courseService.getUserCourses($rootScope.user.id).then(function (response) {
+                          
                             return response.data
                         });
                     },
@@ -228,7 +229,7 @@ var eLabApp = angular.module('eLabApp', ['ngMaterial', 'ngResource', 'ui.router'
             })
             .state('courseDetailsUser', {
                 url: '/user/courses/:courseId',
-                templateUrl: 'templates/courses/course-detail-user.html',
+                templateUrl: 'templates/courses/course-enroll-user.html',
                 controller: 'CourseDetailsController as ctrl',
                 resolve: {
                     course: function (courseService, $stateParams) {
@@ -238,10 +239,25 @@ var eLabApp = angular.module('eLabApp', ['ngMaterial', 'ngResource', 'ui.router'
                     }
                 }
             })
-
-
-
-
+          .state('topicUserView', {
+              url: '/user/courses/:courseId/topics/:topicId/view',
+              templateUrl: 'templates/topics/topic-detail.html',
+              controller: 'TopicDetailsController as ctrl',
+             resolve: {
+                 topic: function (topicService, $stateParams) {
+                     return topicService.getTopic($stateParams.topicId).then(function (response) {
+                         return response.data;
+                     });
+                 },
+                 courses: function (courseService, $rootScope) {
+                     return courseService.getCourses().then(function (response) {
+                         return response.data.filter(function (elem) {
+                             return elem.teacherId == $rootScope.user.id;
+                         });
+                     });
+                 }
+             }
+         })
     });
 
 eLabApp.value('API_PATH', 'http://localhost:8089/api/');

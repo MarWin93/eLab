@@ -4,6 +4,15 @@ angular.module('eLabApp').controller('CourseDetailsController', function ($scope
     var vm = this;
     vm.course = course;
     vm.userEnrollmentKey = '';
+    vm.isUserEnrolled = false;
+    $http.get(API_PATH + 'participations/' + vm.course.id + '/' + $rootScope.user.id)
+        .then(function (response) {
+            vm.isUserEnrolled = response.data;
+            console.log(response.data);
+            console.log(vm.isUserEnrolled);
+        }).catch(function (err) {
+            console.log(err);
+        });
 
     vm.updateCourse = function () {
         return courseService.updateCourse(vm.course).then(function () {
@@ -62,10 +71,6 @@ angular.module('eLabApp').controller('CourseDetailsController', function ($scope
             });
     };
 
-    vm.isEnrolled = function () {
-        return false;
-    };
-
     vm.enrollCourse = function () {
         if (vm.course.enrollmentKey == vm.userEnrollmentKey) {
             var participation = {
@@ -81,6 +86,22 @@ angular.module('eLabApp').controller('CourseDetailsController', function ($scope
                 console.log(err);
             });
         }
+    };
+
+    vm.leaveCourse = function () {
+            var participation = {
+                courseId: vm.course.id,
+                userId: $rootScope.user.id
+            };
+            console.log(participation);
+            // [Route("api/participations/{CourseId}/{UserId}/enroll/{EnrollmentKey}")]
+            return $http.put(API_PATH + 'participations/' + vm.course.id + '/' + $rootScope.user.id + '/leave/', participation).then(function () {
+                console.log('leave successful');
+                $state.go('courseListUser');
+            }).catch(function (err) {
+                console.log(err);
+            });
+      
     };
 
 });
