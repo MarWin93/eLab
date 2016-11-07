@@ -1,44 +1,22 @@
 <md-card>
-    <div class="card-cover" id="cover-{{cc.selected.id || 30}}"></div>
     <form class="md-inline-form" layout="column">
         <md-card-content>
                 <md-input-container class="ng-pristine ng-valid md-input ng-touched" flex-gt-sm>
                     <label>Nazwa kursu</label>
-                    <input ng-model="cc.selected.name" class="title"/>
+                    <input ng-model="ctrl.course.name" class="title"/>
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>Opis</label>
-                    <textarea ng-model="cc.selected.description" rows="5" md-select-on-focus=""></textarea>
+                    <textarea ng-model="ctrl.course.description" rows="5" md-select-on-focus=""></textarea>
                 </md-input-container>
-          
+
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Hasło dostępu</label>
-                    <input ng-model="cc.selected.enrollmentKey" md-maxlength="20" />
+                    <input ng-model="ctrl.course.enrollmentKey" md-maxlength="20" />
                 </md-input-container>
-     
-                <md-card-title-text>
-                    <span class="md-headline">Dołączone pliki</span>
-                </md-card-title-text>
-            <div layout="row">
-                <table>
-                    <tr>
-                        <td>Nazwa pliku</td>
-                        <td>Rozmiar pliku</td>
-                        <td>Usuń</td>
-                    </tr>
-                    <tr ng-repeat="file in cc.selected.files">
-                        <td>{{file.name}}</td>
-                        <td>{{file.size}}</td>
-                        <td>
-                            <md-icon class="material-icons">delete</md-icon>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <md-divider class="divider-padded"></md-divider>
 
             <div layout="row" layout-align="end center">
-                <md-button ng-click="cc.updateCourse()" class="md-primary add-button">
+                <md-button ng-click="ctrl.updateCourse()" class="md-primary add-button">
                     <md-icon class="material-icons icon-button">edit_mode</md-icon>Zapisz zmiany
                 </md-button>
             </div>

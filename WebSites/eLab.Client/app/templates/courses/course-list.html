@@ -1,19 +1,17 @@
-<md-list>
-    <md-list-item ng-repeat="course in cc.courses">
-        <md-card ng-click="cc.goToCourse(course)" class="list-element">
-            <div class="card-cover" id="cover-{{course.id}}"></div>
+
+        <md-card ng-repeat="course in ctrl.courses" class="list-element" ui-sref="courseDetails({courseId: course.id})" ng-click="$event.stopPropagation()">
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-headline">{{course.name}}</span>
                 </md-card-title-text>
-                <md-menu md-position-mode="target-right target" ng-if="cc.canEdit(course)">
+                <md-menu>
                     <md-button class="md-icon-button to-right"
                                ng-click="$mdOpenMenu($event)">
                         <md-icon class="material-icons">more_horiz</md-icon>
                     </md-button>
                     <md-menu-content width="2">
                         <md-menu-item>
-                            <md-button ng-click="cc.goToUpdateCourse(course);$event.stopPropagation()">
+                            <md-button ui-sref="courseUpdate({courseId: course.id})">
                                 <div layout="row" flex="">
                                     <md-icon class="md-icom">edit_mode</md-icon>
                                     <p flex="">edytuj</p>
@@ -21,7 +19,7 @@
                             </md-button>
                         </md-menu-item>
                         <md-menu-item>
-                            <md-button ng-click="cc.deleteCourse(course);$event.stopPropagation()">
+                            <md-button ng-click="ctrl.deleteCourse(course);$event.stopPropagation()">
                                 <div layout="row" flex="">
                                     <md-icon class="md-icom">delete</md-icon>
                                     <p flex="">usuń</p>
@@ -35,5 +33,3 @@
                 <p>{{course.description}}</p>
             </md-card-content>
         </md-card>
-    </md-list-item>
-</md-list>

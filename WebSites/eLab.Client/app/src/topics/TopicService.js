@@ -1,64 +1,23 @@
-(function(){
-    'use strict';
+angular.module('eLabApp').service('topicService', function ($http, API_PATH) {
+    return {
+        getTopics: function() {
+            return $http.get(API_PATH + 'topics');
+        },
 
-    angular.module('topics')
-        .service('topicService', ['$q', '$http', 'API_PATH', TopicService]);
+        getTopic: function (topicId) {
+            return $http.get(API_PATH + 'topics/' + topicId)
+        },
 
-    function TopicService($q, $http, API_PATH) {
-        var topics = [];
+        createTopic: function (topic) {
+            return $http.post(API_PATH + 'topics', topic);
+        },
 
-        return {
-            loadAllTopics : function() {
-                var def = $q.defer();
+        deleteTopic: function (topic) {
+            return $http.delete(API_PATH + 'topics/' + topic.id)
+        },
 
-                $http.get(API_PATH + 'topics')
-                    .success(function(data) {
-                        topics = data;
-                        def.resolve(data);
-                    })
-                    .error(function() {
-                        def.reject("Failed to get topics");
-                    });
-                return def.promise;
-            },
-            loadTopic: function (topic_id) {
-                var def = $q.defer();
-                $http.get(API_PATH + 'topics/' + topic_id)
-                    .success(function (data) {
-                        topics = data;
-                        def.resolve(data);
-                    })
-                    .error(function () {
-                        def.reject("Failed to get topic");
-                    });
-                return def.promise;
-            },
-            loadAllGroups: function () {
-                var def = $q.defer();
-
-                $http.get(API_PATH + 'groups')
-                    .success(function (data) {
-                        topics = data;
-                        def.resolve(data);
-                    })
-                    .error(function () {
-                        def.reject("Failed to get groups");
-                    });
-                return def.promise;
-            },
-            navigation: {
-                editTopic: function (topic_id) {
-                    window.location = "#/topics/" + topic_id + "/edit";
-                },
-                startTopic: function (topic_id) {
-                    // TODO change hardcoded class ID
-                    window.location = "#/topics/" + topic_id;
-                },
-                addTopic: function () {
-                    window.location = '#/topics/add';
-                }
-            }
-        };
-    }
-
-})();
+        updateTopic: function (topic) {
+            return $http.put(API_PATH + 'topics/' + topic.id, topic)
+        }
+    };
+});

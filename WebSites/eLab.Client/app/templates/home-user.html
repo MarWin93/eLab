@@ -1,0 +1,23 @@
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <md-subheader class="dashboard-list-header">Lista tematyk</md-subheader>
+        <div class="horizontal-list" layout="row" layout-align="start stretch">
+            <md-button ui-sref="courseDetailsUser({courseId: course.id})" class="horizontal-list-item md-raised"
+                       ng-repeat="course in ctrl.courses">
+                {{course.name}}
+            </md-button>
+        </div>
+
+        <md-subheader class="dashboard-list-header">Lista warsztatów nieprzypisanych do tematyk</md-subheader>
+        <div class="horizontal-list" layout="row" layout-align="start stretch">
+            <md-button ng-click="elab.goToTopic(topic)" class="horizontal-list-item md-raised"
+                       ng-repeat="topics in elab.topics">
+                {{course.name}}
+            </md-button>
+        </div>
+    </md-card-content>
+</md-card>

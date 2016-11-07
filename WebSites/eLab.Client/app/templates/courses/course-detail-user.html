@@ -1,0 +1,25 @@
+<md-card>
+    <form name="createCourseForm" ng-if="!ctrl.isEnrolled()">
+        <md-card-content>
+            <h1>{{ctrl.course.name}}</h1>
+            <p>{{ctrl.course.description}}</p>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Hasło dostępu</label>
+                    <input ng-model="ctrl.userEnrollmentKey" md-maxlength="20" />
+                </md-input-container>
+            </div>
+            <div layout="row" layout-align="end center">
+                <md-button ng-click="ctrl.enrollCourse()" class="md-primary md-raised"
+                           ng-disabled="createCourseForm.$invalid">
+                    <md-icon class="material-icons icon-button">add</md-icon>zapisz się
+                </md-button>
+            </div>
+        </md-card-content>
+    </form>
+    <md-card-content ng-if="ctrl.isEnrolled()">
+        <p>Jesteś zapisany na</p>
+        <h1>{{ctrl.course.name}}</h1>
+        <p>{{ctrl.course.description}}</p>
+    </md-card-content>
+</md-card>

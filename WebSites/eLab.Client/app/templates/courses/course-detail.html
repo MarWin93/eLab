@@ -1,8 +1,7 @@
 <md-card>
-    <div class="card-cover" id="cover-{{cc.selected.id}}"></div>
     <md-card-title>
         <md-card-title-text layout="row"  layout-align="space-between center">
-            <span class="md-headline">{{cc.selected.name}}</span>
+            <span class="md-headline">{{ctrl.course.name}}</span>
             <md-menu md-position-mode="target-right target">
                 <md-button class="md-icon-button to-right"
                            ng-click="$mdOpenMenu($event)">
@@ -10,16 +9,16 @@
                 </md-button>
                 <md-menu-content width="3">
                     <p class="md-menu-header">Tematyka:</p>
-                    <md-menu-item ng-if="cc.canEdit(cc.selected)">
-                        <md-button ng-click="cc.goToUpdateCourse(cc.selected)">
+                    <md-menu-item>
+                        <md-button ui-sref="courseUpdate({courseId: ctrl.course.id})">
                             <div layout="row" flex="">
                                 <md-icon class="md-icom">edit_mode</md-icon>
                                 <p flex="">edytuj</p>
                             </div>
                         </md-button>
                     </md-menu-item>
-                    <md-menu-item ng-if="cc.canEdit(cc.selected)">
-                        <md-button ng-click="cc.deleteCourse(cc.selected)">
+                    <md-menu-item>
+                        <md-button ng-click="ctrl.deleteCourse(ctrl.course)">
                             <div layout="row" flex="">
                                 <md-icon class="md-icom">delete</md-icon>
                                 <p flex="">usuń</p>
@@ -27,7 +26,7 @@
                         </md-button>
                     </md-menu-item>
                     <md-menu-item>
-                        <md-button ng-click="cc.goToCreateCourse()">
+                        <md-button ui-sref="courseCreate">
                             <div layout="row" flex="">
                                 <md-icon class="md-icom">add</md-icon>
                                 <p flex="">dodaj</p>
@@ -39,35 +38,36 @@
         </md-card-title-text>
     </md-card-title>
     <md-card-content>
-        <p class="course-description">{{cc.selected.description}}</p>
+        <p class="course-description">{{ctrl.course.description}}</p>
 
         <md-subheader class="md-no-sticky">Warsztaty:</md-subheader>
         <md-list>
             <md-list-item
                     class="md-2-line"
-                    ng-repeat="topic in cc.selected.topics"
-                    ng-click="cc.topicsNavigation.goToTopic(topic.id, $event)"
-            >
+                    ng-repeat="topic in ctrl.course.topics"
+                    ui-sref="topicDetails({courseId: course.id, topicId: topic.id})">
                 <img ng-src="assets/img/avatar-1.gif" class="md-avatar" alt="{{item}}">
                 <div class="md-list-item-text">
                     <h3>{{topic.name}}</h3>
                     <p>{{topic.description}}</p>
                 </div>
-                <md-button class="md-icon-button to-right" ng-click="cc.topicsNavigation.editTopic(topic.id, $event)">
-                    <md-icon class="material-icons">
+                <md-button class="md-icon-button to-right"
+                           ui-sref="topicUpdate({courseId: ctrl.course.id, topicId: topic.id})">
+                <md-icon class="material-icons">
                         <md-tooltip md-direction="top">edytuj warsztat</md-tooltip>mode_edit
                     </md-icon>
                 </md-button>
-                <md-button class="md-icon-button to-right button-list" ng-click="cc.topicsNavigation.startTopic(topic.id, $event)">
+                <md-button class="md-icon-button to-right button-list"
+                           ui-sref="topicStart({courseId: ctrl.course.id, topicId: topic.id})">
                     <md-icon class="material-icons" style="font-size: 32px; margin-top: -6px">
                         <md-tooltip md-direction="top">Rozpocznij warsztat</md-tooltip>play_arrow
                     </md-icon>
                 </md-button>
             </md-list-item>
         </md-list>
-        <p class="empty-list" ng-if="cc.selected.topics.length == 0">brak warsztatów</p>
+        <p class="empty-list" ng-if="ctrl.course.topics.length == 0">brak warsztatów</p>
         <div layout="row" layout-align="end center">
-            <md-button ng-click="cc.topicsNavigation.addTopic(cc.selected)" class="md-primary add-button">
+            <md-button ui-sref="topicCreate({courseId: ctrl.course.id})" class="md-primary add-button">
                 <md-icon class="material-icons icon-button">add</md-icon>dodaj warsztat
             </md-button>
         </div>
@@ -76,16 +76,16 @@
 
         <md-list>
             <md-list-item
-                    ng-repeat="file in cc.selected.files"
-                    ng-click="cc.fileDownload(file)"
+                    ng-repeat="file in ctrl.course.files"
+                    ng-click="ctrl.fileDownload(file)"
             >
                 <md-icon class="material-icons list-icon"> description </md-icon>
                 <p>{{file.name}}<span class="download-size">({{file.size}} KB)</span></p>
             </md-list-item>
         </md-list>
-        <p class="empty-list" ng-if="cc.selected.files.length == 0">brak plików</p>
+        <p class="empty-list" ng-if="ctrl.course.files.length == 0">brak plików</p>
         <div layout="row" layout-align="end center">
-            <md-button ngf-select="cc.fileUpload($file, $invalidFiles)" class="md-primary add-button">
+            <md-button ngf-select="ctrl.fileUpload($file, $invalidFiles)" class="md-primary add-button">
                 <md-icon class="material-icons icon-button">add</md-icon>dodaj pliki
             </md-button>
         </div>

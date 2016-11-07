@@ -1,27 +1,27 @@
 <md-card>
-    <form>
+    <form name="createCourseForm">
         <md-card-content>
             <div layout="row">
                 <md-input-container class="ng-pristine ng-valid md-input ng-touched" flex-gt-sm>
                     <label>Nazwa tematyki</label>
-                    <input ng-model="cc.new.name" class="title"/>
+                    <input ng-model="ctrl.course.name" class="title" required/>
                 </md-input-container>
             </div>
             <div layout="row">
                 <md-input-container class="md-block">
                     <label>Opis</label>
-                    <textarea ng-model="cc.new.description" rows="5" md-select-on-focus></textarea>
+                    <textarea ng-model="ctrl.course.description" rows="5" md-select-on-focus></textarea>
                 </md-input-container>
             </div>
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Hasło dostępu</label>
-                    <input ng-model="cc.new.enrollmentKey" md-maxlength="20" />
+                    <input ng-model="ctrl.course.enrollmentKey" md-maxlength="20" />
                 </md-input-container>
             </div>
             <div layout="row" layout-align="end center">
-                <md-button ng-click="cc.createCourse()" class="md-primary md-raised"
-                           ng-disabled="!cc.new.name.length">
+                <md-button ng-click="ctrl.createCourse()" class="md-primary md-raised"
+                           ng-disabled="createCourseForm.$invalid">
                     <md-icon class="material-icons icon-button">add</md-icon>dodaj tematykę
                 </md-button>
             </div>
