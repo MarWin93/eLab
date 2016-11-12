@@ -1,4 +1,4 @@
-var eLabApp = angular.module('eLabApp', ['ngMaterial', 'ngResource', 'ui.router', 'dndLists', 'ngFileUpload'])
+var eLabApp = angular.module('eLabApp', ['ngMaterial', 'ngResource', 'ui.router', 'dndLists', 'ngFileUpload', 'SignalR'])
     .config(function($mdThemingProvider, $mdIconProvider, $stateProvider){
         $mdIconProvider.defaultIconSet('./assets/svg/avatars.svg', 128);
         $mdThemingProvider.theme('default').primaryPalette('teal').accentPalette('red');
@@ -130,6 +130,13 @@ var eLabApp = angular.module('eLabApp', ['ngMaterial', 'ngResource', 'ui.router'
                     topic: function (topicService, $stateParams) {
                         return topicService.getTopic($stateParams.topicId).then(function (response) {
                             return response.data;
+                        });
+                    },
+                    courses: function (courseService, $rootScope) {
+                        return courseService.getCourses().then(function (response) {
+                            return response.data.filter(function(elem) {
+                                return elem.teacherId == $rootScope.user.id;
+                            });
                         });
                     }
                 }

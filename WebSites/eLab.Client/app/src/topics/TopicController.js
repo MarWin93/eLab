@@ -23,4 +23,5 @@ angular.module('eLabApp').controller('TopicController', function ($scope, $state
             console.log(err);
         });
     };
+    
 });

@@ -239,6 +239,7 @@ md-sidenav button .material-icons{
 }
 md-menu-content{
   padding: 0;
+  z-index: 9999;
 }
 .md-menu-header{
   padding: 0 16px;
@@ -283,6 +284,62 @@ md-button.menuBtn > md-icon {
   position: relative;
 }
 
+// canvas area
+
+#canvas-area {
+  width: 100%;
+  height: 0;
+  border: 1px solid;
+  padding-bottom: 75%;
+  position: relative;
+
+  canvas{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin: 0;
+    z-index: 99;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    #pwCanvasTmp, #pwCanvasMain{
+      width: 100% !important;
+      height: 100% !important;
+    }
+  }
+
+  iframe, .iframe{
+    width: calc(100%);
+    height: calc(100%);
+    position: absolute;
+    margin: 0;
+    z-index: 1;
+  }
+}
+
+
+.colorSelector{
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li{
+    display: block;
+    float: left;
+    list-style: none;
+    margin: 10px 3px;
+    width: 20px;
+    height: 20px;
+	white-space: nowrap;
+    border-radius: 50%;
+    border: 1px dotted #009688;
+  }
+}
 
 // md card
 
@@ -689,7 +746,6 @@ h3{
   color: #3c763d;
 }
 
-
 // loading overlay
 
 .isloading-wrapper.isloading-right {
@@ -849,3 +905,7 @@ h3{
     -webkit-transform: scale(1);
     transform: scale(1);
     opacity: 0; } }
+
+md-divider{
+  clear: both;
+}

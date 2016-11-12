@@ -1,5 +1,6 @@
 <md-card>
     <md-card-title>
+<!--<<<<<< HEAD
         <md-card-title-text layout="row" layout-align="space-between center">
             <span class="md-headline">{{ctrl.topic.name}}</span>
         </md-card-title-text>
@@ -13,11 +14,141 @@
         <md-list>
             <md-list-item ng-repeat="file in ctrl.topic.files"
                           ng-click="ctrl.fileDownload(file)">
+=======-->
+        <md-card-title-text>
+            <md-card-title-text layout="row" layout-align="space-between center" class="layout-align-space-between-center layout-row">
+                <span class="md-headline ng-binding">{{ctrl.topic.name}}</span>
+                <md-menu md-position-mode="target-right target">
+                    <md-button class="md-icon-button to-right"
+                               ng-click="$mdOpenMenu($event)">
+                        <md-icon class="material-icons">more_horiz</md-icon>
+                    </md-button>
+                    <md-menu-content width="3">
+                        <p class="md-menu-header">Warsztat:</p>
+                        <md-menu-item>
+                            <md-button ng-click="tc.goToUpdateCourse(tc.selected)">
+                                <div layout="row" flex="">
+                                    <md-icon class="md-icom">edit_mode</md-icon>
+                                    <p flex="">edytuj</p>
+                                </div>
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="tc.deleteCourse(tc.selected)">
+                                <div layout="row" flex="">
+                                    <md-icon class="md-icom">highlight_off</md-icon>
+                                    <p flex="">zakończ</p>
+                                </div>
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button>
+                                <div layout="row" flex="">
+                                    <md-icon class="md-icom">people</md-icon>
+                                    <p flex="">grupy</p>
+                                </div>
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button>
+                                <div layout="row" flex="">
+                                    <md-icon class="md-icom">laptop</md-icon>
+                                    <p flex="">pulpity</p>
+                                </div>
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </md-card-title-text>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <div id="canvas-area">
+            <canvas id="canvas" drawing></canvas>
+            <div class="iframe" style="background-image: url(http://www.tapeciarnia.pl/tapety/normalne/71811_kotek_piesek_przyjazn.jpg); background-size: cover; background-position: center; "></div>
+        </div>
+
+        <ul class="colorSelector">
+            <li ng-click="ctrl.topic.setDrawerColor('0,0,0')" style="background-color: rgb(0,0,0)"></li>
+            <li ng-click="ctrl.topic.setDrawerColor('128,128,128')" style="background-color: rgb(128, 128, 128)"></li>
+            <li ng-click="ctrl.topic.setDrawerColor('255,255,255')" style="background-color: rgb(255,255,255)"></li>
+            <li ng-click="ctrl.topic.setDrawerColor('255,0,0')" style="background-color: rgb(255, 0, 0)"></li>
+            <li ng-click="ctrl.topic.setDrawerColor('255,106,0')" style="background-color: rgb(255, 106, 0)"></li>
+            <li ng-click="ctrl.topic.setDrawerColor('255,216,0')" style="background-color: rgb(255, 216, 0)"></li>
+            <li ng-click="ctrl.topic.setDrawerColor('182,255,0')" style="background-color: rgb(182, 255, 0)"></li>
+            <li ng-click="ctrl.topic.setDrawerColor('0,255,33')" style="background-color: rgb(0, 255, 33)"></li>
+            <li ng-click="ctrl.topic.setDrawerColor('0,148,255')" style="background-color: rgb(0, 148, 255)"></li>
+            <li ng-click="ctrl.topic.setDrawerColor('0,38,255')" style="background-color: rgb(0, 38, 255)"></li>
+            <li ng-click="ctrl.topic.setDrawerColor('255,0,110')" style="background-color: rgb(255, 0, 110)"></li>
+        </ul>
+
+        <md-menu md-position-mode="target-right target" ng-if="!tc.canEdit(tc.selected)">
+            <md-button class="md-icon-button to-right"
+                       ng-click="$mdOpenMenu($event)">
+                <md-icon class="material-icons">build</md-icon>
+            </md-button>
+            <md-menu-content width="3">
+                <p class="md-menu-header">Narzędzie:</p>
+                <md-menu-item>
+                    <md-button ng-click="ctrl.topic.setDrawerTool('pencil')">
+                        <div layout="row" flex="">
+                            <md-icon class="md-icom">edit_mode</md-icon>
+                            <p flex="">ołówek</p>
+                        </div>
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ng-click="ctrl.topic.setDrawerTool('highlighter')">
+                        <div layout="row" flex="">
+                            <md-icon class="md-icom">format_paint</md-icon>
+                            <p flex="">zakreślacz</p>
+                        </div>
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ng-click="ctrl.topic.setDrawerTool('rectangle')">
+                        <div layout="row" flex="">
+                            <md-icon class="md-icom">check_box_outline_blank</md-icon>
+                            <p flex="">prostokąt</p>
+                        </div>
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ng-click="ctrl.topic.setDrawerTool('elipse')">
+                        <div layout="row" flex="">
+                            <md-icon class="md-icom">radio_button_unchecked</md-icon>
+                            <p flex="">elipsa</p>
+                        </div>
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+        <md-divider class="divider-padded"></md-divider>
+        <div layout="row" flex="" class="row">
+            <div layout="col-sm-2" flex="" class="col-sm-2">
+                <p>prezentuje: {{tc.selected.whoIsPresenting}}</p>
+            </div>
+            <div layout="col-sm-2" layout-align="end center" class="layout-align-end-center col-sm-2">
+                <md-button ng-click="" class="md-primary md-raised" ng-show="!ctrl.topic.selected.amIPresenting">
+                    <md-icon class="material-icons icon-button">laptop</md-icon>Prezentuj puplit
+                </md-button>
+                <md-button ng-click="" class="md-primary md-raised" ng-show="ctrl.topic.selected.amIPresenting">
+                    <md-icon class="material-icons icon-button">laptop</md-icon>Zakończ prezentowanie tego pulpitu
+                </md-button>
+            </div>
+        </div>
+        <md-divider class="divider-padded"></md-divider>
+        <div layout="row" flex="">
+            <p>{{ctrl.topic.description}}</p>
+        </div>
+        <md-divider class="divider-padded"></md-divider>
+        <md-subheader class="list-header">Pliki:</md-subheader>
+        <md-list>
+            <md-list-item ng-repeat="file in ctrl.topic.files">
                 <md-icon class="material-icons list-icon"> description </md-icon>
                 <p>{{file.name}}<span class="download-size">({{file.size}} KB)</span></p>
             </md-list-item>
         </md-list>
         <p class="empty-list" ng-if="ctrl.topic.files.length == 0">brak plikow</p>
     </md-card-content>
-
 </md-card>
