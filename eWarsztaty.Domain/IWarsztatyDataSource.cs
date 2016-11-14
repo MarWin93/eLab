@@ -16,6 +16,13 @@ namespace eWarsztaty.Domain
         IQueryable<Rola> Role { get; }
         IQueryable<UzytkownikRola> UzytkownicyRole { get; }
 
+        //elabs entites
+        IQueryable<Class> Classes { get; }
+        IQueryable<Course> Courses { get; }
+        IQueryable<Group> Groups { get; }
+        IQueryable<Topic> Topics { get; }
+        IQueryable<ParticipationInCourse> Participations { get; }
+        IQueryable<EnrollmentInTopic> Enrollments { get; }
 
         void Save();
     }

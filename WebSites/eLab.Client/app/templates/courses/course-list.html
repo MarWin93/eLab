@@ -1,0 +1,35 @@
+
+        <md-card ng-repeat="course in ctrl.courses" class="list-element" ui-sref="courseDetails({courseId: course.id})" ng-click="$event.stopPropagation()">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{course.name}}</span>
+                </md-card-title-text>
+                <md-menu>
+                    <md-button class="md-icon-button to-right"
+                               ng-click="$mdOpenMenu($event)">
+                        <md-icon class="material-icons">more_horiz</md-icon>
+                    </md-button>
+                    <md-menu-content width="2">
+                        <md-menu-item>
+                            <md-button ui-sref="courseUpdate({courseId: course.id})">
+                                <div layout="row" flex="">
+                                    <md-icon class="md-icom">edit_mode</md-icon>
+                                    <p flex="">edytuj</p>
+                                </div>
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="ctrl.deleteCourse(course);$event.stopPropagation()">
+                                <div layout="row" flex="">
+                                    <md-icon class="md-icom">delete</md-icon>
+                                    <p flex="">usuń</p>
+                                </div>
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </md-card-title>
+            <md-card-content>
+                <p>{{course.description}}</p>
+            </md-card-content>
+        </md-card>

@@ -1,0 +1,62 @@
+<md-card>
+    <form name="editTopicForm">
+        <md-card-content>
+            <div layout="row">
+                <md-input-container class="ng-pristine ng-valid md-input ng-touched" flex-gt-sm>
+                    <label>Nazwa warsztatu</label>
+                    <input ng-model="ctrl.topic.name" class="title" required />
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container class="md-block">
+                    <label>Opis</label>
+                    <textarea ng-model="ctrl.topic.description" md-maxlength="500" rows="5" md-select-on-focus></textarea>
+                </md-input-container>
+            </div>
+            <md-input-container>
+                <label>Wybór tematyki</label>
+                <md-select placeholder="Wybór tematyki" ng-model="ctrl.topic.courseId">
+                    <md-option ng-value="">Brak tematyki</md-option>
+                    <md-option ng-value="course.id" ng-repeat="course in ctrl.courses">{{course.name}}</md-option>
+                </md-select>
+
+            </md-input-container>
+
+            <div layout="row">
+                <md-card-title-text>
+                    <span class="md-headline">Dołączone pliki</span>
+                </md-card-title-text>
+            </div>
+            <div layout="row">
+                <table>
+                    <tr>
+                        <td>Nazwa pliku</td>
+                        <td>Rozmiar pliku</td>
+                        <td>Edycja</td>
+                    </tr>-
+                    <tr ng-repeat="file in ctrl.topic.files">
+                        <td>{{file.name}}</td>
+                        <td>{{file.size}}</td>
+                        <td>
+                            <md-icon class="material-icons">delete</md-icon>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div layout="row" layout-align="end center">
+                <md-button ngf-select="ctrl.fileUpload($file, $invalidFiles)" class="md-primary add-button">
+                    <md-icon class="material-icons icon-button">add</md-icon>dodaj pliki
+                </md-button>
+            </div>
+
+            <md-divider class="divider-padded"></md-divider>
+            <div layout="row" layout-align="end center">
+                <md-button ng-click="ctrl.updateTopic()" class="md-primary add-button"
+                           ng-disabled="editTopicForm.$invalid">
+                    <md-icon class="material-icons icon-button">edit_mode</md-icon>Zapisz zmiany
+                </md-button>
+            </div>
+        </md-card-content>
+    </form>
+</md-card>

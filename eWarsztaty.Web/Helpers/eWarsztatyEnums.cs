@@ -16,9 +16,21 @@ namespace eWarsztaty.Web.Helpers
 
         public enum PrezentacjaZmianaStrony
         {
-
             Nastepna = 0,
             Poprzednia = 1,
+        }
+
+        public enum CourseStatus
+        {
+            Added = 0,
+            Closed
+        }
+
+        public enum TopicStatus
+        {
+            Added = 0,
+            Opened,
+            Closed
         }
     }
 }

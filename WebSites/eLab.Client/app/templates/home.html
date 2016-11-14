@@ -1,0 +1,30 @@
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <md-subheader class="dashboard-list-header">Lista tematyk</md-subheader>
+        <div class="horizontal-list" layout="row" layout-align="start stretch">
+            <a ui-sref="courseCreate"><md-button class="horizontal-list-item md-raised md-primary">
+                <md-icon class="material-icons icon-button">add</md-icon>dodaj
+            </md-button></a>
+            <md-button ui-sref="courseDetails({courseId: course.id})" class="horizontal-list-item md-raised"
+                       ng-repeat="course in ctrl.courses">
+                {{course.name}}
+            </md-button>
+        </div>
+
+        <md-subheader class="dashboard-list-header">Lista warsztatów nieprzypisanych do tematyk</md-subheader>
+        <div class="horizontal-list" layout="row" layout-align="start stretch">
+            <a ui-sref="topicCreate"><md-button class="horizontal-list-item md-raised md-primary">
+                <md-icon class="material-icons icon-button">add</md-icon>dodaj
+            </md-button></a>
+            <md-button ui-sref="topicDetails({courseId: topic.courseId, topicId: topic.id})"
+                       class="horizontal-list-item md-raised"
+                       ng-repeat="topic in ctrl.topics">
+                {{topic.name}}
+            </md-button>
+        </div>
+    </md-card-content>
+</md-card>

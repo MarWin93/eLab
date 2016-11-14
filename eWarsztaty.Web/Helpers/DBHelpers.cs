@@ -1,8 +1,6 @@
 ﻿using eWarsztaty.Web.Infrastructure;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using eWarsztaty.Domain;
 
 namespace eWarsztaty.Web.Helpers
 {
@@ -14,6 +12,14 @@ namespace eWarsztaty.Web.Helpers
             {
                 var user = usersContext.GetUser(userName);
                 return user.UzytkownikId;
+            }
+        }
+
+        public static Rola GetRoleByUserId(int userId)
+        {
+            using (var usersContext = new eWarsztatyContext())
+            {
+                return userId <= 0 ? null : usersContext.UzytkownicyRole.Include("Rola").FirstOrDefault(x => x.UzytkownikId == userId).Rola;
             }
         }
     }

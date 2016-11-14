@@ -1,4 +1,4 @@
-namespace eWarsztaty.Web.Infrastructure
+ï»¿namespace eWarsztaty.Web.Infrastructure
 {
     using eWarsztaty.Domain;
     using eWarsztaty.Web.Helpers;
@@ -70,97 +70,122 @@ namespace eWarsztaty.Web.Infrastructure
             }
 
 
-            ////Uprawnienia do widokow
-            context.Uprawnienia.AddOrUpdate(d => d.UprawnienieId,
-                new Uprawnienie() { Nazwa = "Home-EditProfile", Opis = "edytuj swój profil" },
-                new Uprawnienie() {Nazwa = "Role-Index", Opis = "poka¿ widok z rolami" },
-                new Uprawnienie() { Nazwa = "Role-Save", Opis = "dodaj now¹ rolê" },
-                new Uprawnienie() { Nazwa = "Role-Detail", Opis = "edytuj istniej¹c¹ rolê" },
-                new Uprawnienie() { Nazwa = "Role-Delete", Opis = "usuñ istniej¹c¹ rolê" },
-                new Uprawnienie() { Nazwa = "Uzytkownicy-PrzypiszRole", Opis = "przypisz rolê u¿ytkownikom" },
-                new Uprawnienie() { Nazwa = "Uzytkownicy-Index", Opis = "poka¿ widok z u¿ytkownikami" },
-                new Uprawnienie() { Nazwa = "Uzytkownicy-Save", Opis = "dodaj nowego u¿ytkownika" },
-                new Uprawnienie() { Nazwa = "Uzytkownicy-Detail", Opis = "edytuj istniej¹cego u¿ytkownika" },
-                new Uprawnienie() { Nazwa = "Uzytkownicy-Delete", Opis = "usuñ istniej¹cego u¿ytkownika" },
-                new Uprawnienie() { Nazwa = "Warsztaty-MojeWarsztaty", Opis = "poka¿ widok moich warsztatów" },
-                new Uprawnienie() { Nazwa = "Warsztaty-Zapis", Opis = "zapisz siê na warsztat" },
-                new Uprawnienie() { Nazwa = "Warsztaty-Wypisanie", Opis = "wypisz siê z warsztatu" },
-                new Uprawnienie() { Nazwa = "Warsztaty-Index", Opis = "poka¿ widok z wszystkimi warsztatami" },
-                new Uprawnienie() { Nazwa = "Warsztaty-Save", Opis = "dodaj nowy warsztat" },
-                new Uprawnienie() { Nazwa = "Warsztaty-Detail", Opis = "edytuj istniej¹cy warsztat" },
-                new Uprawnienie() { Nazwa = "Warsztaty-Delete", Opis = "usuñ istniej¹cy warsztat" }
-                );
+            //////Uprawnienia do widokow
+            //context.Uprawnienia.AddOrUpdate(d => d.UprawnienieId,
+            //    new Uprawnienie() { Nazwa = "Home-EditProfile", Opis = "edytuj swÃ³j profil" },
+            //    new Uprawnienie() {Nazwa = "Role-Index", Opis = "pokaÂ¿ widok z rolami" },
+            //    new Uprawnienie() { Nazwa = "Role-Save", Opis = "dodaj nowÂ¹ rolÃª" },
+            //    new Uprawnienie() { Nazwa = "Role-Detail", Opis = "edytuj istniejÂ¹cÂ¹ rolÃª" },
+            //    new Uprawnienie() { Nazwa = "Role-Delete", Opis = "usuÃ± istniejÂ¹cÂ¹ rolÃª" },
+            //    new Uprawnienie() { Nazwa = "Uzytkownicy-PrzypiszRole", Opis = "przypisz rolÃª uÂ¿ytkownikom" },
+            //    new Uprawnienie() { Nazwa = "Uzytkownicy-Index", Opis = "pokaÂ¿ widok z uÂ¿ytkownikami" },
+            //    new Uprawnienie() { Nazwa = "Uzytkownicy-Save", Opis = "dodaj nowego uÂ¿ytkownika" },
+            //    new Uprawnienie() { Nazwa = "Uzytkownicy-Detail", Opis = "edytuj istniejÂ¹cego uÂ¿ytkownika" },
+            //    new Uprawnienie() { Nazwa = "Uzytkownicy-Delete", Opis = "usuÃ± istniejÂ¹cego uÂ¿ytkownika" },
+            //    new Uprawnienie() { Nazwa = "Warsztaty-MojeWarsztaty", Opis = "pokaÂ¿ widok moich warsztatÃ³w" },
+            //    new Uprawnienie() { Nazwa = "Warsztaty-Zapis", Opis = "zapisz siÃª na warsztat" },
+            //    new Uprawnienie() { Nazwa = "Warsztaty-Wypisanie", Opis = "wypisz siÃª z warsztatu" },
+            //    new Uprawnienie() { Nazwa = "Warsztaty-Index", Opis = "pokaÂ¿ widok z wszystkimi warsztatami" },
+            //    new Uprawnienie() { Nazwa = "Warsztaty-Save", Opis = "dodaj nowy warsztat" },
+            //    new Uprawnienie() { Nazwa = "Warsztaty-Detail", Opis = "edytuj istniejÂ¹cy warsztat" },
+            //    new Uprawnienie() { Nazwa = "Warsztaty-Delete", Opis = "usuÃ± istniejÂ¹cy warsztat" }
+            //    );
+            //context.SaveChanges();
+
+
+            //CustomRoleProvider.AddPrivilegesToRole(new List<int>(){ 
+            //context.GetIdUprawnienia("Warsztaty-MojeWarsztaty") , 
+            //context.GetIdUprawnienia("Warsztaty-Zapis") , 
+            //context.GetIdUprawnienia("Warsztaty-Wypisanie") , 
+            //context.GetIdUprawnienia("Warsztaty-Index") , 
+            //context.GetIdUprawnienia("Warsztaty-Save") , 
+            //context.GetIdUprawnienia("Warsztaty-Detail") , 
+            //context.GetIdUprawnienia("Warsztaty-Delete") , 
+            //context.GetIdUprawnienia("Role-Index") , 
+            //context.GetIdUprawnienia("Role-Save"),
+            //context.GetIdUprawnienia("Role-Detail"),
+            //context.GetIdUprawnienia("Role-Delete"),
+            //context.GetIdUprawnienia("Uzytkownicy-Index"),
+            //context.GetIdUprawnienia("Uzytkownicy-Save") ,
+            //context.GetIdUprawnienia("Uzytkownicy-Detail"),
+            //context.GetIdUprawnienia("Home-EditProfile"),
+            //context.GetIdUprawnienia("Uzytkownicy-PrzypiszRole"),
+            //context.GetIdUprawnienia("Uzytkownicy-Delete")}, "Admin");
+
+            //CustomRoleProvider.AddPrivilegesToRole(new List<int>(){ 
+            //context.GetIdUprawnienia("Warsztaty-MojeWarsztaty") , 
+            //context.GetIdUprawnienia("Warsztaty-Zapis") , 
+            //context.GetIdUprawnienia("Warsztaty-Wypisanie") ,   
+            //context.GetIdUprawnienia("Home-EditProfile")}, "Uczestnik");
+            //context.SaveChanges();
+
+            //CustomRoleProvider.AddPrivilegesToRole(new List<int>(){ 
+            //context.GetIdUprawnienia("Warsztaty-MojeWarsztaty") , 
+            //context.GetIdUprawnienia("Warsztaty-Zapis") , 
+            //context.GetIdUprawnienia("Warsztaty-Wypisanie") , 
+            //context.GetIdUprawnienia("Warsztaty-Index") , 
+            //context.GetIdUprawnienia("Warsztaty-Save") , 
+            //context.GetIdUprawnienia("Warsztaty-Detail") , 
+            //context.GetIdUprawnienia("Warsztaty-Delete")}, "Prowadzacy");
+
+
+            //context.SaveChanges();
+
+            //context.Warsztaty.AddOrUpdate(d => d.Temat, new Warsztat() { Nazwa = "BSK", CzasTrwania = "2h", DataRozpoczecia = new DateTime(2015, 1, 10), Temat = "Kontrola dostÃªpu", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6",  StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
+            //new Warsztat() { Nazwa = "BSK", CzasTrwania = "2h", DataRozpoczecia = new DateTime(2015, 2, 10), Temat = "Polityka PrywatnoÅ“ci", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6", StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
+            //new Warsztat() { Nazwa = "BSK", CzasTrwania = "3h", DataRozpoczecia = new DateTime(2015, 3, 10), Temat = "Zapory Ogniowe", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6", StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
+            //new Warsztat() { Nazwa = "KSR", CzasTrwania = "1h", DataRozpoczecia = new DateTime(2015, 1, 15), Temat = "WCF", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6", StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
+            //new Warsztat() { Nazwa = "KSR", CzasTrwania = "2h", DataRozpoczecia = new DateTime(2015, 2, 15), Temat = "MSMQ", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6", StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
+            //new Warsztat() { Nazwa = "KSR", CzasTrwania = "3h", DataRozpoczecia = new DateTime(2015, 3, 15), Temat = "COMY", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6", StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
+            //new Warsztat() { Nazwa = "ZSB", CzasTrwania = "1h", DataRozpoczecia = new DateTime(2015, 1, 20), Temat = "Zapory Ogniowe", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6", StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
+            //new Warsztat() { Nazwa = "ZSB", CzasTrwania = "2h", DataRozpoczecia = new DateTime(2015, 2, 20), Temat = "PKI", ProwadzacyId = 1, StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
+            //new Warsztat() { Nazwa = "ZSB", CzasTrwania = "3h", DataRozpoczecia = new DateTime(2015, 3, 20), Temat = "Monitoring", ProwadzacyId = 1, StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety }
+            //);
+            //context.SaveChanges();
+
+            //context.UdzialyWWarsztacie.AddOrUpdate(d => d.WarsztatId, new UdzialWWarsztacie() { UzytkownikId = 1, WarsztatId = 1, KomentarzProwadzacego = "", Ocena = "zaliczenie" },
+            //new UdzialWWarsztacie() { UzytkownikId = 1, WarsztatId = 2, KomentarzProwadzacego = "", Ocena = "3.5" },
+            //new UdzialWWarsztacie() { UzytkownikId = 1, WarsztatId = 4, KomentarzProwadzacego = "", Ocena = "5.0" },
+            //new UdzialWWarsztacie() { UzytkownikId = 1, WarsztatId = 5, KomentarzProwadzacego = "", Ocena = "5.0" },
+            //new UdzialWWarsztacie() { UzytkownikId = 1, WarsztatId = 7, KomentarzProwadzacego = "", Ocena = "4.5" },
+            //new UdzialWWarsztacie() { UzytkownikId = 1, WarsztatId = 8, KomentarzProwadzacego = "", Ocena = "4.0" }
+            //);
+            //context.UdzialyWWarsztacie.AddOrUpdate(d => d.WarsztatId, new UdzialWWarsztacie() { UzytkownikId = 2, WarsztatId = 1, KomentarzProwadzacego = "", Ocena = "zaliczenie" },
+            //new UdzialWWarsztacie() { UzytkownikId = 2, WarsztatId = 2, KomentarzProwadzacego = "", Ocena = "4.5" },
+            //new UdzialWWarsztacie() { UzytkownikId = 2, WarsztatId = 4, KomentarzProwadzacego = "", Ocena = "3.0" },
+            //new UdzialWWarsztacie() { UzytkownikId = 3, WarsztatId = 5, KomentarzProwadzacego = "", Ocena = "3.0" },
+            //new UdzialWWarsztacie() { UzytkownikId = 3, WarsztatId = 7, KomentarzProwadzacego = "", Ocena = "5.5" },
+            //new UdzialWWarsztacie() { UzytkownikId = 3, WarsztatId = 8, KomentarzProwadzacego = "", Ocena = "3.0" }
+            //);
+
+            //elab seed objects
+            context.Courses.AddOrUpdate(d => d.Id,
+                new Course() { Name = "Nierelacyjne bazy danych", Description = "WiÄ™cej informacji o NO-SQL.", Status = 0, EnrollmentKey = "NBD123", TeacherId = 4 },
+                new Course() { Name = "Eksploracja danych", Description = "krÃ³tki opis danej lekcji", Status = 0, EnrollmentKey="ED123", TeacherId = 5 });
+
+            context.Topics.AddOrUpdate(d => d.Id, new Topic() { Name = "Wprowadzenie do nierelacyjnych baz danych", Description = "krÃ³tki opis danej lekcji", Status = 0, CourseId = 1 },
+                new Topic() { Name = "Zapoznanie z narzÄ™dziami oraz Å›rodowiskiem", Description = "krÃ³tki opis danej lekcji", Status = 0, CourseId = 1 });
             context.SaveChanges();
 
+            context.Classes.AddOrUpdate(d => d.Id, new Class() { Name = "Lekcja1", Description = "krÃ³tki opis Lekcja1", Status = 0, TopicId = 1 },
+                new Class() { Name = "Lekcja2", Description = "krÃ³tki opis Lekcja2", Status = 0, TopicId = 1 });
 
-            CustomRoleProvider.AddPrivilegesToRole(new List<int>(){ 
-            context.GetIdUprawnienia("Warsztaty-MojeWarsztaty") , 
-            context.GetIdUprawnienia("Warsztaty-Zapis") , 
-            context.GetIdUprawnienia("Warsztaty-Wypisanie") , 
-            context.GetIdUprawnienia("Warsztaty-Index") , 
-            context.GetIdUprawnienia("Warsztaty-Save") , 
-            context.GetIdUprawnienia("Warsztaty-Detail") , 
-            context.GetIdUprawnienia("Warsztaty-Delete") , 
-            context.GetIdUprawnienia("Role-Index") , 
-            context.GetIdUprawnienia("Role-Save"),
-            context.GetIdUprawnienia("Role-Detail"),
-            context.GetIdUprawnienia("Role-Delete"),
-            context.GetIdUprawnienia("Uzytkownicy-Index"),
-            context.GetIdUprawnienia("Uzytkownicy-Save") ,
-            context.GetIdUprawnienia("Uzytkownicy-Detail"),
-            context.GetIdUprawnienia("Home-EditProfile"),
-            context.GetIdUprawnienia("Uzytkownicy-PrzypiszRole"),
-            context.GetIdUprawnienia("Uzytkownicy-Delete")}, "Admin");
+            context.Groups.AddOrUpdate(d => d.Id, new Group() { Name = "Grupa1", ClassId = 1 },
+                new Group() { Name = "Grupa1", ClassId = 2 });
 
-            CustomRoleProvider.AddPrivilegesToRole(new List<int>(){ 
-            context.GetIdUprawnienia("Warsztaty-MojeWarsztaty") , 
-            context.GetIdUprawnienia("Warsztaty-Zapis") , 
-            context.GetIdUprawnienia("Warsztaty-Wypisanie") ,   
-            context.GetIdUprawnienia("Home-EditProfile")}, "Uczestnik");
-            context.SaveChanges();
+            context.Participations.AddOrUpdate(
+                new ParticipationInCourse() { Active = true, CourseId = 1, UserId = 1 },
+                new ParticipationInCourse() { Active = true, CourseId = 1, UserId = 2 },
+                new ParticipationInCourse() { Active = true, CourseId = 1, UserId = 3 },
+                new ParticipationInCourse() { Active = true, CourseId = 2, UserId = 2 });
 
-            CustomRoleProvider.AddPrivilegesToRole(new List<int>(){ 
-            context.GetIdUprawnienia("Warsztaty-MojeWarsztaty") , 
-            context.GetIdUprawnienia("Warsztaty-Zapis") , 
-            context.GetIdUprawnienia("Warsztaty-Wypisanie") , 
-            context.GetIdUprawnienia("Warsztaty-Index") , 
-            context.GetIdUprawnienia("Warsztaty-Save") , 
-            context.GetIdUprawnienia("Warsztaty-Detail") , 
-            context.GetIdUprawnienia("Warsztaty-Delete")}, "Prowadzacy");
 
+            context.EnrolmentsInTopics.AddOrUpdate(
+                new EnrollmentInTopic() { Active = true, TopicId = 1, UserId = 1 },
+                new EnrollmentInTopic() { Active = true, TopicId = 1, UserId = 2 },
+                new EnrollmentInTopic() { Active = true, TopicId = 2, UserId = 1 });
 
             context.SaveChanges();
-
-            context.Warsztaty.AddOrUpdate(d => d.Temat, new Warsztat() { Nazwa = "BSK", CzasTrwania = "2h", DataRozpoczecia = new DateTime(2015, 1, 10), Temat = "Kontrola dostêpu", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6",  StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
-            new Warsztat() { Nazwa = "BSK", CzasTrwania = "2h", DataRozpoczecia = new DateTime(2015, 2, 10), Temat = "Polityka Prywatnoœci", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6", StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
-            new Warsztat() { Nazwa = "BSK", CzasTrwania = "3h", DataRozpoczecia = new DateTime(2015, 3, 10), Temat = "Zapory Ogniowe", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6", StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
-            new Warsztat() { Nazwa = "KSR", CzasTrwania = "1h", DataRozpoczecia = new DateTime(2015, 1, 15), Temat = "WCF", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6", StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
-            new Warsztat() { Nazwa = "KSR", CzasTrwania = "2h", DataRozpoczecia = new DateTime(2015, 2, 15), Temat = "MSMQ", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6", StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
-            new Warsztat() { Nazwa = "KSR", CzasTrwania = "3h", DataRozpoczecia = new DateTime(2015, 3, 15), Temat = "COMY", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6", StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
-            new Warsztat() { Nazwa = "ZSB", CzasTrwania = "1h", DataRozpoczecia = new DateTime(2015, 1, 20), Temat = "Zapory Ogniowe", ProwadzacyId = 1, HasloDostepu = "098f6bcd4621d373cade4e832627b4f6", StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
-            new Warsztat() { Nazwa = "ZSB", CzasTrwania = "2h", DataRozpoczecia = new DateTime(2015, 2, 20), Temat = "PKI", ProwadzacyId = 1, StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety },
-            new Warsztat() { Nazwa = "ZSB", CzasTrwania = "3h", DataRozpoczecia = new DateTime(2015, 3, 20), Temat = "Monitoring", ProwadzacyId = 1, StatusWarsztatu = (int)eWarsztatyEnums.StatusWarsztatu.Zamkniety }
-            );
-            context.SaveChanges();
-
-            context.UdzialyWWarsztacie.AddOrUpdate(d => d.WarsztatId, new UdzialWWarsztacie() { UzytkownikId = 1, WarsztatId = 1, KomentarzProwadzacego = "", Ocena = "zaliczenie" },
-            new UdzialWWarsztacie() { UzytkownikId = 1, WarsztatId = 2, KomentarzProwadzacego = "", Ocena = "3.5" },
-            new UdzialWWarsztacie() { UzytkownikId = 1, WarsztatId = 4, KomentarzProwadzacego = "", Ocena = "5.0" },
-            new UdzialWWarsztacie() { UzytkownikId = 1, WarsztatId = 5, KomentarzProwadzacego = "", Ocena = "5.0" },
-            new UdzialWWarsztacie() { UzytkownikId = 1, WarsztatId = 7, KomentarzProwadzacego = "", Ocena = "4.5" },
-            new UdzialWWarsztacie() { UzytkownikId = 1, WarsztatId = 8, KomentarzProwadzacego = "", Ocena = "4.0" }
-            );
-            context.UdzialyWWarsztacie.AddOrUpdate(d => d.WarsztatId, new UdzialWWarsztacie() { UzytkownikId = 2, WarsztatId = 1, KomentarzProwadzacego = "", Ocena = "zaliczenie" },
-            new UdzialWWarsztacie() { UzytkownikId = 2, WarsztatId = 2, KomentarzProwadzacego = "", Ocena = "4.5" },
-            new UdzialWWarsztacie() { UzytkownikId = 2, WarsztatId = 4, KomentarzProwadzacego = "", Ocena = "3.0" },
-            new UdzialWWarsztacie() { UzytkownikId = 3, WarsztatId = 5, KomentarzProwadzacego = "", Ocena = "3.0" },
-            new UdzialWWarsztacie() { UzytkownikId = 3, WarsztatId = 7, KomentarzProwadzacego = "", Ocena = "5.5" },
-            new UdzialWWarsztacie() { UzytkownikId = 3, WarsztatId = 8, KomentarzProwadzacego = "", Ocena = "3.0" }
-            );
-
-            context.SaveChanges();
-
-
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace eWarsztaty.Domain
@@ -32,5 +28,13 @@ namespace eWarsztaty.Domain
         public ICollection<UdzialWWarsztacie> UdzialyWWarsztacie { get; set; }
 
         public ICollection<Warsztat> Warsztaty { get; set; }
+
+        public ICollection<ParticipationInCourse> Participations { get; set; }
+
+        public ICollection<EnrollmentInTopic> EnrollmentsInTopics { get; set; }
+
+        public ICollection<Course> Courses { get; set; }
+
+
     }
 }

@@ -1,0 +1,25 @@
+<md-card>
+    <form class="md-inline-form" layout="column">
+        <md-card-content>
+                <md-input-container class="ng-pristine ng-valid md-input ng-touched" flex-gt-sm>
+                    <label>Nazwa kursu</label>
+                    <input ng-model="ctrl.course.name" class="title"/>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Opis</label>
+                    <textarea ng-model="ctrl.course.description" rows="5" md-select-on-focus=""></textarea>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Hasło dostępu</label>
+                    <input ng-model="ctrl.course.enrollmentKey" md-maxlength="20" />
+                </md-input-container>
+
+            <div layout="row" layout-align="end center">
+                <md-button ng-click="ctrl.updateCourse()" class="md-primary add-button">
+                    <md-icon class="material-icons icon-button">edit_mode</md-icon>Zapisz zmiany
+                </md-button>
+            </div>
+        </md-card-content>
+    </form>
+</md-card>

@@ -1,0 +1,23 @@
+<md-card>
+    <md-card-title>
+        <md-card-title-text layout="row" layout-align="space-between center">
+            <span class="md-headline">{{ctrl.topic.name}}</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <md-divider class="divider-padded"></md-divider>
+        <div style="height:400px; background: #808080"></div>
+        <p class="course-description">{{ctrl.topic.description}}</p>
+        <md-divider class="divider-padded"></md-divider>
+        <md-subheader class="list-header">Do pobrania:</md-subheader>
+        <md-list>
+            <md-list-item ng-repeat="file in ctrl.topic.files"
+                          ng-click="ctrl.fileDownload(file)">
+                <md-icon class="material-icons list-icon"> description </md-icon>
+                <p>{{file.name}}<span class="download-size">({{file.size}} KB)</span></p>
+            </md-list-item>
+        </md-list>
+        <p class="empty-list" ng-if="ctrl.topic.files.length == 0">brak plikow</p>
+    </md-card-content>
+
+</md-card>
