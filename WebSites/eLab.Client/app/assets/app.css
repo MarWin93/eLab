@@ -892,7 +892,7 @@ form.chat-input input[type="text"] {
     background: transparent;
 }
 
-form.chat-input input[type="submit"] {
+form.chat-input input[type="button"] {
     position: absolute;
     bottom: 10px;
     right: 10px;
@@ -904,19 +904,19 @@ form.chat-input input[type="submit"] {
     overflow: hidden;
 }
 
-form.chat-input input[type="submit"].send-icon {
+form.chat-input input[type="button"].send-icon {
     background: rgba(144,134,251,1.0) url(/app/assets/img/send-icon.png);
     background-size: 60%;
     background-repeat: no-repeat;
     background-position: 7px 8px;
 }
-form.chat-input input[type="submit"].sent-indicator {
+form.chat-input input[type="button"].sent-indicator {
     opacity: 0;
     background: rgba(144,134,251,0.97);
     width: 24px;
     height: 24px;
 }
-form.chat-input input[type="submit"].sending {
+form.chat-input input[type="button"].sending {
     animation: send-indicator 0.8s ease-out 0s;
 }
 
@@ -928,14 +928,47 @@ form.chat-input input[type="submit"].sending {
 	right: 0;
 }
 
-	#chat #conversation{
+    #chat #conversation {
+        background-color: white;
+        height: 400px;
+        box-shadow: 0px 0px 2px #424242;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        padding-bottom: 20px;
+    }
+
+    #chat #users-list{
 		background-color: white;
-		height: 350px;
+		height: 150px;
 		box-shadow: 0px 0px 2px #424242;
 		overflow-x: hidden;
 		overflow-y: scroll;
+        padding-top: 20px;
 		padding-bottom: 20px;
 	}
+    #users-list .cloud-user, #users-list .avatar{
+		    padding: 5px;
+            margin-top: 3px;	
+            box-sizing: border-box; 
+			width: 100%;
+			float: left;
+            background-color: #eee;
+	}
+		 #users-list .avatar{
+			width: 55px;
+		}
+		 #users-list .avatar img{
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			float: left;
+		}
+
+         #users-list h3{
+			font-size: 13px;
+            text-align: left;
+		}
+
 	
 		#conversation .cloud, #conversation .avatar{
 			padding: 10px;
@@ -967,7 +1000,15 @@ form.chat-input input[type="submit"].sending {
 		}
 		
 		#conversation .cloud span{
-			font-size: 14px;
+			font-size: 12px;
+            white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+            white-space: -webkit-pre-wrap; /*Chrome & Safari */ 
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            white-space: pre-wrap;       /* css-3 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+            word-break: break-all;
+            white-space: normal;
 		}
 		
 		#conversation .main{

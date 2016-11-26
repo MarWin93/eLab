@@ -7,6 +7,14 @@ angular.module('eLabApp').controller('TopicController', function ($scope, $state
         isArchived: false,
         courseId: $stateParams.courseId
     };
+    vm.users = function () {
+        return topicService.get(vm.topic).then(function () {
+            console.log(vm.topic);
+            $state.go('courseDetails', { courseId: $stateParams.courseId })
+        }).catch(function (err) {
+            console.log(err);
+        });
+    };
     vm.createTopic = function () {
         return topicService.createTopic(vm.topic).then(function () {
             console.log(vm.topic);
