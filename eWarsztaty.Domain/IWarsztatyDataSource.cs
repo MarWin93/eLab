@@ -23,6 +23,7 @@ namespace eWarsztaty.Domain
         IQueryable<Topic> Topics { get; }
         IQueryable<ParticipationInCourse> Participations { get; }
         IQueryable<EnrollmentInTopic> Enrollments { get; }
+        IQueryable<ChatMessageDetail> ChatMessageDetails { get; }
 
         void Save();
     }

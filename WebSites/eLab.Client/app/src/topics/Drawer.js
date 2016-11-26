@@ -4,7 +4,7 @@ angular.module('eLabApp').directive('drawing', ['drawerHelper', function(drawerH
         link: function ($scope, element) {
             var vm = this;
             
-            vm.signalRSetup = function (topic) {
+            vm.signalRSetup = function (topic, user) {
                 $scope.topicsHub = null; // holds the reference to hub
                 $.connection.hub.url = 'http://localhost:8089/signalr';
                 $.connection.hub.jsonp = true;
@@ -20,7 +20,8 @@ angular.module('eLabApp').directive('drawing', ['drawerHelper', function(drawerH
                 // starts hub
                 $.connection.hub.start({ jsonp: true }).done(function () {
                     //server (hub) side function declarations
-                    $scope.topicsHub.server.joinGroup(topic.id);
+                    $scope.topicsHub.server.joinGroup(topic.id, user.id, user.name);
+                    console.log("Topic id:" + topic.id);
                     $scope.newMessage = function (parameters) { //- funkcja podpieta pod przycisk dodaj plik w widoku warsztatu
                         // sends a new message to the server
                         parameters = angular.toJson(parameters);
@@ -31,10 +32,16 @@ angular.module('eLabApp').directive('drawing', ['drawerHelper', function(drawerH
 
             //PASS topic here, god knows how?
             vm.topic = {
-              id: 3
+              id: 1
+            };
+            vm.user = {
+                id: $scope.user.id,
+                name: $scope.user.name
             };
 
-            vm.signalRSetup(vm.topic);
+            console.log("Root from drawer:" + $scope.user.id);
+
+            vm.signalRSetup(vm.topic, vm.user);
             
             var ctx = element[0].getContext('2d');
 

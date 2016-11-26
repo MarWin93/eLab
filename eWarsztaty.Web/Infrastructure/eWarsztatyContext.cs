@@ -26,6 +26,7 @@ namespace eWarsztaty.Web.Infrastructure
         public DbSet<Topic> Topics { get; set; }
         public DbSet<ParticipationInCourse> Participations { get; set; }
         public DbSet<EnrollmentInTopic> EnrolmentsInTopics { get; set; }
+        public DbSet<ChatMessageDetail> ChatMessageDetails { get; set; }
 
 
 
@@ -286,6 +287,11 @@ namespace eWarsztaty.Web.Infrastructure
         IQueryable<EnrollmentInTopic> IWarsztatyDataSource.Enrollments
         {
             get { return EnrolmentsInTopics; }
+        }
+
+        IQueryable<ChatMessageDetail> IWarsztatyDataSource.ChatMessageDetails
+        {
+            get { return ChatMessageDetails; }
         }
     }
 }

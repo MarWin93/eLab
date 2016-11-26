@@ -24,7 +24,8 @@ namespace eWarsztaty.Web.App_Start
                 .ForMember(x => x.UzytkownicyRole, opt => opt.Ignore())
                  .ForMember(x => x.Courses, opt => opt.Ignore())
                 .ForMember(x => x.Participations, opt => opt.Ignore())
-                .ForMember(x => x.EnrollmentsInTopics, opt => opt.Ignore());
+                .ForMember(x => x.EnrollmentsInTopics, opt => opt.Ignore())
+                .ForMember(x => x.ChatMessageDetails, opt => opt.Ignore());
 
 
             Mapper.CreateMap<Uzytkownik, UzytkownicyListView>()
@@ -35,7 +36,8 @@ namespace eWarsztaty.Web.App_Start
                 .ForMember(x => x.UzytkownicyRole, opt => opt.Ignore())
                 .ForMember(x => x.Courses, opt => opt.Ignore())
                 .ForMember(x => x.Participations, opt => opt.Ignore())
-                .ForMember(x => x.EnrollmentsInTopics, opt => opt.Ignore());
+                .ForMember(x => x.EnrollmentsInTopics, opt => opt.Ignore())
+                .ForMember(x => x.ChatMessageDetails, opt => opt.Ignore());
 
             Mapper.CreateMap<Rola, RoleView>()
                 .ForMember(x => x.SelectedUprawnienia, opt => opt.Ignore())
@@ -97,7 +99,8 @@ namespace eWarsztaty.Web.App_Start
                 .ForMember(x => x.Course, opt => opt.Ignore())
                 .ForMember(x => x.Classes, opt => opt.Ignore())
                 .ForMember(x => x.Status, opt => opt.Ignore())
-                 .ForMember(x => x.EnrollmentsInTopics, opt => opt.Ignore());
+                 .ForMember(x => x.EnrollmentsInTopics, opt => opt.Ignore())
+                 .ForMember(x => x.ChatMessageDetails, opt => opt.Ignore());
 
             Mapper.CreateMap<Plik, FilesJson>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Nazwa))
