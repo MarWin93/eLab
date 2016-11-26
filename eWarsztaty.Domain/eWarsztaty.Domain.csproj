@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class.cs" />
+    <Compile Include="ChatMessageDetail.cs" />
     <Compile Include="EnrollmentInTopic.cs" />
     <Compile Include="ParticipationInCourse.cs" />
     <Compile Include="Course.cs" />

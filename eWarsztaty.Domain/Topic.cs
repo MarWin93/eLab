@@ -26,6 +26,7 @@ namespace eWarsztaty.Domain
         public int? CourseId { get; set; }
 
         public ICollection<EnrollmentInTopic> EnrollmentsInTopics { get; set; }
+        public ICollection<ChatMessageDetail> ChatMessageDetails { get; set; }
 
         #region Map
         public class Map : EntityTypeConfiguration<Topic>

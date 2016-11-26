@@ -19,6 +19,12 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
             return exist;
         }
 
+        public bool IsExistEnrollmentInTopicByConnectionId(string ConnectionId)
+        {
+            var exist = _db.EnrolmentsInTopics.Any(x => x.ConnectionId == ConnectionId);
+            return exist;
+        }
+
         public IEnumerable<EnrollmentInTopicJson> GetAllEnrollments()
         {
             var enrollments = _db.EnrolmentsInTopics.ToList();
@@ -66,8 +72,26 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
             if (GetEnrollmentsByTopicIdByUserId(TopicId, UserId)) {
                 var enrollmentDB = _db.EnrolmentsInTopics.FirstOrDefault(x => x.TopicId == TopicId && x.UserId == UserId);
                 enrollmentDB.Active = false;
-                DateTime now = DateTime.Now;
-                enrollmentDB.EnrollmentTo = now; 
+                _db.SaveChanges();
+            }
+        }
+        public void RemoveEnrollmentByConnectionId(string ConnectionId)
+        {
+            // if exist
+            if (IsExistEnrollmentInTopicByConnectionId(ConnectionId))
+            {
+                var enrollmentDB = _db.EnrolmentsInTopics.FirstOrDefault(x => x.ConnectionId == ConnectionId);
+                _db.EnrolmentsInTopics.Remove(enrollmentDB);
+                _db.SaveChanges();
+            }
+        }
+        public void RemoveEnrollmentByTopicIdUserId(int TopicId, int UserId)
+        {
+            // if exist
+            if (IsExistEnrollmentInTopic(TopicId, UserId))
+            {
+                var enrollmentDB = _db.EnrolmentsInTopics.FirstOrDefault(x => x.TopicId == TopicId && x.UserId == UserId);
+                _db.EnrolmentsInTopics.Remove(enrollmentDB);
                 _db.SaveChanges();
             }
         }
@@ -76,9 +100,6 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
         {
                 var enrollmentDB = _db.EnrolmentsInTopics.FirstOrDefault(x => x.TopicId == TopicId && x.UserId == UserId);
                 enrollmentDB.Active = true;
-                DateTime now = DateTime.Now;
-                enrollmentDB.EnrollmentSince = now;
-                enrollmentDB.EnrollmentTo = null;
                 _db.SaveChanges();
         }
 

@@ -39,13 +39,13 @@ namespace eWarsztaty.Web.Controllers
         }
 
         // GET api/participations/5/3
-        [Route("api/enrollments/{CourseId}/{UserId}")]
+        [Route("api/enrollments/{TopicId}/{UserId}")]
         [HttpGet]
-        public bool Get(int CourseId, int UserId)
+        public bool Get(int TopicId, int UserId)
         {
-            if (CourseId > 0 && UserId > 0)
+            if (TopicId > 0 && UserId > 0)
             {
-                return _enrollmentRepository.GetEnrollmentsByTopicIdByUserId(CourseId, UserId);
+                return _enrollmentRepository.GetEnrollmentsByTopicIdByUserId(TopicId, UserId);
             }
             else
             {
@@ -72,9 +72,16 @@ namespace eWarsztaty.Web.Controllers
             return Ok();
         }
 
-        // GET api/enrollments/5/3/enroll/KLUCZ123
-        // przywrocenie uczestnictwa z wypisanego warsztatu (topicu)
-      //  [Route("api/enrollments/{TopicId}/{UserId}/enroll/{EnrollmentKey}")]
+
+        // GET api/enrollments/dsdasddsadsadsd/leave
+        // Opuszczenie warsztatu (topicu), dla zapisanego uzytkownika
+        [Route("api/enrollments/{ConnectionId}/leave")]
+        [HttpGet]
+        public IHttpActionResult RemoveTopic(string ConnectionId)
+        {
+            _enrollmentRepository.RemoveEnrollmentByConnectionId(ConnectionId);
+            return Ok();
+        }
 
         // GET api/enrollments/5/3/enroll
         // przywrocenie uczestnictwa z wypisanego warsztatu (topicu)

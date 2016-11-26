@@ -1,4 +1,4 @@
-﻿ angular.module('eLabApp').service('drawerHelper', function () {
+﻿angular.module('eLabApp').service('drawerHelper', function ($rootScope) {
      var element = document.getElementById('canvas');
      var ctx = element.getContext("2d");
      var tool = 'pencil';
@@ -6,6 +6,7 @@
      var highlighterBegin = false;
      var opacity = 1;
      var color = '0,0,0';
+     console.log("Root from drawhelper:" + $rootScope.user.id);
 
      self.fromSignalR = function (parameters) {
          self.setLineWidth(parameters.lineWidth);

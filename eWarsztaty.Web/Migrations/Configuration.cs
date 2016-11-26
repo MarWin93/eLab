@@ -179,12 +179,6 @@
                 new ParticipationInCourse() { Active = true, CourseId = 1, UserId = 3 },
                 new ParticipationInCourse() { Active = true, CourseId = 2, UserId = 2 });
 
-
-            context.EnrolmentsInTopics.AddOrUpdate(
-                new EnrollmentInTopic() { Active = true, TopicId = 1, UserId = 1 },
-                new EnrollmentInTopic() { Active = true, TopicId = 1, UserId = 2 },
-                new EnrollmentInTopic() { Active = true, TopicId = 2, UserId = 1 });
-
             context.SaveChanges();
         }
     }

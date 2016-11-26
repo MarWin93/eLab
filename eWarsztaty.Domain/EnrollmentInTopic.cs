@@ -14,11 +14,13 @@ namespace eWarsztaty.Domain
  
         public bool Active { get; set; }
 
+        public string ConnectionId { get; set; }
+
         // Zapisany od tego czasu - uzupełniane w momencie zapisania się na warsztaty (topic)
-        public DateTime? EnrollmentSince { get; set; }
+        //public DateTime? EnrollmentSince { get; set; }
 
         // Zapisany do tego czasu - uzupełniane w momencie wypisania się z warsztatów (topic)
-        public DateTime? EnrollmentTo { get; set; }
+       // public DateTime? EnrollmentTo { get; set; }
 
         [ForeignKey("UserId")]
         public virtual Uzytkownik User { get; set; }

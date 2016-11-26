@@ -35,6 +35,8 @@ namespace eWarsztaty.Domain
 
         public ICollection<Course> Courses { get; set; }
 
+        public ICollection<ChatMessageDetail> ChatMessageDetails { get; set; }
+
 
     }
 }
