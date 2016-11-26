@@ -1,7 +1,7 @@
 angular.module('eLabApp').directive('drawing', ['drawerHelper', function(drawerHelper) {
     return {
         restrict: "A",
-        link: function ($rootScope, $scope, element) {
+        link: function ($scope, element) {
             var vm = this;
             
             vm.signalRSetup = function (topic, user) {
@@ -35,9 +35,11 @@ angular.module('eLabApp').directive('drawing', ['drawerHelper', function(drawerH
               id: 1
             };
             vm.user = {
-                id: $rootScope.user.id,
-                name: $rootScope.user.name 
+                id: $scope.user.id,
+                name: $scope.user.name
             };
+
+            console.log("Root from drawer:" + $scope.user.id);
 
             vm.signalRSetup(vm.topic, vm.user);
             

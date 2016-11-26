@@ -19,7 +19,7 @@ namespace eWarsztaty.Web.SignalR
         readonly EnrollmentInTopicRepository _enrollmentRepository = new EnrollmentInTopicRepository();
 
         #region Connect
-        public void JoinGroup(int topicId,int userId, string userName)
+        public async Task JoinGroup(int topicId,int userId, string userName)
         {
             var id = Context.ConnectionId;
 
@@ -38,7 +38,7 @@ namespace eWarsztaty.Web.SignalR
                 var enrollmentJson = Mapper.Map<EnrollmentInTopic, EnrollmentInTopicJson>(enrollment);
                 _enrollmentRepository.SaveEnrollment(enrollmentJson);
 
-              //  await Groups.Add(Context.ConnectionId, topicId.ToString());
+                await Groups.Add(Context.ConnectionId, topicId.ToString());
              
                 // send to caller
                 var connectedUsers = _db.EnrolmentsInTopics.ToList();
