@@ -152,31 +152,3 @@
         <p class="empty-list" ng-if="ctrl.topic.files.length == 0">brak plikow</p>
     </md-card-content>
 </md-card>
-
-<div id="chat">
-    <div id="conversation">
-        <div ng-repeat="message in ctrl.topic.messages">
-            <div class="avatar" ng-class="{main: ( message.sender == ctrl.topic.current_user)}">
-                <img src="/app/assets/img/avatar_4.png">
-            </div>
-            <div class="cloud" ng-class="{main: ( message.sender == ctrl.topic.current_user) }">
-                <h3>
-                    {{ message.sender }}, <i class="prefix mdi-action-alarm"></i><span class="message-date">
-                        {{ message.date | date:"MM/dd/yyyy 'at' h:mma"}}
-                    </span>
-                    <br>
-                </h3>
-                <span>
-                    {{ message.content }}
-                </span>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <form ng-submit="ctrl.topic.send()" class="chat-input">
-        <input type="text" ng-model="ctrl.topic.textbox" autofocus>
-        <input type="submit" class="send-icon" value="">
-        <input type="submit" value=""
-               class="sent-indicator {{ ctrl.topic.status }}">
-    </form>
-</div>
