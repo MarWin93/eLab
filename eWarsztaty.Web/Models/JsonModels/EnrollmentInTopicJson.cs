@@ -11,6 +11,8 @@ namespace eWarsztaty.Web.Models.JsonModels
         public int TopicId { get; set; }
         public int UserId { get; set; }
         public bool Active { get; set; }
-        
+
+        public string UserName { get; set; }
+
     }
 }

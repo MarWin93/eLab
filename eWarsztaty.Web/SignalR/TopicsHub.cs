@@ -25,25 +25,30 @@ namespace eWarsztaty.Web.SignalR
 
             if (_enrollmentRepository.IsExistEnrollmentInTopic(topicId, userId))
             {
+                string connectionId = _db.EnrolmentsInTopics.Where(x => x.TopicId == topicId && x.UserId == userId).Select(row => row.ConnectionId).SingleOrDefault();
                 _enrollmentRepository.RemoveEnrollmentByTopicIdUserId(topicId, userId);
-                // Disconnect
-              //  Clients.All.onUserDisconnectedExisting(item.ConnectionId, item.UserName);
+                 // Disconnect
+                Clients.All.onUserDisconnectedExisting(connectionId, userName);
             }
 
           
             if (!_enrollmentRepository.IsExistEnrollmentInTopic(topicId, userId))
             {
                // DateTime now = DateTime.Now;
-                var enrollment = new EnrollmentInTopic() { ConnectionId = id, Active = true, TopicId = topicId, UserId = userId };
+                var enrollment = new EnrollmentInTopic() { ConnectionId = id, Active = true, TopicId = topicId, UserId = userId, UserName = userName };
                 var enrollmentJson = Mapper.Map<EnrollmentInTopic, EnrollmentInTopicJson>(enrollment);
                 _enrollmentRepository.SaveEnrollment(enrollmentJson);
 
                 await Groups.Add(Context.ConnectionId, topicId.ToString());
-             
+
                 // send to caller
-                var connectedUsers = _db.EnrolmentsInTopics.ToList();
-                var CurrentMessage = _db.ChatMessageDetails.Where(x => x.TopicId == topicId).ToList();
-               // Clients.Caller.onConnected(id, userName, connectedUsers, CurrentMessage);
+                var allConnectedUsers = _db.EnrolmentsInTopics.Where(x => x.TopicId == topicId).ToList();
+                var allEnrollmentsJson = Mapper.Map<IEnumerable<EnrollmentInTopic>, IEnumerable<EnrollmentInTopicJson>>(allConnectedUsers);
+                var CurrentMessages = _db.ChatMessageDetails.Where(x => x.TopicId == topicId).ToList();
+                var allMessagesJson = Mapper.Map<IEnumerable<ChatMessageDetail>, IEnumerable<MesssageJson>>(CurrentMessages);
+
+
+                Clients.Caller.onConnected(id, userName, allEnrollmentsJson, allMessagesJson);
             }
             Clients.AllExcept(id).onNewUserConnected(id, userName);
         }
@@ -56,8 +61,10 @@ namespace eWarsztaty.Web.SignalR
             var id = Context.ConnectionId;
             if (_enrollmentRepository.IsExistEnrollmentInTopicByConnectionId(id))
             {
-                    _enrollmentRepository.RemoveEnrollmentByConnectionId(id);
-                    Clients.All.onUserDisconnected(id);
+                string removedUserName = _db.EnrolmentsInTopics.Where(x => x.ConnectionId == id).Select(row => row.UserName).SingleOrDefault();
+
+                _enrollmentRepository.RemoveEnrollmentByConnectionId(id);
+                    Clients.All.onUserDisconnected(id, removedUserName);
             }
             return base.OnDisconnected(stopCalled);
         }

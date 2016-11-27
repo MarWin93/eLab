@@ -6,7 +6,7 @@
      var highlighterBegin = false;
      var opacity = 1;
      var color = '0,0,0';
-     console.log("Root from drawhelper:" + $rootScope.user.id);
+     //console.log("Root from drawhelper:" + $rootScope.user.id);
 
      self.fromSignalR = function (parameters) {
          self.setLineWidth(parameters.lineWidth);

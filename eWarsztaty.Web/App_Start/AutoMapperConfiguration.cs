@@ -167,6 +167,12 @@ namespace eWarsztaty.Web.App_Start
                 .ForMember(x => x.Topic, opt => opt.Ignore())
                 .ForMember(x => x.User, opt => opt.Ignore());
 
+            Mapper.CreateMap<ChatMessageDetail, MesssageJson>();
+
+            Mapper.CreateMap<MesssageJson, ChatMessageDetail>()
+               .ForMember(x => x.Topic, opt => opt.Ignore())
+               .ForMember(x => x.User, opt => opt.Ignore());
+
 
             Mapper.AssertConfigurationIsValid();
         }

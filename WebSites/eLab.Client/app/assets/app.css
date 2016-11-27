@@ -946,6 +946,11 @@ form.chat-input input[type="button"].sending {
         padding-top: 20px;
 		padding-bottom: 20px;
 	}
+    #users-list .loginUser, #users-list .loginUser .avatar{
+            background-color: #cbc1c1 !important;
+            color: #424242 !important;
+	}
+
     #users-list .cloud-user, #users-list .avatar{
 		    padding: 5px;
             margin-top: 3px;	

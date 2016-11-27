@@ -28,6 +28,8 @@ namespace eWarsztaty.Domain
         [Column(Order = 1)]
         public int UserId { get; set; }
 
+        public string UserName { get; set; }
+
         [ForeignKey("TopicId")]
         public virtual Topic Topic { get; set; }
         [Key]

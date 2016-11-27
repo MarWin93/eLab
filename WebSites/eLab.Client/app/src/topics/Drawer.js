@@ -3,55 +3,6 @@ angular.module('eLabApp').directive('drawing', ['drawerHelper', function(drawerH
         restrict: "A",
         link: function ($scope, element) {
             var vm = this;
-            $scope.channel = 'messages-channel';
-
-            vm.current_user = "Lolek";
-            // Sent Indicator
-            vm.status = "";
-            vm.messages = [
-                  {
-                      "date": "2017-04-23T22:00:00.000Z",
-                      "content": "lalalalallalalal",
-                      "sender": "Marian"
-                  },
-                  {
-                      "date": "2016-04-23T00:00:00.000Z",
-                      "content": "hej",
-                      "sender": "Lolek"
-                  },
-                  {
-                      "date": "2016-04-23T00:00:00.000Z",
-                      "content": "fdsffdfsdd",
-                      "sender": "Jurek"
-                  },
-                  {
-                      "date": "2016-04-23T00:00:00.000Z",
-                      "content": "hej",
-                      "sender": "Lolek"
-                  },
-                  {
-                      "date": "2016-04-23T00:00:00.000Z",
-                      "content": "hej",
-                      "sender": "Lolek"
-                  },
-                  {
-                      "date": "2016-04-23T00:00:00.000Z",
-                      "content": "fdsffdfsdd",
-                      "sender": "Jurek"
-                  },
-                  {
-                      "date": "2016-04-23T00:00:00.000Z",
-                      "content": "hej",
-                      "sender": "Lolek"
-                  }
-            ];
-
-            vm.send = function () {
-                console.log(vm.textbox);
-                vm.status = "sending";
-                vm.textbox = "";
-                setTimeout(function () { vm.status = "" }, 1200);
-            };
             
             vm.signalRSetup = function (topic, user) {
                 $scope.topicsHub = null; // holds the reference to hub
@@ -189,36 +140,50 @@ angular.module('eLabApp').directive('drawing', ['drawerHelper', function(drawerH
             function registerClientMethods(chatHub) {
                 // Calls when user successfully logged in
                 chatHub.client.onConnected = function (id, userName, allUsers, messages) {
-                    setScreen(true);
+
+                    console.log("On Connected");
 
                     $('#hdId').val(id);
                     $('#hdUserName').val(userName);
                     $('#spanUser').html(userName);
 
+                    //clear Users
+                    var users = document.getElementById("users-list");
+                    while (users.firstChild) {
+                        users.removeChild(users.firstChild);
+                    }
+
                     // Add All Users
                     for (i = 0; i < allUsers.length; i++) {
-                        AddUser(chatHub, allUsers[i].ConnectionId, allUsers[i].UserName, allUsers[i].EmailID);
+                        console.log("Adding all users");
+                        AddUser(chatHub, allUsers[i].ConnectionId, allUsers[i].UserName);
+                    }
+
+                    //clear Existing Messages
+                    var messagesExisting = document.getElementById("conversation");
+                    while (messagesExisting.firstChild) {
+                        messagesExisting.removeChild(messagesExisting.firstChild);
                     }
 
                     // Add Existing Messages
                     for (i = 0; i < messages.length; i++) {
                         AddMessage(messages[i].UserName, messages[i].Message);
                     }
-
-                    $('.login').css('display', 'none');
                 }
 
                 // On New User Connected
-                chatHub.client.onNewUserConnected = function (id, name, email) {
-                    AddUser(chatHub, id, name, email);
+                chatHub.client.onNewUserConnected = function (id, name) {
+                    console.log("Adding new user");
+                    AddUser(chatHub, id, name);
                 }
 
                 // On User Disconnected
                 chatHub.client.onUserDisconnected = function (id, userName) {
+                    console.log("Usuniecie Usera:" + id);
                     $('#' + id).remove();
 
-                    var ctrId = 'private_' + id;
-                    $('#' + ctrId).remove();
+                  //  var ctrId = 'private_' + id;
+                  //  $('#' + ctrId).remove();
 
                     var disc = $('<div class="disconnect">"' + userName + '" logged off.</div>');
 
@@ -229,9 +194,10 @@ angular.module('eLabApp').directive('drawing', ['drawerHelper', function(drawerH
 
                 // On User Disconnected Existing
                 chatHub.client.onUserDisconnectedExisting = function (id, userName) {
+                    console.log("Usuniecie Usera Existing:" + id);
                     $('#' + id).remove();
-                    var ctrId = 'private_' + id;
-                    $('#' + ctrId).remove();
+                 //   var ctrId = 'private_' + id;
+                  //  $('#' + ctrId).remove();
                 }
 
                 chatHub.client.messageReceived = function (userName, message) {
@@ -303,25 +269,27 @@ angular.module('eLabApp').directive('drawing', ['drawerHelper', function(drawerH
             }
 
             // Add User
-            function AddUser(chatHub, id, name, email) {
+            function AddUser(chatHub, id, name) {
                 var userId = $('#hdId').val();
-                var userEmail = $('#hdEmailID').val();
+                var userName = vm.user.name;
+                console.log("User name: " + userName + ", new name:" +name);
                 var code = "";
 
-                if (userEmail == email && $('.loginUser').length == 0) {
+                if (userName == name && $('.loginUser').length == 0) {
                     code = $(
-                    '<div class="cloud-user"><div class="avatar"><img src="/app/assets/img/avatar_4.png"></div>' +
+                    '<div class="cloud-user loginUser"><div class="avatar"><img src="/app/assets/img/avatar_2.png"></div>' +
                     '<h3><b>' + name + '</b></h3></div>');
                 }
                 else {
+                    $('#' + id).remove();
                     code = $(
-                        '<div class="cloud"></div>' +
-                        '<a id="' + id + 'class="md-no-style md-button md-ink-ripple" >' + name + '</a>' +
-                         '<div class="clear"></div>');
+                         '<div class="cloud-user" id="' + id + '">'+ 
+                         '<div class="avatar"><img src="/app/assets/img/avatar_4.png"></div>' +
+                         '<h3><b>' + name + '</b></h3></div>');
                     $(code).click(function () {
                         var id = $(this).attr('id');
                         if (userName != vm.user.name) {
-                            OpenPrivateChatWindow(chatHub, id, name, userEmail, email);
+                            OpenPrivateChatWindow(chatHub, id, name)
                         }
                     });
                 }
