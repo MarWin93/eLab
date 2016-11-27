@@ -61,10 +61,12 @@ namespace eWarsztaty.Web.SignalR
             var id = Context.ConnectionId;
             if (_enrollmentRepository.IsExistEnrollmentInTopicByConnectionId(id))
             {
-                string removedUserName = _db.EnrolmentsInTopics.Where(x => x.ConnectionId == id).Select(row => row.UserName).SingleOrDefault();
-
-                _enrollmentRepository.RemoveEnrollmentByConnectionId(id);
+                while (_enrollmentRepository.IsExistEnrollmentInTopicByConnectionId(id))
+                {
+                    string removedUserName = _db.EnrolmentsInTopics.Where(x => x.ConnectionId == id).Select(row => row.UserName).FirstOrDefault();
+                    _enrollmentRepository.RemoveEnrollmentByConnectionId(id);
                     Clients.All.onUserDisconnected(id, removedUserName);
+                }
             }
             return base.OnDisconnected(stopCalled);
         }
