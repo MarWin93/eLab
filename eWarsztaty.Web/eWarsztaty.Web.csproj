@@ -286,6 +286,7 @@
     <Compile Include="Infrastructure\Repositories\TopicRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\JsonModels\MessageJson.cs" />
     <Compile Include="Models\JsonModels\ClassJson.cs" />
     <Compile Include="Models\JsonModels\EnrollmentInTopicJson.cs" />
     <Compile Include="Models\JsonModels\ParticipationsJson.cs" />

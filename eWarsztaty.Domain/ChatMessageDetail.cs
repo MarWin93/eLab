@@ -20,6 +20,8 @@ namespace eWarsztaty.Domain
         public int TopicId { get; set; }
         [ForeignKey("TopicId")]
         public virtual Topic Topic { get; set; }
+
+        public DateTime SendDateTime { get; set; }
     }
 
 

@@ -79,22 +79,25 @@ namespace eWarsztaty.Web.SignalR
 
         public void SendMessageToAll(string userName, string message, int topicId, int userId)
         {
+            DateTime now = DateTime.Now;
             // store last 100 messages in cache
-            AddAllMessageinCache(userName, message, topicId, userId);
+            AddAllMessageinCache(userName, message, topicId, userId, now);
 
+            string formatDateTime = now.ToString("HH:mm:ss");
             // Broad cast message
-            Clients.All.messageReceived(userName, message);
+            Clients.All.messageReceived(userName, message, formatDateTime);
         }
 
         #region Save_Cache
-        private void AddAllMessageinCache(string userName, string message, int topicId, int userId)
+        private void AddAllMessageinCache(string userName, string message, int topicId, int userId, DateTime now)
         {
-                var messageDetail = new ChatMessageDetail
+            var messageDetail = new ChatMessageDetail
                 {
                     UserName = userName,
                     Message = message,
                     TopicId = topicId,
-                    UserId = userId
+                    UserId = userId,
+                    SendDateTime = now
                 };
                 _db.ChatMessageDetails.Add(messageDetail);
                 _db.SaveChanges();

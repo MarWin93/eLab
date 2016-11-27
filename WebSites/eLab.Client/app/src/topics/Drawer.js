@@ -167,7 +167,10 @@ angular.module('eLabApp').directive('drawing', ['drawerHelper', function(drawerH
 
                     // Add Existing Messages
                     for (i = 0; i < messages.length; i++) {
-                        AddMessage(messages[i].UserName, messages[i].Message);
+                        var datetime = new Date(Date.parse(messages[i].SendDateTime));
+                        var offset = new Date().getTimezoneOffset();
+                        datetime.setMinutes(datetime.getMinutes() + offset);
+                        AddMessage(messages[i].UserName, messages[i].Message, datetime.toLocaleTimeString());
                     }
                 }
 
@@ -200,8 +203,8 @@ angular.module('eLabApp').directive('drawing', ['drawerHelper', function(drawerH
                   //  $('#' + ctrId).remove();
                 }
 
-                chatHub.client.messageReceived = function (userName, message) {
-                    AddMessage(userName, message);
+                chatHub.client.messageReceived = function (userName, message, datetime) {
+                    AddMessage(userName, message, datetime);
                 }
 
                 chatHub.client.sendPrivateMessage = function (windowId, fromUserName, message, userEmail, email, status, fromUserId) {
@@ -233,24 +236,6 @@ angular.module('eLabApp').directive('drawing', ['drawerHelper', function(drawerH
             }
 
             function registerEvents(chatHub) {
-                $("#btnStartChat").click(function () {
-                    var name = $("#txtNickName").val();
-                    var email = $('#txtEmailId').val();
-                    if (name.length > 0 && email.length > 0) {
-                        $('#hdEmailID').val(email);
-                        chatHub.server.connect(name, email);
-                    }
-                    else {
-                        alert("Please enter your details");
-                    }
-                });
-
-                $("#txtNickName").keypress(function (e) {
-                    if (e.which == 13) {
-                        $("#btnStartChat").click();
-                    }
-                });
-
                 $("#txtMessage").keypress(function (e) {
                     if (e.which == 13) {
                         $('#btnSendMsg').click();
@@ -297,8 +282,7 @@ angular.module('eLabApp').directive('drawing', ['drawerHelper', function(drawerH
             }
 
             // Add Message
-            function AddMessage(userName, message) {
-                var time = new Date();
+            function AddMessage(userName, message, datetime) {
                 var avatarClass = "avatar";
                 var cloudClass = "cloud"
                 console.log(userName === vm.user.name);
@@ -309,7 +293,7 @@ angular.module('eLabApp').directive('drawing', ['drawerHelper', function(drawerH
                 $('#conversation').append(
                     '<div class="' + avatarClass + '"><img src="/app/assets/img/avatar_4.png"></div>' +
                     '<div class="' + cloudClass + '">' +
-                    ' <h3><b>' + userName + '</b><i class="prefix mdi-action-alarm"></i><span class="message-date"> ' +  time.toLocaleTimeString() + ' </span>   <br> </h3>' +
+                    ' <h3><b>' + userName + '</b><i class="prefix mdi-action-alarm"></i><span class="message-date"> ' +  datetime + ' </span>   <br> </h3>' +
                     ' <span>' + message +' </span>' +
                     ' </div><div class="clear"></div>');
                 var height = $('#conversation')[0].scrollHeight;
