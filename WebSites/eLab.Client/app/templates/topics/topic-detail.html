@@ -150,5 +150,15 @@
             </md-list-item>
         </md-list>
         <p class="empty-list" ng-if="ctrl.topic.files.length == 0">brak plikow</p>
+        <md-divider class="divider-padded"></md-divider>
+        <md-subheader class="list-header">Podglad uczestników:</md-subheader>
+        <md-list>
+            <md-list-item ng-repeat="participant in activeParticipants">
+                <img width="300" height="225" data-ng-src="data:image/png;base64,{{participant.base64Image}}" data-err-src="images/png/avatar.png" />
+                <span>{{participant.id}}</span>
+                <span>  {{participant.login}}</span>
+            </md-list-item>
+        </md-list>
+        <p class="empty-list" ng-if="ctrl.topic.activeParticipants.length == 0">brak aktywnych uczestników</p>
     </md-card-content>
 </md-card>

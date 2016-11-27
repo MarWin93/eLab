@@ -5,7 +5,7 @@ angular.module('eLabApp').service('topicService', function ($http, API_PATH) {
         },
 
         getTopic: function (topicId) {
-            return $http.get(API_PATH + 'topics/' + topicId)
+            return $http.get(API_PATH + 'topics/' + topicId);
         },
 
         createTopic: function (topic) {
@@ -13,11 +13,11 @@ angular.module('eLabApp').service('topicService', function ($http, API_PATH) {
         },
 
         deleteTopic: function (topic) {
-            return $http.delete(API_PATH + 'topics/' + topic.id)
+            return $http.delete(API_PATH + 'topics/' + topic.id);
         },
 
         updateTopic: function (topic) {
-            return $http.put(API_PATH + 'topics/' + topic.id, topic)
+            return $http.put(API_PATH + 'topics/' + topic.id, topic);
         }
     };
 });

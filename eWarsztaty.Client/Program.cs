@@ -1,112 +1,46 @@
 ﻿using Microsoft.AspNet.SignalR.Client;
-using Microsoft.AspNet.SignalR.Client.Hubs;
-using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Timers;
+using Cravens.Utilities.Images;
+using MonitorAgent.ScreenCapture;
+using Rlc.Monitor.Messages;
+using Timer = System.Timers.Timer;
 
 namespace eWarsztaty.Client
 {
     class Program
     {
+        private static Timer _timer = new Timer(5000);
+        private static IScreenCapture _screenCapture;
+        private static IImageProcessing _imageProcessor;
+        private static Size _thumbNailSize = new Size(300, 225);
+        private static Bitmap _previousScreenShot;
+        private static IHubProxy _eLabProxy;
+        private static int _agentTopicId;
+        private static int _agentUserId;
+
         static void Main(string[] args)
         {
+            _screenCapture = new ScreenCapture();
+            _imageProcessor = new ImageProcessing();
             bool tryLogIn = true;
-            var hubConnection = new HubConnection("http://localhost:51634");
-            var eWarsztaty = hubConnection.CreateHubProxy("WarsztatHub");
-            eWarsztaty.On<string>("agentMakeConnection", (groupName) => { Console.WriteLine("Agent nawiązał połączenie z grupą: " + groupName); });
-            eWarsztaty.On<string>("agentNoParticipate", (message) => { Console.WriteLine(message); });
-            eWarsztaty.On<string, bool>("agentAuthorisation", (message, loginSucceed) =>
+            var hubConnection = new HubConnection("http://localhost:8089");
+            _eLabProxy = hubConnection.CreateHubProxy("TopicsHub");
+            _eLabProxy.On<string>("agentMakeConnection", (groupName) => { Console.WriteLine("Agent nawiązał połączenie z grupą: " + groupName); });
+            _eLabProxy.On<string>("agentNoParticipate", (message) => { Console.WriteLine(message); });
+            _eLabProxy.On<string, bool, int, int>("agentAuthorisation", (message, loginSucceed, topicId, userId) =>
             {
                 if (loginSucceed)
+                {
                     tryLogIn = false;
+                    _agentTopicId = topicId;
+                    _agentUserId = userId;
+                }
                 else
                     Console.WriteLine(message);
             });
-            eWarsztaty.On<string, int>("agentMakeScreenShot", (login, warsztatId) =>
-            {
-                Bitmap memoryImage;
-                Rectangle resolution = Screen.PrimaryScreen.Bounds;
-                memoryImage = new Bitmap(resolution.Width, resolution.Height);
-                Size s = new Size(memoryImage.Width, memoryImage.Height);
 
-                Graphics memoryGraphics = Graphics.FromImage(memoryImage);
-
-                memoryGraphics.CopyFromScreen(0, 0, 0, 0, s);
-
-                Image zdj = (Image)memoryImage;
-                byte[] imgBytes = imageToByteArray(zdj);
-
-                eWarsztaty.Invoke("showScreenImage", imgBytes, login, warsztatId);
-                
-                //try
-                //{
-                //    eWarsztaty.Invoke("showScreenImage", imgBytes, login);
-                //}
-                //catch (Exception e)
-                //{
-                //    eWarsztaty.Invoke("showScreenImage", imgBytes, login);
-                //}
-            });
-            eWarsztaty.On<byte[], string, string, string>("agentDownloadExercise", (exerciseData, extension, exerciseName, directoryName) => {
-
-                string projetPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-                string exercisePath = projetPath + @"\" + directoryName;
-                System.IO.Directory.CreateDirectory(exercisePath);
-                string fullPath = exercisePath + @"\" + exerciseName;
-                File.WriteAllBytes(fullPath, exerciseData);
-                if (extension == ".zip")
-                {
-                    string extractedPath = fullPath + "_extracted";
-
-                    if (Directory.Exists(extractedPath))
-                    {
-                        Console.WriteLine("Plik w folderze " + extractedPath + " już istnieje");
-                        RunOtherProcess(extractedPath);
-                    }
-                    else
-                    {
-                        System.IO.Directory.CreateDirectory(extractedPath);
-                        ZipFile.ExtractToDirectory(fullPath, extractedPath);
-                        var fileList = new DirectoryInfo(extractedPath).GetFiles("*.sln", SearchOption.AllDirectories);
-                        var fileListCsproj = new DirectoryInfo(extractedPath).GetFiles("*.csproj", SearchOption.AllDirectories);
-                        if (fileList.Any())
-                        {
-                            RunOtherProcess(fileList.First().FullName);
-                            Console.WriteLine("Rozpakowałem plik i odnalazłem plik: " + fileList.First().Name);
-                        }
-                        else if (fileListCsproj.Any())
-                        {
-                            RunOtherProcess(fileListCsproj.First().FullName);
-                            Console.WriteLine("Rozpakowałem plik i odnalazłem plik: " + fileListCsproj.First().Name);
-                        }
-                        else
-                        {
-                            RunOtherProcess(extractedPath);
-                            Console.WriteLine("Pobralem i otwieram folder rozpakowanego pliku:  " + exerciseName);
-                        }
-                    }
-                }
-                else
-                {
-                    if (File.Exists(fullPath))
-                    {
-                        RunOtherProcess(fullPath);
-                        Console.WriteLine("Pobralem i otwieram plik:  " + exerciseName);
-                    }
-                    else
-                        Console.WriteLine("Nie udało się stworzyć pliku");
-                }
-            });
             hubConnection.Start().Wait();
             while (tryLogIn)
             {
@@ -137,27 +71,112 @@ namespace eWarsztaty.Client
                         break;
                     }
                 }
-                eWarsztaty.Invoke("clientJoin", login, password).Wait();
+                _eLabProxy.Invoke("agentJoin", login, password).Wait();
             }
             string msg = null;
+
+            if (!_timer.Enabled)
+            {
+                _timer.Elapsed += _postThumbMessage;
+                _timer.Enabled = true;
+            }
+
             while ((msg = Console.ReadLine()) != null)
             {
 
             }
         }
 
-        public static byte[] imageToByteArray(System.Drawing.Image imageIn)
+        static void _postThumbMessage(object sender, ElapsedEventArgs e)
         {
-            using (MemoryStream ms = new MemoryStream())
+            PostImage(); // Add date on each timer event
+        }
+
+        private static void PostImage()
+        {
+            // Capture a new screen image.
+            //
+            Bitmap screenShot = _screenCapture.CaptureDesktopWithCursor();
+
+            if(true) /*(_pollMode == PollModeOptions.Thumb)*/
             {
-                imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                return ms.ToArray();
+                // Scale the image
+                //
+                screenShot = screenShot.Resize(
+                    RotateFlipType.RotateNoneFlipNone,
+                    _thumbNailSize.Width,
+                    _thumbNailSize.Height);
+            }
+            new Size(screenShot.Width, screenShot.Height);
+
+            // Compare to the previous bitmap to determine the
+            //	bounding box for changed pixels. This helps minimize
+            //	the number of bytes that have to send.
+            //
+            Rectangle rect = _imageProcessor.GetBoundingBoxForChanges(_previousScreenShot, screenShot);
+            new Size(rect.Width, rect.Height);
+            _previousScreenShot = screenShot;
+            if (rect != Rectangle.Empty)
+            {
+                // Create an initialize an image data message.
+                //
+                ImageDataMessage imageDataMessage = new ImageDataMessage
+                {
+                    TopicId = _agentTopicId,
+                    UserId = _agentUserId,
+                    TimeStamp = DateTime.Now,
+                    IsThumbnail = true,/* (_pollMode == PollModeOptio ns.Thumb) ? true : false,*/
+                    FullWidth = screenShot.Width,
+                    FullHeight = screenShot.Height
+                };
+
+                if (rect.Width == screenShot.Width &&
+                    rect.Height == screenShot.Height)
+                {
+                    // Post the whole screen
+                    //
+                    imageDataMessage.ImageData = screenShot.ConvertToByteArray();
+                    imageDataMessage.IsPartial = false;
+                    imageDataMessage.X = 0;
+                    imageDataMessage.Y = 0;
+                }
+                else
+                {
+                    // Post only the part of the screen that has changed.
+                    //
+                    Bitmap changedPart = ImageResize.Crop(screenShot, rect);
+                    imageDataMessage.ImageData = changedPart.ConvertToByteArray();
+                    imageDataMessage.IsPartial = true;
+                    imageDataMessage.X = rect.X;
+                    imageDataMessage.Y = rect.Y;
+                }
+
+                PostMessage(imageDataMessage);
+            }
+            else
+            {
+                ImageNoChangeMessage imageNoChangeMessage = new ImageNoChangeMessage
+                {
+                    TopicId = _agentTopicId,
+                    UserId = _agentUserId,
+                    TimeStamp = DateTime.Now
+                };
+                PostMessage(imageNoChangeMessage);
+            }
+
+        }
+
+        private static void PostMessage(BaseMessage message)
+        {
+            if (message is ImageDataMessage)
+            {
+                _eLabProxy.Invoke("sendImage", message);
+            }
+            else if (message is ImageNoChangeMessage)
+            {
+                _eLabProxy.Invoke("sendNoChangedImage", message);
             }
         }
 
-        public static void RunOtherProcess(string filePath)
-        {
-            System.Diagnostics.Process.Start(@filePath);
-        }
     }
 }

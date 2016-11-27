@@ -1,12 +1,28 @@
 ﻿angular.module('eLabApp').service('chatHelper', function ($rootScope) {
 
     myself = null;
+    activeParticipants = {
+            //3:{
+            //    id: '3',
+            //    base64Image: '',
+            //    loop: 1
+            //},
+            //4:{
+            //    id: '4',
+            //    base64Image: '',
+            //    loop: 1
+            //}
+    };
+
+    self.activeParticipantsGet = function() {
+        return activeParticipants;
+    }
 
     self.registerClientMethods = function (chatHub, me) {
 
         myself = me;
         // Calls when user successfully logged in
-        chatHub.client.onConnected = function (id, userName, allUsers, messages) {
+        chatHub.client.onConnected = function (id, userName, allUsers, messages, userId) {
 
             console.log("On Connected");
 
@@ -23,7 +39,7 @@
             // Add All Users
             for (i = 0; i < allUsers.length; i++) {
                 console.log("Adding all users");
-                AddUser(chatHub, allUsers[i].ConnectionId, allUsers[i].UserName);
+                AddUser(chatHub, allUsers[i].ConnectionId, allUsers[i].UserName, userId);
             }
 
             //clear Existing Messages
@@ -42,16 +58,16 @@
         }
 
         // On New User Connected
-        chatHub.client.onNewUserConnected = function (id, name) {
+        chatHub.client.onNewUserConnected = function (id, name, userId) {
             console.log("Adding new user");
-            AddUser(chatHub, id, name);
+            AddUser(chatHub, id, name, userId);
         }
 
         // On User Disconnected
         chatHub.client.onUserDisconnected = function (id, userName) {
             console.log("Usuniecie Usera:" + id);
             $('#' + id).remove();
-
+            delete activeParticipants[id];
             //  var ctrId = 'private_' + id;
             //  $('#' + ctrId).remove();
 
@@ -121,7 +137,9 @@
     }
 
     // Add User
-    function AddUser(chatHub, id, name) {
+    function AddUser(chatHub, id, name, userIdFromHub) {
+        //activeParticipants.push({ id: id, login: name, base64Image: '' });
+        activeParticipants[userIdFromHub] = { id: userIdFromHub, login: name, base64Image: '' };
         var userId = $('#hdId').val();
         var userName = myself.user.name;
         console.log("User name: " + userName + ", new name:" + name);

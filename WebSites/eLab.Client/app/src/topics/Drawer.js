@@ -15,7 +15,7 @@ angular.module('eLabApp').directive('drawing', ['drawerHelper', 'signalR', funct
 
             console.log("Root from drawer:" + $scope.user.id);
 
-            signalR.signalRSetup($scope, vm.topic, vm.user);
+            //signalR.signalRSetup($scope, vm.topic, vm.user);
             
             var ctx = element[0].getContext('2d');
 

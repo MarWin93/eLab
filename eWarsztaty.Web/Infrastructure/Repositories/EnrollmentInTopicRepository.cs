@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using eWarsztaty.Domain;
-using eWarsztaty.Web.Helpers;
 using eWarsztaty.Web.Models.JsonModels;
 
 namespace eWarsztaty.Web.Infrastructure.Repositories
@@ -12,6 +10,20 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
     {
 
         private eWarsztatyContext _db = new eWarsztatyContext();
+
+        public bool IsExistEnrollmentInTopicByUserName(string userName, out Topic topic, out Uzytkownik user)
+        {
+            var exist = _db.EnrolmentsInTopics.Include("Topic").Include("User").Where(x => x.UserName == userName );
+            if (exist.Count() != 1)
+            {
+                user = null;
+                topic = null;
+                return false;
+            }
+            topic = exist.First().Topic;
+            user = exist.First().User;
+            return true;
+        }
 
         public bool IsExistEnrollmentInTopic(int TopicId, int UserId)
         {

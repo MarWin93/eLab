@@ -128,6 +128,7 @@
     <Reference Include="System.Web.Providers">
       <HintPath>..\packages\Microsoft.AspNet.Providers.Core.2.0.0\lib\net40\System.Web.Providers.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -313,6 +314,7 @@
     <Compile Include="Models\ViewModels\WarsztatyView.cs" />
     <Compile Include="Models\ViewModels\ZapisanieView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SignalR\ChatHub.cs" />
     <Compile Include="SignalR\Startup.cs" />
     <Compile Include="SignalR\TopicsHub.cs" />
     <Compile Include="SignalR\WarsztatHub.cs" />
@@ -602,6 +604,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\eWarsztaty.Client\eWarsztaty.Client.csproj">
+      <Project>{6A7AC11A-B099-40B4-9434-0858EC691CA9}</Project>
+      <Name>eWarsztaty.Client</Name>
+    </ProjectReference>
     <ProjectReference Include="..\eWarsztaty.Domain\eWarsztaty.Domain.csproj">
       <Project>{84fb0477-177b-4f14-84b2-1169986f869f}</Project>
       <Name>eWarsztaty.Domain</Name>

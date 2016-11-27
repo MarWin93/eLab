@@ -49,6 +49,10 @@
     <Compile Include="Class.cs" />
     <Compile Include="ChatMessageDetail.cs" />
     <Compile Include="EnrollmentInTopic.cs" />
+    <Compile Include="ImageMessages\BaseMessage.cs" />
+    <Compile Include="ImageMessages\ImageDataMessage.cs" />
+    <Compile Include="ImageMessages\ImageNoChangeMessage.cs" />
+    <Compile Include="ImageMessages\ThumbsizeMessage.cs" />
     <Compile Include="ParticipationInCourse.cs" />
     <Compile Include="Course.cs" />
     <Compile Include="Group.cs" />
