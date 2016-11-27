@@ -35,7 +35,7 @@ angular.module('eLabApp').directive('drawing', ['drawerHelper', function(drawerH
 
             //PASS topic here, god knows how?
             vm.topic = {
-              id: 1
+                id: $scope.ctrl.topic.id
             };
             vm.user = {
                 id: $scope.user.id,
