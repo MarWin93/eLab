@@ -145,7 +145,7 @@
 
                 <div flex ui-view="" id="view" class="animated"></div>
 
-                <div ng-if="elab.chat" hide show-gt-sm class="right-sidenav">
+                <div ng-if="elab.chat" id="cht-view" hide show-gt-sm class="right-sidenav">
                     <h1 class="sidenav-heading sidenav-heading-first">
                         <md-icon aria-label="Menu" class="material-icons">chat</md-icon>
                         Czat
@@ -167,6 +167,9 @@
                         </h1>
                         <div id="users-list" class="users">
                         </div>
+                        <input id="hdId" type="hidden" />
+                        <input id="hdUserName" type="hidden" />
+                        <input id="hdEmailID" type="hidden" />
                     </div>
                 </div>
             </div>
