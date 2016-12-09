@@ -150,15 +150,39 @@
             </md-list-item>
         </md-list>
         <p class="empty-list" ng-if="ctrl.topic.files.length == 0">brak plikow</p>
-        <md-divider class="divider-padded"></md-divider>
-        <md-subheader class="list-header">Podglad uczestników:</md-subheader>
-        <md-list>
-            <md-list-item ng-repeat="participant in activeParticipants">
-                <img width="300" height="225" data-ng-src="data:image/png;base64,{{participant.base64Image}}" data-err-src="images/png/avatar.png" />
-                <span>{{participant.id}}</span>
-                <span>  {{participant.login}}</span>
-            </md-list-item>
-        </md-list>
-        <p class="empty-list" ng-if="ctrl.topic.activeParticipants.length == 0">brak aktywnych uczestników</p>
+        <md-divider ng-if="ctrl.isATeacherOrAdmin" class="divider-padded"></md-divider>
+        <md-subheader  ng-if="ctrl.isATeacherOrAdmin" class="list-header">Podglad uczestników:</md-subheader>
+
+        <md-grid-list ng-if="ctrl.isATeacherOrAdmin" md-row-height="250px" md-cols="3" md-gutter="100px">
+            <md-grid-tile ng-repeat="participant in activeParticipants" class="repeated-item">
+                <img data-ng-src="data:image/png;base64,{{participant.base64Image}}" err-src="assets/img/noScreen.jpg" ng-click="fullScreenWatch($event, participant)" />
+                <!--<img width="300" height="225" data-ng-src="assets/img/noScreen.jpg" ng-click="fullScreenWatch($event, participant)"/>-->
+                <md-grid-tile-footer>
+                    {{participant.login}}
+                </md-grid-tile-footer>
+            </md-grid-tile>
+        </md-grid-list>
+
+        <div ng-if="ctrl.isATeacherOrAdmin" style="visibility: hidden">
+            <div class="md-dialog-container" id="watchFullScreenDialog">
+                <md-dialog>
+                    <md-toolbar>
+                        <div class="md-toolbar-tools">
+                            <h2>{{ activeParticipant.login }}</h2>
+                            <span flex></span>
+                            <!--<md-button class="md-icon-button" ng-click="closeDialog()">
+                                <md-icon md-svg-src="assets/img/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                            </md-button>-->
+                        </div>
+                    </md-toolbar>
+                    <div layout-padding>
+                        <p>
+                            <img width="1068" height="600" data-ng-src="data:image/png;base64,{{activeParticipant.base64Image}}" data-err-src="images/png/avatar.png" />
+                        </p>
+                    </div>
+                </md-dialog>
+            </div>
+        </div>
+        <p class="empty-list" ng-if="activeParticipants.length == 0">brak aktywnych uczestników</p>
     </md-card-content>
 </md-card>

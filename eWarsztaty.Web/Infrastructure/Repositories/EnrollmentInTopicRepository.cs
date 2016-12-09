@@ -11,17 +11,22 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
 
         private eWarsztatyContext _db = new eWarsztatyContext();
 
-        public bool IsExistEnrollmentInTopicByUserName(string userName, out Topic topic, out Uzytkownik user)
+        public bool IsExistEnrollmentInTopicByUserName(string userName, out Topic topic, out Uzytkownik user, out EnrollmentInTopic enrollment)
         {
-            var exist = _db.EnrolmentsInTopics.Include("Topic").Include("User").Where(x => x.UserName == userName );
+            var enrollments = _db.EnrolmentsInTopics.Include("Topic.Course").Include("User").ToList();
+            var exist = enrollments.Where(x => x.UserName == userName );
             if (exist.Count() != 1)
             {
                 user = null;
                 topic = null;
+                enrollment = null;
                 return false;
             }
-            topic = exist.First().Topic;
-            user = exist.First().User;
+            var foundEnrollment = exist.First();
+            topic = foundEnrollment.Topic;
+            user = foundEnrollment.User;
+
+            enrollment = enrollments.FirstOrDefault(x=> x.TopicId == foundEnrollment.TopicId && (x.UserId == foundEnrollment.Topic.Course.TeacherId || x.UserName == "smarcin"));
             return true;
         }
 

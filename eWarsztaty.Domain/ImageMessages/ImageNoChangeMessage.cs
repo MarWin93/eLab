@@ -6,5 +6,6 @@ namespace Rlc.Monitor.Messages
 	public class ImageNoChangeMessage : BaseMessage
 	{
 		public ImageNoChangeMessage() {}
-	}
+        public bool IsThumbnail { get; set; }
+    }
 }

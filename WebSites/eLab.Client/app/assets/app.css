@@ -148,7 +148,7 @@ md-sidenav button .material-icons {
   justify-content: space-around;
   align-items: center; }
   .md-button md-icon {
-    padding: 0 5px; }
+    padding: 0 1px; }
 
 .md-menu {
   padding: 0; }
@@ -182,7 +182,7 @@ md-button.menuBtn > md-icon {
 #content img {
   display: block;
   height: auto;
-  max-width: 500px; }
+  max-width: 300px; }
 
 /* Utils */
 .login-partial {
@@ -1051,5 +1051,19 @@ form.chat-input input[type="button"].sending {
 
 /*# sourceMappingURL=app.css.map */
 
+    md-grid-list md-grid-tile md-grid-tile-footer {
+      height: 30px;
+      width: 300px !important;
+      overflow: hidden;
+      position: absolute;
+      left: 0;
+      right: 0; 
+      color: rgba(0,0,0,0.54);
+      background-color: rgb(250,250,250);
+      font-weight: 500;
+      line-height: 1em;
+    }
 
-
+    md-grid-list md-grid-tile figure {
+        width: 300px !important;
+    }

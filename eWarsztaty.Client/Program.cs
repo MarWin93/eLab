@@ -11,14 +11,19 @@ namespace eWarsztaty.Client
 {
     class Program
     {
-        private static Timer _timer = new Timer(5000);
+        private static Timer _timer = new Timer(3000);
+        private static Timer _timerScreenImage = new Timer(100);
         private static IScreenCapture _screenCapture;
         private static IImageProcessing _imageProcessor;
         private static Size _thumbNailSize = new Size(300, 225);
+        private static Size _fullScreenlSize = new Size(640, 480);
         private static Bitmap _previousScreenShot;
         private static IHubProxy _eLabProxy;
         private static int _agentTopicId;
         private static int _agentUserId;
+        private static string _teacherConnectionId;
+        private static Mode _currentMode;
+        enum Mode { Thumb, Full};  
 
         static void Main(string[] args)
         {
@@ -29,16 +34,36 @@ namespace eWarsztaty.Client
             _eLabProxy = hubConnection.CreateHubProxy("TopicsHub");
             _eLabProxy.On<string>("agentMakeConnection", (groupName) => { Console.WriteLine("Agent nawiązał połączenie z grupą: " + groupName); });
             _eLabProxy.On<string>("agentNoParticipate", (message) => { Console.WriteLine(message); });
-            _eLabProxy.On<string, bool, int, int>("agentAuthorisation", (message, loginSucceed, topicId, userId) =>
+            _eLabProxy.On<string, bool, int, int, string>("agentAuthorisation", (message, loginSucceed, topicId, userId, teacherConnectionId) =>
             {
                 if (loginSucceed)
                 {
                     tryLogIn = false;
                     _agentTopicId = topicId;
                     _agentUserId = userId;
+                    _teacherConnectionId = teacherConnectionId;
                 }
                 else
                     Console.WriteLine(message);
+            });
+
+            _eLabProxy.On("startSendingScreenImages", () =>
+            {
+                _timer.Enabled = false;
+                _timerScreenImage.Enabled = true;
+                _currentMode = Mode.Full;
+            });
+
+            _eLabProxy.On("stopSendingThumbImage", () =>
+            {
+                _timer.Enabled = false;
+            });
+
+            _eLabProxy.On("startSendingThumbImage", () =>
+            {
+                _timerScreenImage.Enabled = false;
+                _timer.Enabled = true;
+                _currentMode = Mode.Thumb;
             });
 
             hubConnection.Start().Wait();
@@ -77,17 +102,24 @@ namespace eWarsztaty.Client
 
             if (!_timer.Enabled)
             {
-                _timer.Elapsed += _postThumbMessage;
+                _timer.Elapsed += _postMessage;
                 _timer.Enabled = true;
+                _currentMode = Mode.Thumb;
             }
 
+            if (!_timerScreenImage.Enabled)
+            {
+                _timerScreenImage.Elapsed += _postMessage;
+                _timerScreenImage.Enabled = false;
+            }
+            
             while ((msg = Console.ReadLine()) != null)
             {
 
             }
         }
 
-        static void _postThumbMessage(object sender, ElapsedEventArgs e)
+        static void _postMessage(object sender, ElapsedEventArgs e)
         {
             PostImage(); // Add date on each timer event
         }
@@ -98,14 +130,19 @@ namespace eWarsztaty.Client
             //
             Bitmap screenShot = _screenCapture.CaptureDesktopWithCursor();
 
-            if(true) /*(_pollMode == PollModeOptions.Thumb)*/
+            if(_currentMode == Mode.Thumb)
             {
-                // Scale the image
-                //
                 screenShot = screenShot.Resize(
                     RotateFlipType.RotateNoneFlipNone,
                     _thumbNailSize.Width,
                     _thumbNailSize.Height);
+            }
+            else // z tym jest problem
+            {
+                screenShot = screenShot.Resize(
+                    RotateFlipType.RotateNoneFlipNone,
+                    _fullScreenlSize.Width,
+                    _fullScreenlSize.Height);
             }
             new Size(screenShot.Width, screenShot.Height);
 
@@ -124,8 +161,9 @@ namespace eWarsztaty.Client
                 {
                     TopicId = _agentTopicId,
                     UserId = _agentUserId,
+                    TeacherConnectionId = _teacherConnectionId,
                     TimeStamp = DateTime.Now,
-                    IsThumbnail = true,/* (_pollMode == PollModeOptio ns.Thumb) ? true : false,*/
+                    IsThumbnail = (_currentMode == Mode.Thumb),
                     FullWidth = screenShot.Width,
                     FullHeight = screenShot.Height
                 };
@@ -159,7 +197,9 @@ namespace eWarsztaty.Client
                 {
                     TopicId = _agentTopicId,
                     UserId = _agentUserId,
-                    TimeStamp = DateTime.Now
+                    TeacherConnectionId = _teacherConnectionId,
+                    TimeStamp = DateTime.Now,
+                    IsThumbnail = (_currentMode == Mode.Thumb)
                 };
                 PostMessage(imageNoChangeMessage);
             }

@@ -1,15 +1,20 @@
-angular.module('eLabApp').controller('TopicDetailsController', function ($scope, $rootScope, $state, topicService, $stateParams, 
-                                                                         topic, courses, Upload, API_PATH, signalR, chatHelper, $http) {
+angular.module('eLabApp').controller('TopicDetailsController', function ($scope, $rootScope, $state, topicService, $stateParams, $mdDialog, 
+                                                                         topic, course, Upload, API_PATH, signalR, chatHelper, $http) {
 
     $scope.activeParticipants = chatHelper.activeParticipantsGet();
+    $scope.customFullscreen = false;
+    $scope.activeParticipant = { id: '55', base64Image: '' };
+
     var vm = this;
 
     vm.topic = topic;
-    vm.courses = courses;
+    vm.course = course;
     vm.user = {
         id: $scope.user.id,
         name: $scope.user.name
     };
+
+    vm.isATeacherOrAdmin = ($scope.user.group === 'Admin' || $scope.user.id === course.teacherId);
 
     signalR.signalRSetup($scope, vm.topic, vm.user);
 
@@ -48,41 +53,40 @@ angular.module('eLabApp').controller('TopicDetailsController', function ($scope,
         }
     };
 
-    ////Stream sharing
-    //vm.activeParticipants = [
-    //    {
-    //        id: '3',
-    //        base64Image: '',
-    //        loop: 1
-    //    },
-    //    {
-    //        id: '4',
-    //        base64Image: '',
-    //        loop: 1
-    //    }
-    //];
+    $scope.fullScreenWatch = function (ev, participant) {
+        $scope.activeParticipant = participant;
+        signalR.watchUserScreen($scope, participant.id, vm.topic.id);
+        $mdDialog.show({
+            controller: DialogController,
+            contentElement: '#watchFullScreenDialog',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            onRemoving: function (scope, element) {
+                signalR.stopWatchingUserScreen($scope, vm.topic.id);
+            }
+        });
+    };
 
-    //$scope.streamingHub = null; // holds the reference to hub
-    //$.connection.hub.url = 'http://localhost:8089/signalr';
-    //$.connection.hub.jsonp = true;
-    //$.connection.hub.logging = true; //debuging purpose
 
-    //$scope.streamingHub = $.connection.streamingHub; // initializes hub
+    $scope.closeDialog = function() {
+        alert("clicked");
+    }
 
-    ////client side function declarations 
-    //$scope.streamingHub.client.updateUserThumbImage = function (userId, base64Image) {
-    //    for (var i = 0; i < vm.activeParticipants.length; i++) {
-    //        if (vm.activeParticipants[i].id == userId) {
-    //            vm.activeParticipants[i].base64Image = base64Image;
-    //            vm.activeParticipants[i].loop = vm.activeParticipants[i].loop + 1;
-    //        }
-    //    }
-    //};
+    function DialogController($scope, $mdDialog) {
+        $scope.hide = function () {
+            $mdDialog.hide();
+        };
 
-    //// starts hub
-    //$.connection.hub.start({ jsonp: true }).done(function () {
-    //    //server (hub) side function declarations
-    //    $scope.streamingHub.server.joinGroup(vm.topic.id, "3");
-    //});
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
 
+        $scope.answer = function (answer) {
+            $mdDialog.hide(answer);
+        };
+        $scope.closeDialog = function () {
+            $mdDialog.cancel();
+        };
+    }
 });

@@ -19,6 +19,7 @@ namespace eWarsztaty.Web.SignalR
         private static eWarsztatyContext _db = new eWarsztatyContext();
         static readonly EnrollmentInTopicRepository _enrollmentRepository = new EnrollmentInTopicRepository();
         private static readonly Dictionary<string, Bitmap> _agentsPreviousImages = new Dictionary<string, Bitmap>();
+        private static readonly Dictionary<string, int> _agentsUsersIds = new Dictionary<string, int>();
 
         #region Connect
         public async Task JoinGroup(int topicId,int userId, string userName)
@@ -59,26 +60,21 @@ namespace eWarsztaty.Web.SignalR
         #region Agent methods
         public async Task AgentJoin(string login, string password)
         {
-            //if (!Membership.ValidateUser(login, password))
-            //{
-            //    Clients.Client(Context.ConnectionId).AgentAuthorisation("Niepoprawny login lub hasło", false);
-            //}
-            //else
-            //{
-                var topic = new Topic();
-                var user = new Uzytkownik();
-            if (_enrollmentRepository.IsExistEnrollmentInTopicByUserName(login, out topic, out user))
+            var topic = new Topic();
+            var user = new Uzytkownik();
+            var enrollment = new EnrollmentInTopic();
+            if (_enrollmentRepository.IsExistEnrollmentInTopicByUserName(login, out topic, out user, out enrollment))
                 {
-                    Clients.Client(Context.ConnectionId).AgentAuthorisation("", true, topic.Id, user.UzytkownikId);
+                    Clients.Client(Context.ConnectionId).AgentAuthorisation("", true, topic.Id, user.UzytkownikId, enrollment.ConnectionId);
                     _agentsPreviousImages.Add(Context.ConnectionId, null);
-                    await Groups.Add(Context.ConnectionId, topic.Id.ToString());
+                    _agentsUsersIds.Add(Context.ConnectionId, user.UzytkownikId);
+                await Groups.Add(Context.ConnectionId, topic.Id.ToString());
                     Clients.Client(Context.ConnectionId).AgentMakeConnection(topic.Id.ToString());
                 }
                 else
                 {
                     Clients.Client(Context.ConnectionId).AgentNoParticipate("Użytkownik: " + login + " nie bierze udziału w żadnym warsztacie");
                 }
-            //}
         }
 
         public void SendImage(ImageDataMessage imageMessage)
@@ -118,7 +114,16 @@ namespace eWarsztaty.Web.SignalR
             }
 
             string image64 = Convert.ToBase64String(thumbNail.ConvertToByteArray());
-            Clients.Group(imageMessage.TopicId.ToString()).updateUserThumbImage(imageMessage.UserId.ToString(), image64);
+            
+            if (imageMessage.IsThumbnail)
+            {
+                Clients.Client(imageMessage.TeacherConnectionId).updateUserThumbImage(imageMessage.UserId.ToString(), image64);    
+            }
+            else
+            {
+                Clients.Client(imageMessage.TeacherConnectionId).updateUserFullScreenImage(image64);
+            }
+            
         }
 
         public void sendNoChangedImage(ImageNoChangeMessage imageMessage)
@@ -126,8 +131,31 @@ namespace eWarsztaty.Web.SignalR
             if (_agentsPreviousImages.ContainsKey(Context.ConnectionId))
             {
                 string image64 = Convert.ToBase64String(_agentsPreviousImages[Context.ConnectionId].ConvertToByteArray());
-                Clients.Group(imageMessage.TopicId.ToString()).updateUserThumbImage(imageMessage.UserId.ToString(), image64);
+                if (imageMessage.IsThumbnail)
+                {
+                    Clients.Client(imageMessage.TeacherConnectionId).updateUserThumbImage(imageMessage.UserId.ToString(), image64);
+                }
+                else
+                {
+                    Clients.Client(imageMessage.TeacherConnectionId).updateUserFullScreenImage(image64);
+                }
+                
             }
+        }
+
+        public void WatchUserScreen(int userId, int topicId)
+        {
+            var agentConectionId = _agentsUsersIds.FirstOrDefault(x => x.Value == userId).Key;
+            if (agentConectionId != null)
+            {
+                Clients.Group(topicId.ToString()).stopSendingThumbImage();
+                Clients.Client(agentConectionId).startSendingScreenImages();
+            }
+        }
+
+        public void StopWatchingUserScreen(int topicId)
+        {
+            Clients.Group(topicId.ToString()).startSendingThumbImage();
         }
         #endregion
 
@@ -148,6 +176,7 @@ namespace eWarsztaty.Web.SignalR
             if (_agentsPreviousImages.ContainsKey(Context.ConnectionId))
             {
                 _agentsPreviousImages.Remove(Context.ConnectionId);
+                _agentsUsersIds.Remove(Context.ConnectionId);
             }
 
             return base.OnDisconnected(stopCalled);

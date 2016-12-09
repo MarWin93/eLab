@@ -1,18 +1,7 @@
 ﻿angular.module('eLabApp').service('chatHelper', function ($rootScope) {
 
     myself = null;
-    activeParticipants = {
-            //3:{
-            //    id: '3',
-            //    base64Image: '',
-            //    loop: 1
-            //},
-            //4:{
-            //    id: '4',
-            //    base64Image: '',
-            //    loop: 1
-            //}
-    };
+    activeParticipants = { };
 
     self.activeParticipantsGet = function() {
         return activeParticipants;
@@ -138,8 +127,10 @@
 
     // Add User
     function AddUser(chatHub, id, name, userIdFromHub) {
-        //activeParticipants.push({ id: id, login: name, base64Image: '' });
-        activeParticipants[userIdFromHub] = { id: userIdFromHub, login: name, base64Image: '' };
+        if (userIdFromHub != myself.user.id) {
+            activeParticipants[userIdFromHub] = { id: userIdFromHub, login: name, base64Image: '' };
+        }
+
         var userId = $('#hdId').val();
         var userName = myself.user.name;
         console.log("User name: " + userName + ", new name:" + name);
