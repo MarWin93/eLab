@@ -23,7 +23,6 @@ angular.module('eLabApp').controller('TopicController', function ($scope, $state
             console.log(err);
         });
     };
-
     vm.deleteTopic = function (topic) {
         return topicService.deleteTopic(topic).then(function () {
             $state.reload();

@@ -63,66 +63,10 @@
         </md-card-title-text>
     </md-card-title>
     <md-card-content>
-        <div id="canvas-area">
-            <canvas id="canvas" drawing></canvas>
-            <div class="iframe" style="background-image: url(http://www.tapeciarnia.pl/tapety/normalne/71811_kotek_piesek_przyjazn.jpg); background-size: cover; background-position: center; "></div>
-        </div>
 
-        <ul class="colorSelector">
-            <li ng-click="ctrl.topic.setDrawerColor('0,0,0')" style="background-color: rgb(0,0,0)"></li>
-            <li ng-click="ctrl.topic.setDrawerColor('128,128,128')" style="background-color: rgb(128, 128, 128)"></li>
-            <li ng-click="ctrl.topic.setDrawerColor('255,255,255')" style="background-color: rgb(255,255,255)"></li>
-            <li ng-click="ctrl.topic.setDrawerColor('255,0,0')" style="background-color: rgb(255, 0, 0)"></li>
-            <li ng-click="ctrl.topic.setDrawerColor('255,106,0')" style="background-color: rgb(255, 106, 0)"></li>
-            <li ng-click="ctrl.topic.setDrawerColor('255,216,0')" style="background-color: rgb(255, 216, 0)"></li>
-            <li ng-click="ctrl.topic.setDrawerColor('182,255,0')" style="background-color: rgb(182, 255, 0)"></li>
-            <li ng-click="ctrl.topic.setDrawerColor('0,255,33')" style="background-color: rgb(0, 255, 33)"></li>
-            <li ng-click="ctrl.topic.setDrawerColor('0,148,255')" style="background-color: rgb(0, 148, 255)"></li>
-            <li ng-click="ctrl.topic.setDrawerColor('0,38,255')" style="background-color: rgb(0, 38, 255)"></li>
-            <li ng-click="ctrl.topic.setDrawerColor('255,0,110')" style="background-color: rgb(255, 0, 110)"></li>
-        </ul>
+        <pdf-draw class="wrapper" ng-controller="DocCtrl"></pdf-draw>
+        <pencilcase model="colors" selected="selectedColor"></pencilcase>
 
-        <md-menu md-position-mode="target-right target" ng-if="!tc.canEdit(tc.selected)">
-            <md-button class="md-icon-button to-right"
-                       ng-click="$mdOpenMenu($event)">
-                <md-icon class="material-icons">build</md-icon>
-            </md-button>
-            <md-menu-content width="3">
-                <p class="md-menu-header">Narzędzie:</p>
-                <md-menu-item>
-                    <md-button ng-click="ctrl.topic.setDrawerTool('pencil')">
-                        <div layout="row" flex="">
-                            <md-icon class="md-icom">edit_mode</md-icon>
-                            <p flex="">ołówek</p>
-                        </div>
-                    </md-button>
-                </md-menu-item>
-                <md-menu-item>
-                    <md-button ng-click="ctrl.topic.setDrawerTool('highlighter')">
-                        <div layout="row" flex="">
-                            <md-icon class="md-icom">format_paint</md-icon>
-                            <p flex="">zakreślacz</p>
-                        </div>
-                    </md-button>
-                </md-menu-item>
-                <md-menu-item>
-                    <md-button ng-click="ctrl.topic.setDrawerTool('rectangle')">
-                        <div layout="row" flex="">
-                            <md-icon class="md-icom">check_box_outline_blank</md-icon>
-                            <p flex="">prostokąt</p>
-                        </div>
-                    </md-button>
-                </md-menu-item>
-                <md-menu-item>
-                    <md-button ng-click="ctrl.topic.setDrawerTool('elipse')">
-                        <div layout="row" flex="">
-                            <md-icon class="md-icom">radio_button_unchecked</md-icon>
-                            <p flex="">elipsa</p>
-                        </div>
-                    </md-button>
-                </md-menu-item>
-            </md-menu-content>
-        </md-menu>
         <md-divider class="divider-padded"></md-divider>
         <div layout="row" flex="" class="row">
             <div layout="col-sm-2" flex="" class="col-sm-2">

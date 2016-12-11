@@ -1,14 +1,18 @@
 angular.module('eLabApp').controller('TopicDetailsController', function ($scope, $rootScope, $state, topicService, $stateParams, $mdDialog, 
-                                                                         topic, course, Upload, API_PATH, signalR, chatHelper, $http) {
+                                                                         topic, /*course,*/ Upload, API_PATH, signalR, chatHelper, $http) {
 
     $scope.activeParticipants = chatHelper.activeParticipantsGet();
     $scope.customFullscreen = false;
     $scope.activeParticipant = { id: '55', base64Image: '' };
 
+    $scope.selectedColor = 0;
+    $scope.colors = ['0,0,0', '128,128,128', '255,255,255', '255,0,0', '255,106,0', '255,216,0',
+                        '182,255,0', '0,255,33', '0,148,255', '0,38,255', '255,0,110'];
+
     var vm = this;
 
     vm.topic = topic;
-    vm.course = course;
+    vm.course = { teacherId: 15};//course;
     vm.user = {
         id: $scope.user.id,
         name: $scope.user.name

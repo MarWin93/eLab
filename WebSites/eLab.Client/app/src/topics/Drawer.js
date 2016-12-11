@@ -1,7 +1,12 @@
-angular.module('eLabApp').directive('drawing', ['drawerHelper', 'signalR', function(drawerHelper, signalR) {
+angular.module('eLabApp').directive('pdfDraw', ['drawerHelper', 'signalR', function (drawerHelper, signalR) {
     return {
-        restrict: "A",
+        restrict: "E",
+        scope: false,
+        templateUrl: 'templates/topics/pdf-viewer-template.html',
         link: function ($scope, element) {
+            element = angular.element(element).find('canvas');
+            console.log(element);
+
             var vm = this;
 
             //PASS topic here, god knows how?
@@ -22,6 +27,9 @@ angular.module('eLabApp').directive('drawing', ['drawerHelper', 'signalR', funct
             // variable that decides if something should be drawn on mousemove
             var drawing = false;
             // the last coordinates before the current move
+            var currentWidth = element[0].width;
+            var currentHeight = element[0].height;
+
             var currentX;
             var currentY;
 
@@ -30,8 +38,8 @@ angular.module('eLabApp').directive('drawing', ['drawerHelper', 'signalR', funct
                     return [element[0].offsetWidth, element[0].offsetHeight].join('x');
                 },
                 function (value) {
-                    element[0].height = element[0].offsetHeight;
-                    element[0].width = element[0].offsetWidth;
+                    //element[0].height = element[0].offsetHeight;
+                    //element[0].width = element[0].offsetWidth;
                 }
             );
 

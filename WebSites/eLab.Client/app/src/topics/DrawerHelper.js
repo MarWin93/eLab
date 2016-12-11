@@ -1,6 +1,4 @@
 ﻿angular.module('eLabApp').service('drawerHelper', function ($rootScope) {
-     var element = document.getElementById('canvas');
-     var ctx = element.getContext("2d");
      var tool = 'pencil';
      var lineWidth = 3;
      var highlighterBegin = false;
@@ -9,17 +7,22 @@
      //console.log("Root from drawhelper:" + $rootScope.user.id);
 
      self.fromSignalR = function (parameters) {
+         if (!self.element) {
+             self.element = document.querySelector('#pdfViewer canvas');
+             self.ctx = self.element.getContext("2d");
+         }
+
          self.setLineWidth(parameters.lineWidth);
 
-         var X = parameters.x * element.width;
-         var Y = parameters.y * element.height;
-         var X2 = parameters.x2 * element.width;
-         var Y2 = parameters.y2 * element.height;
+         var X = parameters.x * self.element.width;
+         var Y = parameters.y * self.element.height;
+         var X2 = parameters.x2 * self.element.width;
+         var Y2 = parameters.y2 * self.element.height;
 
          switch (parameters.operation) {
              case 'beginPath':
-                 ctx.moveTo(X, Y);
-                 ctx.beginPath();
+                 self.ctx.moveTo(X, Y);
+                 self.ctx.beginPath();
                  break;
              case 'draw':
                  self.setTool(parameters.tool);
@@ -27,21 +30,23 @@
                  break;
              case 'highlight':
                  self.setTool(parameters.tool);
-                 ctx.moveTo(X, Y);
+                 self.ctx.moveTo(X, Y);
                  self.drawLine(X2, Y2, parameters.color);
-                 ctx.closePath();
+                 self.ctx.closePath();
                  break;
              case 'endPath':
-                 ctx.closePath();
+                 self.ctx.closePath();
                  break;
+             case 'gotoPage':           // move it to PDFHelper
+                 $rootScope.$broadcast('gotoPage', parameters.page);
          }
      };
 
      self.drawLine = function draw(currentX, currentY, color) {
-         ctx.strokeStyle = 'rgba(' + color + ', ' + opacity + ')';
+         self.ctx.strokeStyle = 'rgba(' + color + ', ' + opacity + ')';
          console.log(ctx.strokeStyle);
-         ctx.lineTo(currentX, currentY);
-         ctx.stroke();
+         self.ctx.lineTo(currentX, currentY);
+         self.ctx.stroke();
      };
 
      self.setTool = function (toolName) {
@@ -63,7 +68,7 @@
 
      self.setLineWidth = function (width) {
          lineWidth = width > 0 && width <= 30 ? width : 3;
-         ctx.lineWidth = lineWidth;
+         self.ctx.lineWidth = lineWidth;
      };
 
      self.getLineWidth = function () {

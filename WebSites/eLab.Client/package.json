@@ -24,7 +24,8 @@
     "is-loading": "^1.0.0",
     "jquery": "^2.2.2",
     "ng-file-upload": "12.2.12",
-    "ng-range-filter": "^0.1.0"
+    "ng-range-filter": "^0.1.0",
+    "angular-pdf": "^1.4.0"
   },
   "devDependencies": {
     "live-server": "^0.9.1"

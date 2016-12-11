@@ -1,4 +1,4 @@
-var eLabApp = angular.module('eLabApp', ['ngMaterial', 'ngResource', 'ui.router', 'dndLists', 'ngFileUpload', 'SignalR'])
+var eLabApp = angular.module('eLabApp', ['ngMaterial', 'ngResource', 'ui.router', 'dndLists', 'ngFileUpload', 'SignalR', 'ngPDFViewer'])
     .config(function($mdThemingProvider, $mdIconProvider, $stateProvider){
         $mdIconProvider.defaultIconSet('./assets/svg/avatars.svg', 128);
         $mdThemingProvider.theme('default').primaryPalette('teal').accentPalette('red');

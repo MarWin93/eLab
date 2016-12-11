@@ -10,13 +10,14 @@
         var me = {
             user: { id: $scope.user.id, name: $scope.user.name, group: $scope.user.group },
             topic: { id: topic.id }
-        } 
+        }
 
         chatHelper.registerClientMethods($scope.topicsHub, me);
 
         //client side function declarations
         $scope.topicsHub.client.broadcastMessage = function (message) {
             drawerHelper.fromSignalR(angular.fromJson(message));
+            //pdfHelper.fromSignalRToPdf(angular.fromJson(message));
         };
 
         $scope.topicsHub.client.updateUserThumbImage = function (userId, base64Image) {

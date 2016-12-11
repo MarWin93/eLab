@@ -1,0 +1,44 @@
+﻿<label ng-repeat="color in model" style="background-color: rgb({{color}})">
+    <input type="radio" ng-value="color" name="pencilcase" ng-model="selectedColor" ng-change="changeColor(color)">
+</label>
+<md-menu md-position-mode="target-right target" ng-if="!tc.canEdit(tc.selected)">
+    <md-button class="md-icon-button to-right"
+               ng-click="$mdOpenMenu($event)">
+        <md-icon class="material-icons">build</md-icon>
+    </md-button>
+    <md-menu-content width="3">
+        <p class="md-menu-header">Narzędzie:</p>
+        <md-menu-item>
+            <md-button ng-click="changeTool('pencil')">
+                <div layout="row" flex="">
+                    <md-icon class="md-icom">edit_mode</md-icon>
+                    <p flex="">ołówek</p>
+                </div>
+            </md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button ng-click="changeTool('highlighter')">
+                <div layout="row" flex="">
+                    <md-icon class="md-icom">format_paint</md-icon>
+                    <p flex="">zakreślacz</p>
+                </div>
+            </md-button>
+        </md-menu-item>
+        <!--<md-menu-item>
+            <md-button ng-click="changeTool('rectangle')">
+                <div layout="row" flex="">
+                    <md-icon class="md-icom">check_box_outline_blank</md-icon>
+                    <p flex="">prostokąt</p>
+                </div>
+            </md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button ng-click="changeTool('elipse')">
+                <div layout="row" flex="">
+                    <md-icon class="md-icom">radio_button_unchecked</md-icon>
+                    <p flex="">elipsa</p>
+                </div>
+            </md-button>
+        </md-menu-item>-->
+    </md-menu-content>
+</md-menu>
