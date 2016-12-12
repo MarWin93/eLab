@@ -1,5 +1,5 @@
 angular.module('eLabApp').controller('TopicDetailsController', function ($scope, $rootScope, $state, topicService, $stateParams, $mdDialog, 
-                                                                         topic, /*course,*/ Upload, API_PATH, signalR, chatHelper, $http) {
+                                                                         topic, course, Upload, API_PATH, signalR, chatHelper, $http) {
 
     $scope.activeParticipants = chatHelper.activeParticipantsGet();
     $scope.customFullscreen = false;
@@ -12,7 +12,7 @@ angular.module('eLabApp').controller('TopicDetailsController', function ($scope,
     var vm = this;
 
     vm.topic = topic;
-    vm.course = { teacherId: 15};//course;
+    vm.course = course;
     vm.user = {
         id: $scope.user.id,
         name: $scope.user.name
