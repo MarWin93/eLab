@@ -44,7 +44,7 @@
         <md-list>
             <md-list-item
                     class="md-2-line"
-                    ng-repeat="topic in ctrl.course.topics"
+                    ng-repeat="topic in ctrl.activeTopics"
                     ui-sref="topicDetails({courseId: course.id, topicId: topic.id})">
                 <img ng-src="assets/img/avatar-1.gif" class="md-avatar" alt="{{item}}">
                 <div class="md-list-item-text">
@@ -65,12 +65,26 @@
                 </md-button>
             </md-list-item>
         </md-list>
-        <p class="empty-list" ng-if="ctrl.course.topics.length == 0">brak warsztatów</p>
+        <p class="empty-list" ng-if="ctrl.activeTopics.length == 0">brak aktywnych warsztatów</p>
         <div layout="row" layout-align="end center">
             <md-button ui-sref="topicCreate({courseId: ctrl.course.id})" class="md-primary add-button">
                 <md-icon class="material-icons icon-button">add</md-icon>dodaj warsztat
             </md-button>
         </div>
+        <md-divider class="divider-padded"></md-divider>
+        <md-subheader class="md-no-sticky">Archiwalne warsztaty:</md-subheader>
+        <md-list>
+            <md-list-item class="md-2-line"
+                          ng-repeat="topic in ctrl.archivedTopics"
+                          ui-sref="topicDetails({courseId: course.id, topicId: topic.id})">
+                <img ng-src="assets/img/avatar-1.gif" class="md-avatar" alt="{{item}}">
+                <div class="md-list-item-text">
+                    <h3>{{topic.name}}</h3>
+                    <p>{{topic.description}}</p>
+                </div>
+            </md-list-item>
+        </md-list>
+        <p class="empty-list" ng-if="ctrl.archivedTopics.length == 0">brak archiwalnych warsztatów</p>
         <md-divider class="divider-padded"></md-divider>
         <md-subheader class="list-header">Do pobrania:</md-subheader>
 

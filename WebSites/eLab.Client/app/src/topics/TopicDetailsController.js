@@ -18,7 +18,7 @@ angular.module('eLabApp').controller('TopicDetailsController', function ($scope,
         name: $scope.user.name
     };
 
-    vm.isATeacherOrAdmin = ($scope.user.group === 'Admin' || $scope.user.id === course.teacherId);
+    vm.isATeacherOrAdmin = ($scope.user.group === 'Admin' || $scope.user.id == course.teacherId);
 
     signalR.signalRSetup($scope, vm.topic, vm.user);
 
@@ -26,6 +26,14 @@ angular.module('eLabApp').controller('TopicDetailsController', function ($scope,
     vm.updateTopic = function () {
         return topicService.updateTopic(vm.topic).then(function () {
             $state.go('courseDetails', {courseId: $stateParams.courseId})
+        }).catch(function (err) {
+            console.log(err);
+        });
+    };
+
+    $scope.closeTopic = function () {
+        return topicService.closeTopic(vm.topic).then(function () {
+            $state.go('courseDetails', { "courseId": vm.course.id });
         }).catch(function (err) {
             console.log(err);
         });

@@ -18,6 +18,10 @@ angular.module('eLabApp').service('topicService', function ($http, API_PATH) {
 
         updateTopic: function (topic) {
             return $http.put(API_PATH + 'topics/' + topic.id, topic);
+        },
+
+        closeTopic: function (topic) {
+            return $http.get(API_PATH + 'topics/' + topic.id + '/close');
         }
     };
 });

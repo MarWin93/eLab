@@ -3,6 +3,15 @@ angular.module('eLabApp').controller('CourseDetailsController', function ($scope
                                                                           topicService, Upload, course) {
     var vm = this;
     vm.course = course;
+    vm.activeTopics = [];
+    vm.archivedTopics = [];
+    angular.forEach(vm.course.topics, function (value, key) {
+        if (value.isArchived) {
+            vm.archivedTopics.push(value);
+        } else {
+            vm.activeTopics.push(value);
+        }
+    });
     vm.userEnrollmentKey = '';
     vm.isUserEnrolled = false;
     $http.get(API_PATH + 'participations/' + vm.course.id + '/' + $rootScope.user.id)

@@ -132,11 +132,9 @@ var eLabApp = angular.module('eLabApp', ['ngMaterial', 'ngResource', 'ui.router'
                             return response.data;
                         });
                     },
-                    courses: function (courseService, $rootScope) {
-                        return courseService.getCourses().then(function (response) {
-                            return response.data.filter(function(elem) {
-                                return elem.teacherId == $rootScope.user.id;
-                            });
+                    course: function (courseService, $stateParams) {
+                        return courseService.getCourse($stateParams.courseId).then(function (response) {
+                            return response.data;
                         });
                     }
                 }
@@ -151,11 +149,9 @@ var eLabApp = angular.module('eLabApp', ['ngMaterial', 'ngResource', 'ui.router'
                             return response.data;
                         });
                     },
-                    courses: function (courseService, $rootScope) {
-                        return courseService.getCourses().then(function (response) {
-                            return response.data.filter(function(elem) {
-                                return elem.teacherId == $rootScope.user.id;
-                            });
+                    course: function (courseService, $stateParams) {
+                        return courseService.getCourse($stateParams.courseId).then(function (response) {
+                            return response.data;
                         });
                     }
                 }
@@ -171,11 +167,9 @@ var eLabApp = angular.module('eLabApp', ['ngMaterial', 'ngResource', 'ui.router'
                             return response.data;
                         });
                     },
-                    courses: function (courseService, $rootScope) {
-                        return courseService.getCourses().then(function (response) {
-                            return response.data.filter(function(elem) {
-                                return elem.teacherId == $rootScope.user.id;
-                            });
+                    course: function (courseService, $stateParams) {
+                        return courseService.getCourse($stateParams.courseId).then(function (response) {
+                            return response.data;
                         });
                     }
                 }
