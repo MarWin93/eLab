@@ -2,12 +2,12 @@
     return {
         restrict: "E",
         scope: { model: '=', selected: '=' },
-        templateUrl: function (element, attr) {
-            return attr.templateUrl ? attr.templateUrl : 'templates/topics/pencil-case-template.html';
-        },
+        templateUrl: 'templates/topics/pencil-case-template.html',
         link: function ($scope, element) {
-            var pc = this;
-            $scope.changeColor = function (value) {
+            $scope.changeColor = function (node, value) {
+                //angular.element(element).find('span.selected').removeClass('selected');
+                angular.element(node).addClass('selected');
+                console.log(angular.element(node).hasClass('selected'), '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
                 drawerHelper.setColor(value);
             }
             $scope.changeTool = function (value) {

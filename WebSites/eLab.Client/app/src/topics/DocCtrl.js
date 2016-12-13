@@ -44,7 +44,7 @@
     };
 
     $scope.loadProgress = function (loaded, total, state) {
-        console.log('loaded =', loaded, 'total =', total, 'state =', state);
+        //console.log('loaded =', loaded, 'total =', total, 'state =', state);
     };
 
     $rootScope.$on('gotoPage', function (event, page) {

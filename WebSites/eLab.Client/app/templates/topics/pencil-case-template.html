@@ -1,6 +1,4 @@
-﻿<label ng-repeat="color in model" style="background-color: rgb({{color}})">
-    <input type="radio" ng-value="color" name="pencilcase" ng-model="selectedColor" ng-change="changeColor(color)">
-</label>
+﻿<span ng-repeat="color in model" style="background-color: rgb({{color}})" ng-click="changeColor(this, color)"></span>
 <md-menu md-position-mode="target-right target" ng-if="!tc.canEdit(tc.selected)">
     <md-button class="md-icon-button to-right"
                ng-click="$mdOpenMenu($event)">

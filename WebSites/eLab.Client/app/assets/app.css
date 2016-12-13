@@ -212,7 +212,7 @@ pencilcase {
   list-style: none;
   margin: 0;
   padding: 0; }
-  pencilcase label {
+  pencilcase span {
     display: block;
     float: left;
     margin: 10px 3px;
@@ -220,11 +220,10 @@ pencilcase {
     height: 20px;
     white-space: nowrap;
     border-radius: 50%;
-    border: 1px dotted #009688; }
-    pencilcase label input {
-      width: 0;
-      height: 0;
-      visibility: hidden; }
+    border: 1px dotted #009688;
+    box-sizing: border-box; }
+  pencilcase span.selected {
+    border: 4px dotted #009688; }
 
 md-card {
   width: 100%;

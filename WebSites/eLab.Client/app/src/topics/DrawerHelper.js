@@ -14,39 +14,33 @@
 
          self.setLineWidth(parameters.lineWidth);
 
-         var X = parameters.x * self.element.width;
-         var Y = parameters.y * self.element.height;
-         var X2 = parameters.x2 * self.element.width;
-         var Y2 = parameters.y2 * self.element.height;
+         var xScale = self.element.width;// / self.element.offsetWidth;
+         var yScale = self.element.height;// / self.element.offsetHeight;
 
+         var X = parameters.x * xScale;
+         var Y = parameters.y * yScale;
+         var X2 = parameters.x2 * xScale;
+         var Y2 = parameters.y2 * yScale;
          switch (parameters.operation) {
-             case 'beginPath':
-                 self.ctx.moveTo(X, Y);
-                 self.ctx.beginPath();
-                 break;
              case 'draw':
-                 self.setTool(parameters.tool);
-                 self.drawLine(X, Y, parameters.color);
-                 break;
              case 'highlight':
                  self.setTool(parameters.tool);
-                 self.ctx.moveTo(X, Y);
-                 self.drawLine(X2, Y2, parameters.color);
-                 self.ctx.closePath();
-                 break;
-             case 'endPath':
-                 self.ctx.closePath();
+                 self.drawLine(X, Y, X2, Y2, parameters.color);
                  break;
              case 'gotoPage':           // move it to PDFHelper
                  $rootScope.$broadcast('gotoPage', parameters.page);
          }
      };
 
-     self.drawLine = function draw(currentX, currentY, color) {
+     self.drawLine = function draw(X, Y, X2, Y2, color) {
+
+         self.ctx.beginPath();
+         self.ctx.moveTo(X, Y);
          self.ctx.strokeStyle = 'rgba(' + color + ', ' + opacity + ')';
-         console.log(ctx.strokeStyle);
-         self.ctx.lineTo(currentX, currentY);
+         self.ctx.lineTo(X2, Y2);
          self.ctx.stroke();
+
+         //self.ctx.closePath();
      };
 
      self.setTool = function (toolName) {

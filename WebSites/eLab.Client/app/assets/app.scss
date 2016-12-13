@@ -296,7 +296,7 @@ pdf-draw {
   //overflow: auto;
 
   canvas{
-    //position: absolute;
+    //cursor: url(../src/pencil.cur), progress !important;
     margin: 0;
     z-index: 99;
     -webkit-touch-callout: none;
@@ -315,7 +315,7 @@ pencilcase{
   margin: 0;
   padding: 0;
 
-  label{
+  span{
     display: block;
     float: left;
     margin: 10px 3px;
@@ -324,12 +324,11 @@ pencilcase{
 	white-space: nowrap;
     border-radius: 50%;
     border: 1px dotted #009688;
+    box-sizing: border-box;
+  }
 
-    input{
-      width: 0;
-      height: 0;
-      visibility: hidden;
-    }
+  span.selected{
+      border: 4px dotted #009688;
   }
 }
 
