@@ -12,12 +12,10 @@
     };
 
     $scope.nextPage = function () {
-        $scope.instance.nextPage();
         $scope.signalRing($scope.currentPage+1);
     };
 
     $scope.prevPage = function () {
-        $scope.instance.prevPage();
         $scope.signalRing($scope.currentPage-1);
     };
 
@@ -34,7 +32,6 @@
             page = 1;
         }
 
-        $scope.instance.gotoPage(page);
         $scope.signalRing(page);
     };
 

@@ -1,19 +1,28 @@
 ﻿<div class="row">
-    <div class="btn-group">
-        <button class="btn" ng-click="gotoPage(1)">|&lt;</button>
-        <button class="btn" ng-click="prevPage()">&lt;</button>
-        <button class="btn" ng-click="nextPage()">&gt;</button>
-        <button class="btn" ng-click="gotoPage(totalPages)">&gt;|</button>
+    <div class="pdf-menu">
+        <div class="btn-group">
+            <md-button class="md-icon-button to-right" ng-click="gotoPage(1)">
+                <md-icon class="material-icons">first_page</md-icon>
+            </md-button>
+            <md-button class="md-icon-button to-right" ng-click="prevPage(1)">
+                <md-icon class="material-icons">chevron_left</md-icon>
+            </md-button>
+            <md-button class="md-icon-button to-right" ng-click="nextPage(1)">
+                <md-icon class="material-icons">chevron_right</md-icon>
+            </md-button>
+            <md-button class="md-icon-button to-right" ng-click="gotoPage(totalPages)">
+                <md-icon class="material-icons">last_page</md-icon>
+            </md-button>
+        </div>
+        <div class="label" ng-show="totalPages">
+            <input type="number" min="1" max="{{totalPages}}" ng-model="currentPage" ng-change="gotoPage(currentPage)" />/ {{totalPages}}
+        </div>
+        <div class="clear"></div>
     </div>
-</div>
-<div class="row">
-    <span class="label" ng-show="totalPages">
-        <input type="number" min="1" max="{{totalPages}}" ng-model="currentPage" ng-change="gotoPage(currentPage)" />/{{totalPages}}
-    </span>
 </div>
 <pdfviewer src="{{pdfURL}}" on-page-load='pageLoaded(page,total)' id="pdfViewer" load-progress='loadProgress(loaded, total, state)'></pdfviewer>
 
-<div class="btn-group">
+<!--<div class="btn-group">
     <button class="btn" ng-click="pdfURL='src/2.pdf'">Load first pdf</button>
     <button class="btn" ng-click="pdfURL='src/D19970883Lj.pdf'">Load second pdf</button>
-</div>
+</div>-->

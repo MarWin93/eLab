@@ -7,7 +7,6 @@
             $scope.changeColor = function (node, value) {
                 //angular.element(element).find('span.selected').removeClass('selected');
                 angular.element(node).addClass('selected');
-                console.log(angular.element(node).hasClass('selected'), '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
                 drawerHelper.setColor(value);
             }
             $scope.changeTool = function (value) {

@@ -197,6 +197,30 @@ pdf-draw {
   width: 100%;
   display: block;
   border: 1px solid; }
+  pdf-draw .pdf-menu {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    background: #3F51B5; }
+    pdf-draw .pdf-menu button {
+      display: block;
+      float: left; }
+    pdf-draw .pdf-menu .material-icons {
+      color: white; }
+    pdf-draw .pdf-menu .label {
+      float: right;
+      margin-right: 15px;
+      margin-top: 3px;
+      color: white; }
+      pdf-draw .pdf-menu .label input {
+        font-size: 23px;
+        border: 0;
+        background: transparent;
+        border-bottom: white 3px !important;
+        text-align: right;
+        color: white; }
+  pdf-draw .btn-group, pdf-draw .label {
+    float: left; }
   pdf-draw canvas {
     margin: 0;
     z-index: 99;

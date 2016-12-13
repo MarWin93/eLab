@@ -295,6 +295,43 @@ pdf-draw {
   //position: relative;
   //overflow: auto;
 
+  .pdf-menu{
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      background: $indigo-color;
+  
+      button{
+          display: block;
+          float: left;
+      }
+
+      .material-icons{
+          color: white;
+      }
+
+      .label{
+          float: right;
+          margin-right: 15px;
+          margin-top: 3px;
+          color: white;
+
+          input{
+              font-size: 23px;
+              border: 0;
+              background: transparent;
+              border-bottom: white 3px!important;
+              text-align: right;
+              color: white;
+          }
+      }
+      
+  }
+
+  .btn-group, .label{
+      float: left;
+  }
+
   canvas{
     //cursor: url(../src/pencil.cur), progress !important;
     margin: 0;
