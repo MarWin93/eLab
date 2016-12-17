@@ -4,11 +4,11 @@
      var highlighterBegin = false;
      var opacity = 1;
      var color = '0,0,0';
-     //console.log("Root from drawhelper:" + $rootScope.user.id);
 
      self.fromSignalR = function (parameters) {
          if (!self.element) {
              self.element = document.querySelector('#pdfViewer canvas');
+             self.canvas = angular.element(self.element);
              self.ctx = self.element.getContext("2d");
          }
 
@@ -48,11 +48,17 @@
              tool = toolName;
              self.setLineWidth(30);
              self.setOpacity(0.3);
+
+             self.canvas.removeClass('paint-with-pencil color-0-0-0');
+             self.canvas.addClass('paint-with-brush');
          }
          else {
              tool = 'pencil';
              self.setLineWidth(3);
              self.setOpacity(1);
+
+             self.canvas.addClass('paint-with-pencil');
+             self.canvas.removeClass('paint-with-brush');
          }
      };
 
@@ -71,6 +77,11 @@
 
      self.setColor = function (clr) {
          color = clr;
+         console.log(color, '4d8as4d8sa4d8sa4d9as88dsaaadsadas>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+         self.canvas.removeClass(function (index, css) {
+             return (css.match(/(^|\s)color-\S+/g) || []).join(' ');
+         });
+         self.canvas.addClass('color-' + color.replace(/,/g, "-"));
      };
 
      self.getColor = function () {

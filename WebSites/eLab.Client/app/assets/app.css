@@ -229,7 +229,52 @@ pdf-draw {
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none; }
+    user-select: none;
+    cursor: url(/app/assets/img/pencil/pencil0.cur), pointer; }
+  pdf-draw .paint-with-brush.color-0-0-0 {
+    cursor: url(/app/assets/img/brush/brush0.cur), pointer !important; }
+  pdf-draw .paint-with-brush.color-128-128-128 {
+    cursor: url(/app/assets/img/brush/brush1.cur), pointer !important; }
+  pdf-draw .paint-with-brush.color-255-255-255 {
+    cursor: url(/app/assets/img/brush/brush2.cur), pointer !important; }
+  pdf-draw .paint-with-brush.color-255-0-0 {
+    cursor: url(/app/assets/img/brush/brush3.cur), pointer !important; }
+  pdf-draw .paint-with-brush.color-255-106-0 {
+    cursor: url(/app/assets/img/brush/brush4.cur), pointer !important; }
+  pdf-draw .paint-with-brush.color-255-216-0 {
+    cursor: url(/app/assets/img/brush/brush5.cur), pointer !important; }
+  pdf-draw .paint-with-brush.color-182-255-0 {
+    cursor: url(/app/assets/img/brush/brush6.cur), pointer !important; }
+  pdf-draw .paint-with-brush.color-0-255-33 {
+    cursor: url(/app/assets/img/brush/brush7.cur), pointer !important; }
+  pdf-draw .paint-with-brush.color-0-148-255 {
+    cursor: url(/app/assets/img/brush/brush8.cur), pointer !important; }
+  pdf-draw .paint-with-brush.color-0-38-255 {
+    cursor: url(/app/assets/img/brush/brush9.cur), pointer !important; }
+  pdf-draw .paint-with-brush.color-255-0-110 {
+    cursor: url(/app/assets/img/brush/brush10.cur), pointer !important; }
+  pdf-draw .paint-with-pencil.color-0-0-0 {
+    cursor: url(/app/assets/img/pencil/pencil0.cur), pointer !important; }
+  pdf-draw .paint-with-pencil.color-128-128-128 {
+    cursor: url(/app/assets/img/pencil/pencil1.cur), pointer !important; }
+  pdf-draw .paint-with-pencil.color-255-255-255 {
+    cursor: url(/app/assets/img/pencil/pencil2.cur), pointer !important; }
+  pdf-draw .paint-with-pencil.color-255-0-0 {
+    cursor: url(/app/assets/img/pencil/pencil3.cur), pointer !important; }
+  pdf-draw .paint-with-pencil.color-255-106-0 {
+    cursor: url(/app/assets/img/pencil/pencil4.cur), pointer !important; }
+  pdf-draw .paint-with-pencil.color-255-216-0 {
+    cursor: url(/app/assets/img/pencil/pencil5.cur), pointer !important; }
+  pdf-draw .paint-with-pencil.color-182-255-0 {
+    cursor: url(/app/assets/img/pencil/pencil6.cur), pointer !important; }
+  pdf-draw .paint-with-pencil.color-0-255-33 {
+    cursor: url(/app/assets/img/pencil/pencil7.cur), pointer !important; }
+  pdf-draw .paint-with-pencil.color-0-148-255 {
+    cursor: url(/app/assets/img/pencil/pencil8.cur), pointer !important; }
+  pdf-draw .paint-with-pencil.color-0-38-255 {
+    cursor: url(/app/assets/img/pencil/pencil9.cur), pointer !important; }
+  pdf-draw .paint-with-pencil.color-255-0-110 {
+    cursor: url(/app/assets/img/pencil/pencil10.cur), pointer !important; }
 
 pencilcase {
   display: block;
