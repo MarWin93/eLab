@@ -22,7 +22,7 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
 
         public TopicsJson GetTopicById(int id)
         {
-            var topic = _db.Topics.Include("Course").Include("Classes").FirstOrDefault(x => x.Id == id);
+            var topic = _db.Topics.Include("Course").Include("Files").FirstOrDefault(x => x.Id == id);
             var topicJson = Mapper.Map<Topic, TopicsJson>(topic);
             return topicJson;
         }

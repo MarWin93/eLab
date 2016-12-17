@@ -78,7 +78,7 @@ namespace eWarsztaty.Web.Controllers
                     var buffer = await file.ReadAsByteArrayAsync();
                     var extension = Path.GetExtension(fileName);
 
-                    _fileRepository.SaveFile(buffer, fileName, extension, id);
+                    _fileRepository.SaveFile(buffer, fileName, extension, null, id);
                 }
             }
 
@@ -104,6 +104,32 @@ namespace eWarsztaty.Web.Controllers
                 };
             result.Content.Headers.ContentType =
                 new MediaTypeHeaderValue("application/octet-stream");
+
+            return result;
+        }
+
+        [HttpGet, Route("api/topics/{id}/show/{fileId}")]
+        public HttpResponseMessage Show(int id, int fileId)
+        {
+
+            var file = _fileRepository.GetFile(fileId);
+            if (file == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            if(file.Rozszerzenie != ".pdf" && file.Rozszerzenie != ".PDF")
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+
+            var result = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ByteArrayContent(file.File)
+            };
+            result.Content.Headers.ContentDisposition =
+                new System.Net.Http.Headers.ContentDispositionHeaderValue("inline")
+                {
+                    FileName = file.Nazwa
+                };
+            result.Content.Headers.ContentType =
+                new MediaTypeHeaderValue("application/pdf");
 
             return result;
         }

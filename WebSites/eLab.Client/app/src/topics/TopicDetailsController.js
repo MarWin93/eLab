@@ -65,6 +65,33 @@ angular.module('eLabApp').controller('TopicDetailsController', function ($scope,
         }
     };
 
+    vm.fileDownload = function (file) {
+        $http.get(API_PATH + 'topics/' + vm.topic.id + '/download/' + file.id)
+            .then(function (response) {
+
+                var byteNumbers = new Array(response.data.length);
+                for (var i = 0; i < response.data.length; i++) {
+                    byteNumbers[i] = response.data.charCodeAt(i);
+                }
+                var byteArray = new Uint8Array(byteNumbers);
+
+                var a = window.document.createElement('a');
+                a.href = window.URL.createObjectURL(new Blob([byteArray], { type: 'octet/stream' }));
+                a.download = file.name;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            })
+            .catch(function (error) {
+                console.log("Failed to delete download file");
+                console.log(error);
+            });
+    };
+
+    vm.present = function (fileId) {
+        return 'http://localhost:8089/api/topics/' + topic.id + '/show/' + fileId;
+    }
+
     $scope.fullScreenWatch = function (ev, participant) {
         $scope.activeParticipant = participant;
         signalR.watchUserScreen($scope, participant.id, vm.topic.id);
