@@ -129,3 +129,13 @@ angular.module('eLabApp').controller('TopicDetailsController', function ($scope,
         };
     }
 });
+
+
+angular.module('eLabApp').config(function ($sceDelegateProvider) {
+    console.log(window.location);
+    console.log(window.location.protocol + '//' + window.location.hostname + ':8089/**');
+    $sceDelegateProvider.resourceUrlWhitelist([
+      'self',
+      window.location.protocol + '//' + window.location.hostname + ':8089/**'
+    ]);
+});
