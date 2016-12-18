@@ -16,8 +16,11 @@
 
         //client side function declarations
         $scope.topicsHub.client.broadcastMessage = function (message) {
-            drawerHelper.fromSignalR(angular.fromJson(message));
-            //pdfHelper.fromSignalRToPdf(angular.fromJson(message));
+            message = angular.fromJson(message);
+            drawerHelper.fromSignalR(message);
+
+            if (message.operation == 'changeFile')
+                $scope.ctrl.changePDF(message.fileId);
         };
 
         $scope.topicsHub.client.updateUserThumbImage = function (userId, base64Image) {

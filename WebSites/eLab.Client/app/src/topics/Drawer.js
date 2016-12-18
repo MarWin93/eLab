@@ -29,42 +29,36 @@ angular.module('eLabApp').directive('pdfDraw', ['drawerHelper', 'signalR', funct
             var currentX;
             var currentY;
 
-            element.bind('mousedown', function (event) {
-                currentX = event.offsetX;
-                currentY = event.offsetY;
+            if ($scope.ctrl.isATeacherOrAdmin) {
+                element.bind('mousedown', function (event) {
+                    currentX = event.offsetX;
+                    currentY = event.offsetY;
+                    drawing = true;
+                });
 
-                //$scope.newMessage({
-                //    operation: 'beginPath',
-                //    x: event.offsetX / element[0].width,
-                //    y: event.offsetY / element[0].height
-                //});
+                element.bind('mousemove', function (event) {
+                    //console.log(event.offsetX);
+                    if (drawing && drawerHelper.getTool() != 'highlighter') {
+                        //drawerHelper.drawLine(currentX, currentY, event.offsetX, event.offsetY);
+                        draw();
+                    }
+                });
 
-                // begins new line
-                drawing = true;
-            });
+                element.bind('mouseup', function (event) {
+                    if (drawing && drawerHelper.getTool() == 'highlighter')
+                        highlight();
 
-            element.bind('mousemove', function (event) {
-                //console.log(event.offsetX);
-                if (drawing && drawerHelper.getTool() != 'highlighter') {
-                    //drawerHelper.drawLine(currentX, currentY, event.offsetX, event.offsetY);
-                    draw();
-                }
-            });
+                    stopDrawing();
+                });
 
-            element.bind('mouseup', function (event) {
-                if (drawing && drawerHelper.getTool() == 'highlighter')
-                    highlight();
+                element.bind('contextmenu', function (event) {
+                    stopDrawing();
+                });
 
-                stopDrawing();
-            });
-
-            element.bind('contextmenu', function (event) {
-                stopDrawing();
-            });
-
-            element.bind('mouseout', function (event) {
-                stopDrawing();
-            });
+                element.bind('mouseout', function (event) {
+                    stopDrawing();
+                });
+            }
 
             function draw(operation) {
                 if (!operation)

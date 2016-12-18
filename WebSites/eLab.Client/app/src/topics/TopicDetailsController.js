@@ -11,6 +11,7 @@ angular.module('eLabApp').controller('TopicDetailsController', function ($scope,
 
     var vm = this;
 
+    vm.pdfURL = '/app/src/firstPage.pdf';
     vm.topic = topic;
     vm.course = course;
     vm.user = {
@@ -88,9 +89,17 @@ angular.module('eLabApp').controller('TopicDetailsController', function ($scope,
             });
     };
 
-    vm.present = function (fileId) {
-        return 'http://localhost:8089/api/topics/' + topic.id + '/show/' + fileId;
-    }
+    vm.present = function (pdfId) {
+        $scope.newMessage({
+            operation: 'changeFile',
+            fileId: pdfId
+        });
+    };
+
+    vm.changePDF = function (pdfId) {
+        $scope.ctrl.pdfURL = 'http://localhost:8089/api/topics/' + topic.id + '/show/' + pdfId;
+        $rootScope.$broadcast('gotoPage', 1);
+    };
 
     $scope.fullScreenWatch = function (ev, participant) {
         $scope.activeParticipant = participant;

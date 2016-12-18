@@ -1,7 +1,5 @@
 ﻿angular.module('eLabApp').controller('DocCtrl', function ($scope, $rootScope, PDFViewerService) {
 
-    $scope.pdfURL = "src/2.pdf";
-
     $scope.instance = PDFViewerService.Instance("pdfViewer");
 
     $scope.signalRing = function (page) {
