@@ -30,6 +30,10 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
         public void SaveTopic(TopicsJson topic)
         {
             var topicDb = Mapper.Map<TopicsJson, Topic>(topic);
+            if (topicDb.CourseId == 0)
+            {
+                topicDb.CourseId = null;
+            }
             _db.Topics.Add(topicDb);
             _db.SaveChanges();
         }
@@ -40,6 +44,10 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
             topicDb.Name = topic.Name;
             topicDb.Description = topic.Description;
             topicDb.CourseId = topic.CourseId;
+            if (topicDb.CourseId == 0)
+            {
+                topicDb.CourseId = null;
+            }
             _db.SaveChanges();
         }
 

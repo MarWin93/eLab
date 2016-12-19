@@ -176,6 +176,9 @@ namespace eWarsztaty.Web.SignalR
             if (_agentsPreviousImages.ContainsKey(Context.ConnectionId))
             {
                 _agentsPreviousImages.Remove(Context.ConnectionId);
+            }
+            if (_agentsUsersIds.ContainsKey(Context.ConnectionId))
+            {
                 _agentsUsersIds.Remove(Context.ConnectionId);
             }
 
