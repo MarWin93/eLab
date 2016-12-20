@@ -68,7 +68,7 @@
         <!--</div>-->
 
         <div layout="column" flex="" class="row live-stream-container">
-            <md-input-container class="ng-pristine ng-valid md-input ng-touched" flex-gt-sm>
+            <md-input-container class="ng-pristine ng-valid md-input ng-touched" flex-gt-sm ng-if="ctrl.isATeacherOrAdmin">
                 <label>Twój live stream</label>
                 <input ng-model="ctrl.topic.streamUrl" class="title" ng-blur="ctrl.updateStreamUrl()" />
             </md-input-container>
