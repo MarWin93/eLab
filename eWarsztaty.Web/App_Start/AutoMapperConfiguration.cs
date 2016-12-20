@@ -165,6 +165,7 @@ namespace eWarsztaty.Web.App_Start
 
             Mapper.CreateMap<EnrollmentInTopicJson, EnrollmentInTopic>()
                 .ForMember(x => x.Topic, opt => opt.Ignore())
+                .ForMember(x => x.Id, opt => opt.Ignore())
                 .ForMember(x => x.User, opt => opt.Ignore());
 
             Mapper.CreateMap<ChatMessageDetail, MesssageJson>();

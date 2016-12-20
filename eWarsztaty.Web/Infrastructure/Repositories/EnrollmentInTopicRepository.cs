@@ -15,14 +15,14 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
         {
             var enrollments = _db.EnrolmentsInTopics.Include("Topic.Course").Include("User").ToList();
             var exist = enrollments.Where(x => x.UserName == userName );
-            if (exist.Count() != 1)
+            if (!exist.Any())
             {
                 user = null;
                 topic = null;
                 enrollment = null;
                 return false;
             }
-            var foundEnrollment = exist.First();
+            var foundEnrollment = exist.Last();
             topic = foundEnrollment.Topic;
             user = foundEnrollment.User;
 

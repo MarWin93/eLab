@@ -11,7 +11,11 @@ namespace eWarsztaty.Domain
 {
     public class EnrollmentInTopic
     {
- 
+
+
+        [Key]
+        public int Id { get; set; }
+
         public bool Active { get; set; }
 
         public string ConnectionId { get; set; }
@@ -24,16 +28,13 @@ namespace eWarsztaty.Domain
 
         [ForeignKey("UserId")]
         public virtual Uzytkownik User { get; set; }
-        [Key]
-        [Column(Order = 1)]
+        
         public int UserId { get; set; }
 
         public string UserName { get; set; }
 
         [ForeignKey("TopicId")]
         public virtual Topic Topic { get; set; }
-        [Key]
-        [Column(Order = 0)]
         public int TopicId { get; set; }
 
         #region Map
