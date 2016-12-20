@@ -32,6 +32,14 @@ angular.module('eLabApp').controller('TopicDetailsController', function ($scope,
         });
     };
 
+    vm.updateStreamUrl = function () {
+        return topicService.updateTopic(vm.topic).then(function (res) {
+            console.log('updated url!');
+        }).catch(function (e) {
+            console.log(e);
+        })
+    };
+
     $scope.closeTopic = function () {
         return topicService.closeTopic(vm.topic).then(function () {
             $state.go('courseDetails', { "courseId": vm.course.id });
@@ -119,7 +127,7 @@ angular.module('eLabApp').controller('TopicDetailsController', function ($scope,
 
     $scope.closeDialog = function() {
         alert("clicked");
-    }
+    };
 
     function DialogController($scope, $mdDialog) {
         $scope.hide = function () {

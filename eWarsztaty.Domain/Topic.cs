@@ -17,7 +17,7 @@ namespace eWarsztaty.Domain
         public string Name { get; set; }
         public string Description { get; set; }
         public int Status { get; set; }
-
+        public string StreamUrl { get; set; }
         public ICollection<Class> Classes { get; set; }
         public ICollection<Plik> Files { get; set; }
 

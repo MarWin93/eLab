@@ -40,6 +40,7 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
             topicDb.Name = topic.Name;
             topicDb.Description = topic.Description;
             topicDb.CourseId = topic.CourseId;
+            topicDb.StreamUrl = topic.StreamUrl;
             _db.SaveChanges();
         }
 

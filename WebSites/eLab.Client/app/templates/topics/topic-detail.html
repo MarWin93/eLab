@@ -53,19 +53,28 @@
         <pencilcase ng-if="ctrl.isATeacherOrAdmin" model="colors" selected="selectedColor"></pencilcase>
 
         <md-divider class="divider-padded"></md-divider>
-        <div layout="row" flex="" class="row">
-            <div layout="col-sm-2" flex="" class="col-sm-2">
-                <p>prezentuje: {{tc.selected.whoIsPresenting}}</p>
-            </div>
-            <div layout="col-sm-2" layout-align="end center" class="layout-align-end-center col-sm-2">
-                <md-button ng-if="ctrl.isATeacherOrAdmin" ng-click="" class="md-primary md-raised" ng-show="!ctrl.topic.selected.amIPresenting">
-                    <md-icon class="material-icons icon-button">laptop</md-icon>Prezentuj puplit
-                </md-button>
-                <md-button ng-click="" class="md-primary md-raised" ng-show="ctrl.topic.selected.amIPresenting">
-                    <md-icon class="material-icons icon-button">laptop</md-icon>Zakończ prezentowanie tego pulpitu
-                </md-button>
-            </div>
+        <!--<div layout="row" flex="" class="row">-->
+            <!--<div layout="col-sm-2" flex="" class="col-sm-2">-->
+                <!--<p>prezentuje: {{tc.selected.whoIsPresenting}}</p>-->
+            <!--</div>-->
+            <!--<div layout="col-sm-2" layout-align="end center" class="layout-align-end-center col-sm-2">-->
+                <!--<md-button ng-if="ctrl.isATeacherOrAdmin" ng-click="" class="md-primary md-raised" ng-show="!ctrl.topic.selected.amIPresenting">-->
+                    <!--<md-icon class="material-icons icon-button">laptop</md-icon>Prezentuj puplit-->
+                <!--</md-button>-->
+                <!--<md-button ng-click="" class="md-primary md-raised" ng-show="ctrl.topic.selected.amIPresenting">-->
+                    <!--<md-icon class="material-icons icon-button">laptop</md-icon>Zakończ prezentowanie tego pulpitu-->
+                <!--</md-button>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <div layout="column" flex="" class="row live-stream-container">
+            <md-input-container class="ng-pristine ng-valid md-input ng-touched" flex-gt-sm>
+                <label>Twój live stream</label>
+                <input ng-model="ctrl.topic.streamUrl" class="title" ng-blur="ctrl.updateStreamUrl()" />
+            </md-input-container>
+            <div ng-bind-html="ctrl.topic.streamUrl"></div>
         </div>
+
         <md-divider class="divider-padded"></md-divider>
         <div layout="row" flex="">
             <p>{{ctrl.topic.description}}</p>

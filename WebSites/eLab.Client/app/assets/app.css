@@ -1149,4 +1149,8 @@ md-grid-list md-grid-tile md-grid-tile-footer {
 md-grid-list md-grid-tile figure {
   width: 300px !important; }
 
+.live-stream-container iframe {
+  margin: 0 auto;
+  display: block; }
+
 /*# sourceMappingURL=app.css.map */

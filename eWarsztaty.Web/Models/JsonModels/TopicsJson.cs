@@ -11,6 +11,7 @@ namespace eWarsztaty.Web.Models.JsonModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string StreamUrl { get; set; }
         public int CourseId { get; set; }
         public bool IsArchived { get; set; }
         public ICollection<FilesJson> Files { get; set; }
