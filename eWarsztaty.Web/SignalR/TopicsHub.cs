@@ -54,6 +54,11 @@ namespace eWarsztaty.Web.SignalR
                 Clients.Caller.onConnected(id, userName, allEnrollmentsJson, allMessagesJson, userId);
             }
             Clients.AllExcept(id).onNewUserConnected(id, userName, userId);
+
+            if (!_agentsUsersIds.Any(x=>x.Value == userId))
+            {
+                Clients.Client(id).showAgentReminderToast();
+            }
         }
         #endregion
 
@@ -70,6 +75,8 @@ namespace eWarsztaty.Web.SignalR
                     _agentsUsersIds.Add(Context.ConnectionId, user.UzytkownikId);
                 await Groups.Add(Context.ConnectionId, topic.Id.ToString());
                     Clients.Client(Context.ConnectionId).AgentMakeConnection(topic.Id.ToString());
+                    Clients.Group(topic.Id.ToString()).closeAgentReminderToast(user.UzytkownikId);
+
                 }
                 else
                 {

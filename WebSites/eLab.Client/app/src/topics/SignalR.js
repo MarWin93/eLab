@@ -36,6 +36,14 @@
             $scope.activeParticipant.base64Image = base64Image;
             $scope.$apply();
         };
+        
+        $scope.topicsHub.client.closeAgentReminderToast = function (userId) {
+            $scope.closeActionToast(userId);
+        };
+
+        $scope.topicsHub.client.showAgentReminderToast = function () {
+            $scope.showActionToast();
+        };
 
         // starts hub
         $.connection.hub.start({ jsonp: true }).done(function () {

@@ -1,5 +1,5 @@
-angular.module('eLabApp').controller('TopicDetailsController', function ($scope, $rootScope, $state, topicService, $stateParams, $mdDialog, 
-                                                                         topic, course, Upload, API_PATH, signalR, chatHelper, $http) {
+﻿angular.module('eLabApp').controller('TopicDetailsController', function ($scope, $rootScope, $state, topicService, $stateParams, $mdDialog, 
+                                                                         topic, course, Upload, API_PATH, signalR, chatHelper, $mdToast, $http) {
 
     $scope.activeParticipants = chatHelper.activeParticipantsGet();
     $scope.customFullscreen = false;
@@ -144,7 +144,33 @@ angular.module('eLabApp').controller('TopicDetailsController', function ($scope,
         $scope.closeDialog = function () {
             $mdDialog.cancel();
         };
-    }
+    }   
+
+    $scope.showActionToast = function () {
+        if (!vm.isATeacherOrAdmin) {
+            var toast = $mdToast.simple()
+                .textContent('Włącz agenta!')
+                .hideDelay(0)
+                .action('Zamknij')
+                .highlightAction(true)
+                .highlightClass('md-warn')
+                .position('bottom right');
+
+            $mdToast.show(toast)
+                .then(function(response) {
+                    if (response == 'ok') {
+                    }
+                });
+        }
+    };
+
+    $scope.closeActionToast = function (userId) {
+        if (userId == vm.user.id) {
+            $mdToast.cancel();
+        }
+
+    };
+
 });
 
 
