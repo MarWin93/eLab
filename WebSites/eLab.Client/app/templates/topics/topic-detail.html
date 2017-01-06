@@ -87,7 +87,7 @@
                 <md-icon class="material-icons list-icon"> description </md-icon>
                 <p>
                     {{file.name}}<span class="download-size">({{file.size}} KB)</span>
-                    <md-icon ng-if="ctrl.isATeacherOrAdmin" class="md-icom material-icons" ng-click="ctrl.present(file.id)">present_to_all</md-icon>
+                    <md-icon ng-if="ctrl.isATeacherOrAdmin && ctrl.isPdf(file)" class="md-icom material-icons" ng-click="ctrl.present(file.id)">present_to_all</md-icon>
                     <md-icon class="md-icom material-icons" ng-click="ctrl.fileDownload(file)">get_app</md-icon>
                 </p>
             </md-list-item>
