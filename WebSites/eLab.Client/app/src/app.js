@@ -136,6 +136,11 @@ var eLabApp = angular.module('eLabApp', ['ngMaterial', 'ngResource', 'ui.router'
                         return courseService.getCourse($stateParams.courseId).then(function (response) {
                             return response.data;
                         });
+                    },
+                    courses: function (courseService) {
+                        return courseService.getCourses().then(function (response) {
+                            return response.data;
+                        });
                     }
                 }
             })
@@ -174,6 +179,11 @@ var eLabApp = angular.module('eLabApp', ['ngMaterial', 'ngResource', 'ui.router'
                     },
                     course: function (courseService, $stateParams) {
                         return courseService.getCourse($stateParams.courseId).then(function (response) {
+                            return response.data;
+                        });
+                    },
+                    courses: function (courseService) {
+                        return courseService.getCourses().then(function (response) {
                             return response.data;
                         });
                     }
@@ -259,7 +269,12 @@ var eLabApp = angular.module('eLabApp', ['ngMaterial', 'ngResource', 'ui.router'
                      return courseService.getCourse($stateParams.courseId).then(function(response) {
                          return response.data;
                      });
-                }
+                 },
+                 courses: function (courseService) {
+                     return courseService.getCourses().then(function (response) {
+                         return response.data;
+                     });
+                 }
                  //courses: function (courseService, $rootScope) {
                  //    return courseService.getCourses().then(function (response) {
                  //        return response.data.filter(function (elem) {
@@ -271,4 +286,4 @@ var eLabApp = angular.module('eLabApp', ['ngMaterial', 'ngResource', 'ui.router'
          });
     });
 
-eLabApp.value('API_PATH', 'http://localhost:8089/api/');
+eLabApp.value('API_PATH', 'http://elab-pg.azurewebsites.net/api/');

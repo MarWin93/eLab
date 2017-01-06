@@ -2,7 +2,7 @@
 
     this.signalRSetup = function ($scope, topic, user) {
         $scope.topicsHub = null; // holds the reference to hub
-        $.connection.hub.url = 'http://localhost:8089/signalr';
+        $.connection.hub.url = 'http://elab-pg.azurewebsites.net/signalr';
         $.connection.hub.jsonp = true;
         $.connection.hub.logging = true; //debuging purpose
 

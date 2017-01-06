@@ -105,7 +105,7 @@
     };
 
     vm.changePDF = function (pdfId) {
-        $scope.ctrl.pdfURL = 'http://localhost:8089/api/topics/' + topic.id + '/show/' + pdfId;
+        $scope.ctrl.pdfURL = API_PATH + 'topics/' + topic.id + '/show/' + pdfId;
         $rootScope.$broadcast('gotoPage', 1);
     };
 
