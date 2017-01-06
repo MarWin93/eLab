@@ -69,6 +69,20 @@
                 CustomRoleProvider.AddUserToRole("AnnaKowalska", "Prowadzacy");
             }
 
+            CreateUser(context, "student1");
+            CreateUser(context, "student2");
+            CreateUser(context, "student3");
+            CreateUser(context, "student4");
+            CreateUser(context, "student5");
+            CreateUser(context, "student6");
+            CreateUser(context, "student7");
+            CreateUser(context, "student8");
+            CreateUser(context, "student9");
+            CreateUser(context, "student10");
+            CreateTeacher(context, "prowadzacy1");
+            CreateTeacher(context, "prowadzacy2");
+            CreateTeacher(context, "prowadzacy3");
+            CreateTeacher(context, "prowadzacy4");
 
             //////Uprawnienia do widokow
             //context.Uprawnienia.AddOrUpdate(d => d.UprawnienieId,
@@ -180,6 +194,28 @@
                 new ParticipationInCourse() { Active = true, CourseId = 2, UserId = 2 });
 
             context.SaveChanges();
+        }
+
+        private void CreateUser(eWarsztatyContext context, string login)
+        {
+            if (Membership.GetUser(login, false) == null)
+            {
+                string haslo = CustomMembershipProvider.GetMd5Hash(login);
+                Uzytkownik user = new Uzytkownik() { Login = login, Haslo = haslo, AdresEmail = login+ "@wp.pl" };
+                context.AddUser(user);
+                CustomRoleProvider.AddUserToRole(login, "Uczestnik");
+            }
+        }
+
+        private void CreateTeacher(eWarsztatyContext context, string login)
+        {
+            if (Membership.GetUser(login, false) == null)
+            {
+                string haslo = CustomMembershipProvider.GetMd5Hash(login);
+                Uzytkownik teacher = new Uzytkownik() { Login = login, Haslo = haslo, AdresEmail = login+ "@wp.pl" };
+                context.AddUser(teacher);
+                CustomRoleProvider.AddUserToRole(login, "Prowadzacy");
+            }
         }
     }
 }

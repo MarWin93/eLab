@@ -30,7 +30,7 @@ namespace eWarsztaty.Client
             _screenCapture = new ScreenCapture();
             _imageProcessor = new ImageProcessing();
             bool tryLogIn = true;
-            var hubConnection = new HubConnection("http://localhost:8089");
+            var hubConnection = new HubConnection("http://elab-pg.azurewebsites.net");
             _eLabProxy = hubConnection.CreateHubProxy("TopicsHub");
             _eLabProxy.On<string>("agentMakeConnection", (groupName) => { Console.WriteLine("Agent nawiązał połączenie z grupą: " + groupName); });
             _eLabProxy.On<string>("agentNoParticipate", (message) => { Console.WriteLine(message); });
