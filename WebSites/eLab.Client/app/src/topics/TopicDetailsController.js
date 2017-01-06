@@ -259,10 +259,11 @@
 
 
 angular.module('eLabApp').config(function ($sceDelegateProvider) {
-    console.log(window.location);
-    console.log(window.location.protocol + '//' + window.location.hostname + ':8089/**');
+    API_PATH = 'http://elab-pg.azurewebsites.net/api/';
+    //API_PATH = window.location.protocol + '//' + window.location.hostname + ':8089/';
+    console.log(API_PATH + '**');
     $sceDelegateProvider.resourceUrlWhitelist([
       'self',
-      window.location.protocol + '//' + window.location.hostname + ':8089/**'
+      API_PATH + '**'
     ]);
 });
