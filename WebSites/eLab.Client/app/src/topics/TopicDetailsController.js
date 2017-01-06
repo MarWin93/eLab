@@ -11,7 +11,6 @@
 
     var vm = this;
     vm.courses = courses;
-    vm.pdfURL = '/app/src/firstPage.pdf';
     vm.topic = topic;
     vm.course = course;
     vm.user = {
@@ -23,7 +22,6 @@
 
     signalR.signalRSetup($scope, vm.topic, vm.user);
 
-    console.log(topic);
     vm.updateTopic = function () {
         return topicService.updateTopic(vm.topic).then(function () {
             $state.go('courseDetails', {courseId: $stateParams.courseId})
@@ -187,8 +185,7 @@
     }
 
     vm.changePDF = function (pdfId) {
-        $scope.ctrl.pdfURL = API_PATH + 'topics/' + topic.id + '/show/' + pdfId;
-        $rootScope.$broadcast('gotoPage', 1);
+        $rootScope.$broadcast('changePDF', API_PATH + 'topics/' + topic.id + '/show/' + pdfId);
     };
 
     $scope.fullScreenWatch = function (ev, participant) {
