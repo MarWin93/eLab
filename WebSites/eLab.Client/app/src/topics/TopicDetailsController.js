@@ -183,8 +183,6 @@
     };
 
     vm.isPdf = function (file) {
-        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-        console.log(file.name.slice(-3));
         return (file.name.slice(-3)=='pdf' || file.name.slice(-3)=='PDF' || file.name.slice(-3)=='Pdf');
     }
 
@@ -259,11 +257,10 @@
 
 
 angular.module('eLabApp').config(function ($sceDelegateProvider) {
-    API_PATH = 'http://elab-pg.azurewebsites.net/api/';
-    //API_PATH = window.location.protocol + '//' + window.location.hostname + ':8089/';
-    console.log(API_PATH + '**');
+    console.log(window.location);
+    console.log(window.location.protocol + '//' + window.location.hostname + ':8089/**');
     $sceDelegateProvider.resourceUrlWhitelist([
       'self',
-      API_PATH + '**'
+      window.location.protocol + '//' + window.location.hostname + ':8089/**'
     ]);
 });
