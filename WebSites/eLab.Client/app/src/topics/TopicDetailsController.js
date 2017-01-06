@@ -1,5 +1,5 @@
 ﻿angular.module('eLabApp').controller('TopicDetailsController', function ($scope, $rootScope, $state, topicService, $stateParams, $mdDialog, 
-                                                                         topic, course, Upload, API_PATH, signalR, chatHelper, $mdToast, $http) {
+                                                                         topic, course, courses, Upload, API_PATH, signalR, chatHelper, $mdToast, $http) {
 
     $scope.activeParticipants = chatHelper.activeParticipantsGet();
     $scope.customFullscreen = false;
@@ -10,7 +10,7 @@
                         '182,255,0', '0,255,33', '0,148,255', '0,38,255', '255,0,110'];
 
     var vm = this;
-
+    vm.courses = courses;
     vm.pdfURL = '/app/src/firstPage.pdf';
     vm.topic = topic;
     vm.course = course;

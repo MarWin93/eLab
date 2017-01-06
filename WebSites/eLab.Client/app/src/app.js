@@ -153,6 +153,11 @@ var eLabApp = angular.module('eLabApp', ['ngMaterial', 'ngResource', 'ui.router'
                         return courseService.getCourse($stateParams.courseId).then(function (response) {
                             return response.data;
                         });
+                    },
+                    courses: function (courseService) {
+                        return courseService.getCourses().then(function (response) {
+                            return response.data;
+                        });
                     }
                 }
             })
