@@ -81,7 +81,7 @@
 
             var octetStreamMime = 'application/octet-stream';
             var success = false;
-
+             
             // Get the headers
             headers = headers();
 
