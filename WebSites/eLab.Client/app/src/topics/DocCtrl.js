@@ -1,6 +1,7 @@
 ﻿angular.module('eLabApp').controller('DocCtrl', function ($scope, $rootScope, PDFViewerService) {
 
     $scope.instance = PDFViewerService.Instance("pdfViewer");
+    $scope.pdfURL = '/app/src/firstPage.pdf';
 
     $scope.signalRing = function (page) {
         $scope.newMessage({
@@ -44,5 +45,11 @@
 
     $rootScope.$on('gotoPage', function (event, page) {
         $scope.instance.gotoPage(page);
+    });
+
+    $rootScope.$on('changePDF', function (event, url) {
+        $scope.pdfURL = url;
+        console.log($scope.pdfURL);
+        $scope.instance.gotoPage(1);
     });
 });
