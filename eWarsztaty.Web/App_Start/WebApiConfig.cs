@@ -14,7 +14,7 @@ namespace eWarsztaty.Web
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver =
                 new CamelCasePropertyNamesContractResolver();
 
-            var cors = new EnableCorsAttribute("http://localhost:59051", "*", "*");
+            var cors = new EnableCorsAttribute("http://elabclient.azurewebsites.net", "*", "*");
             config.EnableCors(cors);
 
             config.Routes.MapHttpRoute(
