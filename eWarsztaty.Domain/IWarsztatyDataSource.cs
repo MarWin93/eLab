@@ -8,13 +8,9 @@ namespace eWarsztaty.Domain
 {
     public interface IWarsztatyDataSource
     {
-        IQueryable<Warsztat> Warsztaty { get; }
-        IQueryable<UdzialWWarsztacie> UdzialyWWarsztacie { get; }
-        IQueryable<Uprawnienie> Uprawnienia { get; }
-        IQueryable<UprawnienieRola> UprawnieniaRole { get; }
-        IQueryable<Uzytkownik> Uzytkownicy { get; }
-        IQueryable<Rola> Role { get; }
-        IQueryable<UzytkownikRola> UzytkownicyRole { get; }
+        IQueryable<User> Users { get; }
+        IQueryable<Role> Roles { get; }
+        IQueryable<UserRole> UsersRoles { get; }
 
         //elabs entites
         IQueryable<Class> Classes { get; }

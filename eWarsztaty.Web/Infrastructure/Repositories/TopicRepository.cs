@@ -11,7 +11,7 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
 {
     public class TopicRepository
     {
-        private eWarsztatyContext _db = new eWarsztatyContext();
+        private eLabContext _db = new eLabContext();
 
         public IEnumerable<TopicsJson> GetAllTopics()
         {
@@ -62,7 +62,7 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
         public void CloseTopic(int topicId)
         {
             var topicDb = _db.Topics.FirstOrDefault(x => x.Id == topicId);
-            topicDb.Status = (int)eWarsztatyEnums.TopicStatus.Closed;
+            topicDb.Status = (int)eLabEnums.TopicStatus.Closed;
             _db.SaveChanges();
         }
     }

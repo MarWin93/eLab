@@ -23,7 +23,7 @@ namespace eWarsztaty.Domain
         public DateTime? ParticipationTo { get; set; }
 
         [ForeignKey("UserId")]
-        public virtual Uzytkownik User { get; set; }
+        public virtual User User { get; set; }
         [Key]
         [Column(Order = 1)]
         public int UserId { get; set; }

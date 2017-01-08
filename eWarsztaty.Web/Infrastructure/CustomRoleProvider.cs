@@ -11,29 +11,29 @@ namespace eWarsztaty.Web.Infrastructure
     {
         public override bool IsUserInRole(string username, string roleName)
         {
-            using (var usersContext = new eWarsztatyContext())
+            using (var usersContext = new eLabContext())
             {
                 var user = usersContext.Uzytkownicy.FirstOrDefault(u => u.Login == username);
                 if (user == null)
                     return false;
-                return user.UzytkownicyRole != null && user.UzytkownicyRole.Select(u => u.Rola).Any(r => r.Nazwa == roleName);
+                return user.UzytkownicyRole != null && user.UzytkownicyRole.Select(u => u.Role).Any(r => r.Nazwa == roleName);
             }
         }
 
         public override string[] GetRolesForUser(string username)
         {
-            using (var usersContext = new eWarsztatyContext())
+            using (var usersContext = new eLabContext())
             {
                 var user = usersContext.Uzytkownicy.FirstOrDefault(u => u.Login == username);
                 if (user == null)
                     return new string[] { };
-                return user.UzytkownicyRole == null ? new string[] { } : user.UzytkownicyRole.Select(u => u.Rola).Select(u => u.Nazwa).ToArray();
+                return user.UzytkownicyRole == null ? new string[] { } : user.UzytkownicyRole.Select(u => u.Role).Select(u => u.Nazwa).ToArray();
             }
         }
 
         public override void CreateRole(string roleName)
         {
-            using (var usersContext = new eWarsztatyContext())
+            using (var usersContext = new eLabContext())
             {
                 usersContext.AddRole(roleName);
             }
@@ -41,7 +41,7 @@ namespace eWarsztaty.Web.Infrastructure
 
         public void CreateRole(string roleName, string roleDescription = "")
         {
-            using (var usersContext = new eWarsztatyContext())
+            using (var usersContext = new eLabContext())
             {
                 usersContext.AddRole(roleName, roleDescription);
             }
@@ -54,7 +54,7 @@ namespace eWarsztaty.Web.Infrastructure
 
         public override bool RoleExists(string roleName)
         {
-            using (var usersContext = new eWarsztatyContext())
+            using (var usersContext = new eLabContext())
             {
                 var rola = usersContext.Role.FirstOrDefault(x => x.Nazwa == roleName);
                 if (rola != null)
@@ -64,26 +64,9 @@ namespace eWarsztaty.Web.Infrastructure
             }
         }
 
-        public static bool isPermissionInRole(string permissionName, int roleId)
-        {
-            using (var usersContext = new eWarsztatyContext())
-            {
-                var uprawnieniaRole = usersContext.UprawnieniaRole.Where(x => x.RolaId == roleId).ToList();
-                foreach (var uprawnienie in uprawnieniaRole)
-	            {
-                    var upr = usersContext.Uprawnienia.FirstOrDefault(x=>x.UprawnienieId == uprawnienie.UprawnienieId);
-	                if (upr.Nazwa == permissionName)
-	                {
-		                return true;
-	                }	 
-	            }
-                return false;
-            }
-        }
-
         public static void AddUserToRole(string userName, string roleName)
         {
-            using (var usersContext = new eWarsztatyContext())
+            using (var usersContext = new eLabContext())
             {
                 var user = usersContext.GetUser(userName);
                 var role = usersContext.GetRola(roleName);
@@ -93,44 +76,20 @@ namespace eWarsztaty.Web.Infrastructure
 
         public static int GetUserId(string userName)
         {
-            using (var usersContext = new eWarsztatyContext())
+            using (var usersContext = new eLabContext())
             {
                 var user = usersContext.GetUser(userName);
                 return user.UzytkownikId;
             }
         }
-        //public static bool UserHasPermission(string userName, string permissionName)
-        //{
-        //    using (var usersContext = new WarsztatyDb())
-        //    {
-        //        usre
-        //    }
-        //}
+
 
         public static void AddRolesToUzytkownik(List<int> listaId, string userName)
         {
-            using (var usersContext = new eWarsztatyContext())
+            using (var usersContext = new eLabContext())
             {
                 usersContext.RemoveAllRolesFromUzytkownik(userName);
                 usersContext.AddRolesUzytkownik(listaId, userName);
-            }
-        }
-
-        public static void AddPrivilegesToRole(List<int> listaId, string roleName)
-        {
-            using (var usersContext = new eWarsztatyContext())
-            {
-                usersContext.RemoveAllUprawnieniaFromRole(roleName);
-                usersContext.AddUprawnieniaRole(listaId, roleName);
-            }
-        }
-
-        public static void DeleteRole(string roleName)
-        {
-            using (var usersContext = new eWarsztatyContext())
-            {
-                usersContext.RemoveAllUprawnieniaFromRole(roleName);
-                usersContext.DeleteRole(roleName);
             }
         }
 
@@ -151,7 +110,7 @@ namespace eWarsztaty.Web.Infrastructure
 
         public override string[] GetAllRoles()
         {
-            using (var usersContext = new eWarsztatyContext())
+            using (var usersContext = new eLabContext())
             {
                 return usersContext.Role.Select(r => r.Nazwa).ToArray();
             }

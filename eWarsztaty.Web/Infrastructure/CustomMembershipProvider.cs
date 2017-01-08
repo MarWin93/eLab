@@ -8,6 +8,7 @@ using System.Text;
 using System.Web;
 using System.Web.Providers.Entities;
 using System.Web.Security;
+using User = eWarsztaty.Domain.User;
 
 namespace eWarsztaty.Web.Infrastructure
 {
@@ -56,9 +57,9 @@ namespace eWarsztaty.Web.Infrastructure
 
             if (user == null)
             {
-                Uzytkownik userObj = new Uzytkownik { Login = username, Haslo= GetMd5Hash(password), AdresEmail= email };
+                User userObj = new User { Login = username, Haslo= GetMd5Hash(password), AdresEmail= email };
 
-                using (var usersContext = new eWarsztatyContext())
+                using (var usersContext = new eLabContext())
                 {
                     usersContext.AddUser(userObj);
                 }
@@ -74,7 +75,7 @@ namespace eWarsztaty.Web.Infrastructure
 
         public static void DeleteUzytkownik(string uzytkownikName)
         {
-            using (var usersContext = new eWarsztatyContext())
+            using (var usersContext = new eLabContext())
             {
                 usersContext.RemoveAllRolesFromUzytkownik(uzytkownikName);
                 usersContext.DeleteUzytkownik(uzytkownikName);
@@ -124,7 +125,7 @@ namespace eWarsztaty.Web.Infrastructure
 
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            var usersContext = new eWarsztatyContext();
+            var usersContext = new eLabContext();
             var user = usersContext.GetUser(username);
             if (user != null)
             {
@@ -225,7 +226,7 @@ namespace eWarsztaty.Web.Infrastructure
         {
             var md5Hash = GetMd5Hash(password);
 
-            using (var usersContext = new eWarsztatyContext())
+            using (var usersContext = new eLabContext())
             {
                 var requiredUser = usersContext.GetUser(username, md5Hash);
                 return requiredUser != null;

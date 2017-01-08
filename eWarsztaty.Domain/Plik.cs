@@ -14,11 +14,6 @@ namespace eWarsztaty.Domain
         public byte[] File { get; set; }
 
 
-        //Depricated
-        [ForeignKey("WarsztatId")]
-        public virtual Warsztat Warsztat{ get; set; }
-        public int? WarsztatId { get; set; }
-
         [ForeignKey("CourseId")]
         public virtual Course Course { get; set; }
         public int? CourseId { get; set; }
@@ -40,12 +35,6 @@ namespace eWarsztaty.Domain
                 HasOptional(t => t.Topic)
                     .WithMany(t => t.Files)
                     .HasForeignKey(d => d.TopicId)
-                    .WillCascadeOnDelete(false);
-
-                //depricated
-                HasOptional(t => t.Warsztat)
-                    .WithMany(t => t.Pliki)
-                    .HasForeignKey(d => d.WarsztatId)
                     .WillCascadeOnDelete(false);
             }
         }

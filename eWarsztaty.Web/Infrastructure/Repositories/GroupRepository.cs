@@ -10,7 +10,7 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
 {
     public class GroupRepository
     {
-        private eWarsztatyContext _db = new eWarsztatyContext();
+        private eLabContext _db = new eLabContext();
 
         public IEnumerable<GroupsJson> GetAllGroups()
         {

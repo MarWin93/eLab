@@ -8,7 +8,7 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
 {
     public class FilesRepository
     {
-        private eWarsztatyContext _db = new eWarsztatyContext();
+        private eLabContext _db = new eLabContext();
 
         public void SaveFile(byte[] fileBytes, string fileName, string fileExtension, int? courseId = null, int? topicId = null)
         {

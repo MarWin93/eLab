@@ -11,7 +11,7 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
     public class ParticipationRepository
     {
 
-        private eWarsztatyContext _db = new eWarsztatyContext();
+        private eLabContext _db = new eLabContext();
 
         public bool IsExistParticipation(int CourseId, int UserId)
         {

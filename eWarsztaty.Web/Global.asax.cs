@@ -50,7 +50,7 @@ namespace eWarsztaty.Web
         {
             public SimpleMembershipInitializer()
             {
-                using (var context = new eWarsztatyContext())
+                using (var context = new eLabContext())
 
                 if (!WebSecurity.Initialized)
                     WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);

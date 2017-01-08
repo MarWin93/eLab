@@ -15,7 +15,7 @@ namespace eWarsztaty.Domain
         public int UserId { get; set; }
 
         [ForeignKey("UserId")]
-        public virtual Uzytkownik User { get; set; }
+        public virtual User User { get; set; }
 
         public int TopicId { get; set; }
         [ForeignKey("TopicId")]

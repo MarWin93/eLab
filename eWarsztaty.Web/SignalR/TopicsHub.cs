@@ -16,7 +16,7 @@ namespace eWarsztaty.Web.SignalR
 {
     public class TopicsHub : Hub
     {
-        private static eWarsztatyContext _db = new eWarsztatyContext();
+        private static eLabContext _db = new eLabContext();
         static readonly EnrollmentInTopicRepository _enrollmentRepository = new EnrollmentInTopicRepository();
         private static readonly Dictionary<string, Bitmap> _agentsPreviousImages = new Dictionary<string, Bitmap>();
         private static readonly Dictionary<string, int> _agentsUsersIds = new Dictionary<string, int>();
@@ -66,7 +66,7 @@ namespace eWarsztaty.Web.SignalR
         public async Task AgentJoin(string login, string password)
         {
             var topic = new Topic();
-            var user = new Uzytkownik();
+            var user = new User();
             var enrollment = new EnrollmentInTopic();
             if (_enrollmentRepository.IsExistEnrollmentInTopicByUserName(login, out topic, out user, out enrollment))
                 {

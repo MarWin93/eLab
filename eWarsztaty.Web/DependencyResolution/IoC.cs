@@ -12,7 +12,7 @@ namespace eWarsztaty.Web {
                                         scan.TheCallingAssembly();
                                         scan.WithDefaultConventions();
                                     });
-                              x.For<IWarsztatyDataSource>().HttpContextScoped().Use<eWarsztatyContext>();
+                              x.For<IWarsztatyDataSource>().HttpContextScoped().Use<eLabContext>();
                         });
             return ObjectFactory.Container;
         }

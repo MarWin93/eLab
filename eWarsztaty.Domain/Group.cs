@@ -9,7 +9,7 @@ namespace eWarsztaty.Domain
     {
         public Group()
         {
-            this.Students = new List<Uzytkownik>();
+            this.Students = new List<User>();
         }
 
         [Key]
@@ -20,7 +20,7 @@ namespace eWarsztaty.Domain
         public virtual Class Class { get; set; }
         public int ClassId { get; set; }
 
-        public ICollection<Uzytkownik> Students { get; set; }
+        public ICollection<User> Students { get; set; }
 
         #region Map
         public class Map : EntityTypeConfiguration<Group>

@@ -9,7 +9,7 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
 {
     public class CourseRepository
     {
-        private eWarsztatyContext _db = new eWarsztatyContext();
+        private eLabContext _db = new eLabContext();
 
         public IEnumerable<CoursesJson> GetAllCourses()
         {
@@ -50,7 +50,7 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
         public void CloseCourse(int courseId)
         {
             var courseDb = _db.Courses.FirstOrDefault(x => x.Id == courseId);
-            courseDb.Status = (int) eWarsztatyEnums.CourseStatus.Closed;
+            courseDb.Status = (int) eLabEnums.CourseStatus.Closed;
             _db.SaveChanges();
         }
     }

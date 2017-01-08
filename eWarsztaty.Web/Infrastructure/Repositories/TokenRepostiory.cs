@@ -6,20 +6,20 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
 {
     public class TokenRepostiory
     {
-        private eWarsztatyContext _db = new eWarsztatyContext();
+        private eLabContext _db = new eLabContext();
 
-        public Uzytkownik GetUserByCredentials(string username, string password)
+        public User GetUserByCredentials(string username, string password)
         {
             var user = _db.GetUser(username, password);
             return user;
         }
 
-        public Tuple<Uzytkownik, Rola> GetUserAndHisRoleByCredentials(string username, string password)
+        public Tuple<User, Role> GetUserAndHisRoleByCredentials(string username, string password)
         {
             
             var user = _db.GetUser(username, password);
             var role = DBHelpers.GetRoleByUserId(user != null ? user.UzytkownikId : 0);
-            return new Tuple<Uzytkownik, Rola>(user, role);
+            return new Tuple<User, Role>(user, role);
         }
     }
 }

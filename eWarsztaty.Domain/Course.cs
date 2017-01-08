@@ -26,7 +26,7 @@ namespace eWarsztaty.Domain
 
 
         [ForeignKey("TeacherId")]
-        public virtual Uzytkownik Teacher { get; set; }
+        public virtual User Teacher { get; set; }
         public int TeacherId { get; set; }
 
         #region Map

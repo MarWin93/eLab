@@ -9,7 +9,7 @@
     using System.Linq;
     using System.Web.Security;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<eWarsztaty.Web.Infrastructure.eWarsztatyContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<eWarsztaty.Web.Infrastructure.eLabContext>
     {
         public Configuration()
         {
@@ -17,7 +17,7 @@
 
         }
 
-        protected override void Seed(eWarsztaty.Web.Infrastructure.eWarsztatyContext context)
+        protected override void Seed(eWarsztaty.Web.Infrastructure.eLabContext context)
         {
 
             if (!Roles.RoleExists("Admin"))
@@ -36,35 +36,35 @@
             if (Membership.GetUser("smarcin", false) == null)
             {
                 string haslo = CustomMembershipProvider.GetMd5Hash("smarcin");
-                Uzytkownik smarcin = new Uzytkownik() { Login = "smarcin", Haslo = haslo, AdresEmail = "smarcin@wp.pl" };
+                User smarcin = new User() { Login = "smarcin", Haslo = haslo, AdresEmail = "smarcin@wp.pl" };
                 context.AddUser(smarcin);
                 CustomRoleProvider.AddUserToRole("smarcin", "Admin");
             }
             if (Membership.GetUser("MarcinWinkler", false) == null)
             {
                 string haslo = CustomMembershipProvider.GetMd5Hash("MarcinWinkler");
-                Uzytkownik smarcin = new Uzytkownik() { Login = "MarcinWinkler", Haslo = haslo, AdresEmail = "MarcinWinkler@wp.pl" };
+                User smarcin = new User() { Login = "MarcinWinkler", Haslo = haslo, AdresEmail = "MarcinWinkler@wp.pl" };
                 context.AddUser(smarcin);
                 CustomRoleProvider.AddUserToRole("MarcinWinkler", "Uczestnik");
             }
             if (Membership.GetUser("MariaKlima", false) == null)
             {
                 string haslo = CustomMembershipProvider.GetMd5Hash("MariaKlima");
-                Uzytkownik smarcin = new Uzytkownik() { Login = "MariaKlima", Haslo = haslo, AdresEmail = "MariaKlima@wp.pl" };
+                User smarcin = new User() { Login = "MariaKlima", Haslo = haslo, AdresEmail = "MariaKlima@wp.pl" };
                 context.AddUser(smarcin);
                 CustomRoleProvider.AddUserToRole("MariaKlima", "Uczestnik");
             }
             if (Membership.GetUser("LukaszNowak", false) == null)
             {
                 string haslo = CustomMembershipProvider.GetMd5Hash("LukaszNowak");
-                Uzytkownik smarcin = new Uzytkownik() { Login = "LukaszNowak", Haslo = haslo, AdresEmail = "LukaszNowak@wp.pl" };
+                User smarcin = new User() { Login = "LukaszNowak", Haslo = haslo, AdresEmail = "LukaszNowak@wp.pl" };
                 context.AddUser(smarcin);
                 CustomRoleProvider.AddUserToRole("LukaszNowak", "Prowadzacy");
             }
             if (Membership.GetUser("AnnaKowalska", false) == null)
             {
                 string haslo = CustomMembershipProvider.GetMd5Hash("AnnaKowalska");
-                Uzytkownik smarcin = new Uzytkownik() { Login = "AnnaKowalska", Haslo = haslo, AdresEmail = "AnnaKowalska@wp.pl" };
+                User smarcin = new User() { Login = "AnnaKowalska", Haslo = haslo, AdresEmail = "AnnaKowalska@wp.pl" };
                 context.AddUser(smarcin);
                 CustomRoleProvider.AddUserToRole("AnnaKowalska", "Prowadzacy");
             }
@@ -196,23 +196,23 @@
             context.SaveChanges();
         }
 
-        private void CreateUser(eWarsztatyContext context, string login)
+        private void CreateUser(eLabContext context, string login)
         {
             if (Membership.GetUser(login, false) == null)
             {
                 string haslo = CustomMembershipProvider.GetMd5Hash(login);
-                Uzytkownik user = new Uzytkownik() { Login = login, Haslo = haslo, AdresEmail = login+ "@wp.pl" };
+                User user = new User() { Login = login, Haslo = haslo, AdresEmail = login+ "@wp.pl" };
                 context.AddUser(user);
                 CustomRoleProvider.AddUserToRole(login, "Uczestnik");
             }
         }
 
-        private void CreateTeacher(eWarsztatyContext context, string login)
+        private void CreateTeacher(eLabContext context, string login)
         {
             if (Membership.GetUser(login, false) == null)
             {
                 string haslo = CustomMembershipProvider.GetMd5Hash(login);
-                Uzytkownik teacher = new Uzytkownik() { Login = login, Haslo = haslo, AdresEmail = login+ "@wp.pl" };
+                User teacher = new User() { Login = login, Haslo = haslo, AdresEmail = login+ "@wp.pl" };
                 context.AddUser(teacher);
                 CustomRoleProvider.AddUserToRole(login, "Prowadzacy");
             }

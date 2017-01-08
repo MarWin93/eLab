@@ -9,9 +9,9 @@ namespace eWarsztaty.Web.Infrastructure.Repositories
     public class EnrollmentInTopicRepository
     {
 
-        private eWarsztatyContext _db = new eWarsztatyContext();
+        private eLabContext _db = new eLabContext();
 
-        public bool IsExistEnrollmentInTopicByUserName(string userName, out Topic topic, out Uzytkownik user, out EnrollmentInTopic enrollment)
+        public bool IsExistEnrollmentInTopicByUserName(string userName, out Topic topic, out User user, out EnrollmentInTopic enrollment)
         {
             var enrollments = _db.EnrolmentsInTopics.Include("Topic.Course").Include("User").ToList();
             var exist = enrollments.Where(x => x.UserName == userName );
