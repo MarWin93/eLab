@@ -2,9 +2,7 @@ eLab
 =======
 eLab is an application based on ASP.NET Web Api 2 as a backend side and AngularJS as a frontend, which allows to conduct workshops. Authors decided to develop this project, because there is no any smiliar project, with availability for real-time participant's desktop previewing and evaluation of students' work during the course.
 
-Official website of the project:
-[Link od Bartka]
-
+Official website of the project: [Link](http://elabclient.azurewebsites.net/index.html)
 Application is available in: [Link](http://elabclient.azurewebsites.net/app/index.html#)
 
 Instalation
